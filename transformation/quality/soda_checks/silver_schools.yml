@@ -1,0 +1,54 @@
+# Soda checks for silver.school_profiles
+# This is the spine table -- if it's broken, everything downstream is too.
+
+checks for silver.school_profiles:
+  # we expect 130K+ schools in the current year
+  - row_count:
+      warn: when < 120000
+      fail: when < 80000
+
+  - missing_count(nces_school_id) = 0
+
+  - duplicate_count(nces_school_id) = 0
+
+  - missing_count(school_name):
+      fail: when > 0
+
+  - missing_count(state_abbr):
+      fail: when > 0
+
+  - missing_count(county_fips):
+      fail: when > 0
+
+  - missing_percent(latitude):
+      warn: when > 5
+      fail: when > 15
+
+  - missing_percent(longitude):
+      warn: when > 5
+      fail: when > 15
+
+  - invalid_percent(state_abbr):
+      valid length: 2
+      fail: when > 0
+
+  - invalid_count(total_enrollment):
+      valid min: 0
+      valid max: 20000
+      warn: when > 100
+
+  # enrollment nulls are common for new/small schools
+  - missing_percent(total_enrollment):
+      warn: when > 10
+      fail: when > 25
+
+  - missing_percent(math_proficiency_pct):
+      # a lot of schools (K-2, alternative, etc.) don't have assessment data
+      warn: when > 50
+      fail: when > 75
+
+  # FRPL percentage sanity check
+  - invalid_count(frpl_pct):
+      valid min: 0
+      valid max: 100
+      warn: when > 50

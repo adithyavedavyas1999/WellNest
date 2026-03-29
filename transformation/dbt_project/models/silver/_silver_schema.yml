@@ -1,0 +1,156 @@
+version: 2
+
+models:
+  - name: school_profiles
+    description: >
+      Core school profile table: NCES directory + state lookup + prior year deltas.
+      One row per open school for the current school year. This is the spine
+      that all other silver and gold models join to.
+    columns:
+      - name: nces_school_id
+        description: 12-digit NCES school identifier (zero-padded)
+        tests:
+          - unique
+          - not_null
+      - name: school_name
+        tests:
+          - not_null
+      - name: state_abbr
+        description: Two-letter state abbreviation
+        tests:
+          - not_null
+      - name: county_fips
+        description: 5-digit county FIPS (state + county)
+        tests:
+          - not_null
+      - name: latitude
+        description: School latitude from NCES EDGE
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 17.0
+              max_value: 72.0
+              config:
+                severity: warn
+      - name: longitude
+        description: School longitude from NCES EDGE
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: -180.0
+              max_value: -64.0
+              config:
+                severity: warn
+      - name: total_enrollment
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 15000
+              config:
+                severity: warn
+      - name: math_proficiency_pct
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+              config:
+                severity: warn
+      - name: reading_proficiency_pct
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+              config:
+                severity: warn
+
+  - name: school_health_context
+    description: >
+      Schools enriched with CDC PLACES health indicators and Census ACS
+      demographics. Joined at the county level (tract aggregated to county).
+    columns:
+      - name: nces_school_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('school_profiles')
+              field: nces_school_id
+      - name: child_poverty_rate
+        description: Average child poverty rate for the school's county
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+              config:
+                severity: warn
+      - name: uninsured_children_rate
+        description: Average uninsured children rate for the school's county
+
+  - name: school_environment
+    description: >
+      Schools enriched with EPA AQI and FEMA National Risk Index.
+      All at county level.
+    columns:
+      - name: nces_school_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('school_profiles')
+              field: nces_school_id
+      - name: median_aqi
+        description: Median AQI for the county (most recent year available)
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 500
+              config:
+                severity: warn
+
+  - name: school_safety
+    description: >
+      Schools enriched with FBI crime rates and FEMA social vulnerability.
+      Includes a low_confidence_crime flag for counties with thin reporting.
+    columns:
+      - name: nces_school_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('school_profiles')
+              field: nces_school_id
+      - name: violent_crime_rate
+        description: Violent crimes per 100K population (county level)
+      - name: social_vulnerability_score
+        description: FEMA SoVI score -- higher means more vulnerable
+
+  - name: school_resources
+    description: >
+      Schools enriched with HRSA shortage area designations and USDA
+      food access data. HPSA scores aggregated to county (max per discipline).
+    columns:
+      - name: nces_school_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('school_profiles')
+              field: nces_school_id
+      - name: is_hpsa_designated
+        description: True if county has primary care or mental health shortage
+      - name: pct_tracts_food_desert
+        description: Percentage of census tracts in the county that are food deserts
+
+  - name: community_areas
+    description: >
+      County-level aggregation of all indicators: school stats, census,
+      AQI, FEMA, crime, HPSA, food access. Used for county summary and AI briefs.
+    columns:
+      - name: county_fips
+        tests:
+          - unique
+          - not_null
+      - name: school_count
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 5000

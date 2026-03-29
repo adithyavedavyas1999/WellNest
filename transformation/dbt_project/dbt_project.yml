@@ -1,0 +1,61 @@
+name: wellnest
+version: '1.0.0'
+config-version: 2
+
+profile: wellnest
+
+# where dbt looks for stuff
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+vars:
+  # current school year being processed
+  school_year: '2023-24'
+  # previous year for trend calculations
+  prior_school_year: '2022-23'
+  # Census ACS vintage
+  acs_year: 2022
+  # cutoff for flagging stale data -- anything older than this many days
+  # gets a warning in the Soda freshness checks
+  freshness_warn_days: 90
+  freshness_error_days: 180
+
+seeds:
+  wellnest:
+    state_fips_codes:
+      +column_types:
+        fips_code: varchar(2)
+        state_abbr: varchar(2)
+    pillar_weights:
+      +column_types:
+        pillar: varchar(30)
+        sub_metric: varchar(60)
+        weight: numeric(5,4)
+
+models:
+  wellnest:
+    staging:
+      +materialized: view
+      +schema: staging
+      +tags: ['staging']
+    silver:
+      +materialized: table
+      +schema: silver
+      +tags: ['silver']
+    gold:
+      +materialized: table
+      +schema: gold
+      +tags: ['gold']
+      # gold tables get the full treatment
+      +persist_docs:
+        relation: true
+        columns: true

@@ -1,0 +1,9 @@
+data_source wellnest:
+  type: postgres
+  connection:
+    host: ${WELLNEST_DB_HOST}
+    port: ${WELLNEST_DB_PORT}
+    username: ${WELLNEST_DB_USER}
+    password: ${WELLNEST_DB_PASSWORD}
+    database: ${WELLNEST_DB_NAME}
+  schema: public

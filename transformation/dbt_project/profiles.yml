@@ -1,0 +1,27 @@
+wellnest:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('WELLNEST_DB_HOST', 'localhost') }}"
+      port: "{{ env_var('WELLNEST_DB_PORT', '5432') | int }}"
+      user: "{{ env_var('WELLNEST_DB_USER', 'wellnest') }}"
+      pass: "{{ env_var('WELLNEST_DB_PASSWORD', 'wellnest') }}"
+      dbname: "{{ env_var('WELLNEST_DB_NAME', 'wellnest') }}"
+      schema: public
+      threads: 4
+      keepalives_idle: 0
+
+    prod:
+      type: postgres
+      # supabase connection -- pooler mode for dbt
+      host: "{{ env_var('WELLNEST_DB_HOST') }}"
+      port: "{{ env_var('WELLNEST_DB_PORT', '6543') | int }}"
+      user: "{{ env_var('WELLNEST_DB_USER') }}"
+      pass: "{{ env_var('WELLNEST_DB_PASSWORD') }}"
+      dbname: "{{ env_var('WELLNEST_DB_NAME') }}"
+      schema: public
+      threads: 2
+      # supabase needs this or connections drop after 60s
+      keepalives_idle: 30
+      connect_timeout: 30

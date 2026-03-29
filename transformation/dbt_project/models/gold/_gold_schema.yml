@@ -1,0 +1,165 @@
+version: 2
+
+models:
+  - name: child_wellbeing_score
+    description: >
+      Composite Child Wellbeing Score (0-100) for every open US public school.
+      Four pillar scores (education, health, environment, safety) are combined
+      using configurable weights from the pillar_weights seed. Raw metrics are
+      normalized to 0-100 using p5/p95 national percentile boundaries to
+      dampen outlier sensitivity. Null-safe: missing pillar data is excluded
+      from the weighted average rather than counted as zero.
+    columns:
+      - name: nces_school_id
+        description: 12-digit NCES school identifier
+        tests:
+          - unique
+          - not_null
+      - name: wellbeing_score
+        description: Composite score 0-100 (higher = better)
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+      - name: education_score
+        description: Education pillar score 0-100
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+              config:
+                severity: warn
+      - name: health_score
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+              config:
+                severity: warn
+      - name: environment_score
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+              config:
+                severity: warn
+      - name: safety_score
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+              config:
+                severity: warn
+      - name: wellbeing_category
+        description: "Thriving (76-100), Moderate (51-75), At Risk (26-50), Critical (0-25)"
+        tests:
+          - accepted_values:
+              values: ['Thriving', 'Moderate', 'At Risk', 'Critical', 'Insufficient Data']
+      - name: pillars_with_data
+        description: Count of non-null pillar scores (0-4)
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 4
+      - name: latitude
+        tests:
+          - not_null:
+              config:
+                severity: warn
+      - name: longitude
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+  - name: school_rankings
+    description: >
+      National, state, and county rankings for each scored school. Includes
+      rank, total, and percentile at each geographic level, plus per-pillar
+      national ranks.
+    columns:
+      - name: nces_school_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('child_wellbeing_score')
+              field: nces_school_id
+      - name: national_rank
+        tests:
+          - not_null
+      - name: state_rank
+        tests:
+          - not_null
+
+  - name: resource_gaps
+    description: >
+      Schools where at least one pillar scores in the bottom national quartile.
+      Prioritized for intervention, especially those that also have strengths
+      (pillars above median) indicating capacity to improve.
+    columns:
+      - name: nces_school_id
+        tests:
+          - unique
+          - not_null
+      - name: gap_count
+        description: Number of pillars in the bottom quartile (1-4)
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 4
+      - name: intervention_priority
+        tests:
+          - accepted_values:
+              values: ['High Priority', 'Critical Need', 'Moderate Need']
+      - name: weakest_pillar
+        tests:
+          - accepted_values:
+              values: ['Education', 'Health', 'Environment', 'Safety']
+
+  - name: trend_metrics
+    description: >
+      Year-over-year score and proficiency changes at the school level.
+      Includes z-score-based anomaly flags for schools with unusually
+      large swings in education metrics.
+    columns:
+      - name: nces_school_id
+        tests:
+          - unique
+          - not_null
+      - name: math_trend
+        tests:
+          - accepted_values:
+              values: ['Improving', 'Declining', 'Stable']
+      - name: reading_trend
+        tests:
+          - accepted_values:
+              values: ['Improving', 'Declining', 'Stable']
+      - name: is_anomalous
+        description: True if education change z-score exceeds 2.5 std devs
+
+  - name: county_summary
+    description: >
+      County-level aggregation of wellbeing scores, context indicators,
+      resource gaps, and rankings. One row per county with scored schools.
+    columns:
+      - name: county_fips
+        tests:
+          - unique
+          - not_null
+      - name: avg_wellbeing_score
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+      - name: county_category
+        tests:
+          - accepted_values:
+              values: ['Thriving', 'Moderate', 'At Risk', 'Critical', 'Insufficient Data']
+      - name: scored_school_count
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 5000

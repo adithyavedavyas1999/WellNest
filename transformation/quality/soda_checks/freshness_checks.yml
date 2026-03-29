@@ -1,0 +1,68 @@
+# Data freshness SLA checks.
+# Most federal sources update annually or quarterly.
+# We run these on a weekly schedule to catch stale pipelines.
+
+checks for silver.school_profiles:
+  - freshness(_loaded_at):
+      warn: when > 90d
+      fail: when > 180d
+      name: school_profiles freshness
+
+checks for silver.school_health_context:
+  - freshness using silver.school_profiles(_loaded_at):
+      warn: when > 90d
+      fail: when > 180d
+      name: health_context freshness via profiles
+
+# raw source freshness -- how old is the underlying data?
+checks for raw.nces_schools:
+  - freshness(_loaded_at):
+      warn: when > 90d
+      fail: when > 180d
+      name: NCES schools raw data freshness
+
+checks for raw.cdc_places:
+  - freshness(_loaded_at):
+      warn: when > 120d
+      fail: when > 240d
+      name: CDC PLACES raw data freshness
+
+checks for raw.census_acs:
+  # ACS is annual, so wider window
+  - freshness(_loaded_at):
+      warn: when > 180d
+      fail: when > 365d
+      name: Census ACS raw data freshness
+
+checks for raw.epa_aqi:
+  - freshness(_loaded_at):
+      warn: when > 120d
+      fail: when > 240d
+      name: EPA AQI raw data freshness
+
+checks for raw.hrsa_hpsa:
+  # HRSA updates frequently
+  - freshness(_loaded_at):
+      warn: when > 30d
+      fail: when > 90d
+      name: HRSA HPSA raw data freshness
+
+checks for raw.fbi_crime:
+  # FBI data is published with a big lag
+  - freshness(_loaded_at):
+      warn: when > 180d
+      fail: when > 365d
+      name: FBI crime raw data freshness
+
+checks for raw.fema_nri:
+  - freshness(_loaded_at):
+      warn: when > 180d
+      fail: when > 365d
+      name: FEMA NRI raw data freshness
+
+checks for raw.usda_food_access:
+  # USDA atlas updates infrequently
+  - freshness(_loaded_at):
+      warn: when > 365d
+      fail: when > 730d
+      name: USDA food access raw data freshness

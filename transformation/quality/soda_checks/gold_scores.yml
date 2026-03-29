@@ -1,0 +1,95 @@
+# Soda checks for gold.child_wellbeing_score
+# The big one -- if scores are wrong, everything downstream is wrong.
+
+checks for gold.child_wellbeing_score:
+  - row_count:
+      warn: when < 100000
+      fail: when < 60000
+
+  - missing_count(nces_school_id) = 0
+
+  - duplicate_count(nces_school_id) = 0
+
+  # all scores must be 0-100
+  - invalid_count(wellbeing_score):
+      valid min: 0
+      valid max: 100
+      fail: when > 0
+
+  - invalid_count(education_score):
+      valid min: 0
+      valid max: 100
+      fail: when > 0
+
+  - invalid_count(health_score):
+      valid min: 0
+      valid max: 100
+      fail: when > 0
+
+  - invalid_count(environment_score):
+      valid min: 0
+      valid max: 100
+      fail: when > 0
+
+  - invalid_count(safety_score):
+      valid min: 0
+      valid max: 100
+      fail: when > 0
+
+  # distribution checks -- scores shouldn't pile up at the extremes
+  - avg(wellbeing_score):
+      warn: when not between 35 and 75
+      fail: when not between 20 and 85
+
+  - stddev(wellbeing_score):
+      # if stddev is too low, normalization is probably broken
+      warn: when < 8
+      fail: when < 3
+
+  # category distribution should be reasonable
+  - missing_count(wellbeing_category) = 0
+
+  # at least 3 pillars should have data for most schools
+  - avg(pillars_with_data):
+      warn: when < 3.0
+      fail: when < 2.5
+
+  # geo coverage: most scored schools should have coordinates
+  - missing_percent(latitude):
+      warn: when > 3
+      fail: when > 10
+
+  # we should have schools from all 50 states + DC
+  - distinct_count(state_abbr):
+      warn: when < 50
+      fail: when < 45
+
+
+# also check the county summary
+checks for gold.county_summary:
+  - row_count:
+      warn: when < 2500
+      fail: when < 2000
+
+  - duplicate_count(county_fips) = 0
+
+  - invalid_count(avg_wellbeing_score):
+      valid min: 0
+      valid max: 100
+      fail: when > 0
+
+  - missing_count(county_category) = 0
+
+
+# and rankings
+checks for gold.school_rankings:
+  - row_count:
+      warn: when < 100000
+      fail: when < 60000
+
+  - duplicate_count(nces_school_id) = 0
+
+  - invalid_count(national_percentile_pct):
+      valid min: 0
+      valid max: 100
+      fail: when > 0

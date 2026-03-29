@@ -1,0 +1,62 @@
+# Soda checks for silver.school_health_context
+# Health data joins from CDC PLACES + Census ACS.
+# Coverage depends on how many counties have tract data available.
+
+checks for silver.school_health_context:
+  - row_count:
+      warn: when < 120000
+      fail: when < 80000
+
+  - missing_count(nces_school_id) = 0
+
+  - duplicate_count(nces_school_id) = 0
+
+  # poverty data has pretty good coverage nationally
+  - missing_percent(poverty_rate):
+      warn: when > 10
+      fail: when > 25
+
+  - missing_percent(child_poverty_rate):
+      warn: when > 15
+      fail: when > 30
+
+  - invalid_count(poverty_rate):
+      valid min: 0
+      valid max: 100
+      fail: when > 0
+
+  - invalid_count(child_poverty_rate):
+      valid min: 0
+      valid max: 100
+      fail: when > 0
+
+  - invalid_count(uninsured_children_rate):
+      valid min: 0
+      valid max: 100
+      fail: when > 0
+
+  # CDC PLACES measures are percentages
+  - invalid_count(obesity_pct):
+      valid min: 0
+      valid max: 100
+      warn: when > 10
+
+  - invalid_count(asthma_pct):
+      valid min: 0
+      valid max: 100
+      warn: when > 10
+
+  # median income should be reasonable
+  - invalid_count(median_household_income):
+      valid min: 0
+      valid max: 500000
+      warn: when > 10
+
+  # CDC PLACES coverage -- not every county has data
+  - missing_percent(obesity_pct):
+      warn: when > 20
+      fail: when > 40
+
+  - missing_percent(poor_mental_health_pct):
+      warn: when > 20
+      fail: when > 40

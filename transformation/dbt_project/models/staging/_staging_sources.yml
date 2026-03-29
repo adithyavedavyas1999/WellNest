@@ -1,0 +1,113 @@
+version: 2
+
+sources:
+  - name: raw
+    database: "{{ env_var('WELLNEST_DB_NAME', 'wellnest') }}"
+    schema: raw
+    description: >
+      Raw tables loaded by the ingestion layer. Each table maps 1:1 to a
+      federal data source. Columns retain their original names from the API/CSV.
+
+    freshness:
+      warn_after: {count: 90, period: day}
+      error_after: {count: 180, period: day}
+    loaded_at_field: _loaded_at
+
+    tables:
+      - name: nces_schools
+        description: >
+          NCES Common Core of Data school directory merged with EDGE
+          location data. One row per school per year.
+        columns:
+          - name: ncessch
+            description: 12-digit NCES school identifier
+            tests:
+              - not_null
+          - name: sch_name
+            tests:
+              - not_null
+
+      - name: cdc_places
+        description: >
+          CDC PLACES health estimates at the census tract level.
+          Measures include obesity, asthma, mental health, insurance, etc.
+        columns:
+          - name: locationid
+            description: Census tract or county FIPS
+            tests:
+              - not_null
+          - name: measureid
+            tests:
+              - not_null
+
+      - name: census_acs
+        description: >
+          Census Bureau ACS 5-year estimates: poverty, insurance, income,
+          demographics at census tract level.
+        freshness:
+          # ACS releases annually in December, so give it extra slack
+          warn_after: {count: 180, period: day}
+          error_after: {count: 365, period: day}
+        columns:
+          - name: state_fips
+            tests:
+              - not_null
+
+      - name: epa_aqi
+        description: >
+          EPA annual AQI summaries by county from AQS bulk downloads.
+          One row per county per year.
+        columns:
+          - name: state_code
+            tests:
+              - not_null
+          - name: county_code
+            tests:
+              - not_null
+
+      - name: hrsa_hpsa
+        description: >
+          HRSA Health Professional Shortage Area designations.
+          Updated daily by HRSA, but we pull weekly.
+        freshness:
+          warn_after: {count: 30, period: day}
+          error_after: {count: 90, period: day}
+        columns:
+          - name: hpsa_id
+            tests:
+              - not_null
+
+      - name: usda_food_access
+        description: >
+          USDA Food Access Research Atlas. Tract-level food desert indicators.
+          Updated every ~5 years when new Census data comes out.
+        freshness:
+          warn_after: {count: 365, period: day}
+          error_after: {count: 730, period: day}
+        columns:
+          - name: census_tract
+            tests:
+              - not_null
+
+      - name: fema_nri
+        description: >
+          FEMA National Risk Index -- county-level hazard risk, social
+          vulnerability, and community resilience scores.
+        columns:
+          - name: stcofips
+            description: State+county FIPS code
+            tests:
+              - not_null
+              - unique
+
+      - name: fbi_crime
+        description: >
+          FBI UCR / county-level crime data. Coverage varies by year
+          and agency -- downstream models should check agency_coverage_pct.
+        columns:
+          - name: fips_state
+            tests:
+              - not_null
+          - name: fips_county
+            tests:
+              - not_null
