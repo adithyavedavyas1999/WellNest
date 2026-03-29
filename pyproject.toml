@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=75.0", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "wellnest"
@@ -39,12 +39,12 @@ dependencies = [
     "dagster-postgres>=0.28,<1",
 
     # -- transformation --
-    "dbt-core>=1.11,<1.12",     # pinned minor — dbt likes breaking between minors
-    "dbt-postgres>=1.11,<1.12",
+    "dbt-core>=1.10,<1.11",     # 1.11 not published on PyPI yet for postgres adapter
+    "dbt-postgres>=1.10,<1.11",
 
     # -- data quality --
-    "soda-core>=4.3,<5",
-    "soda-core-postgres>=4.3,<5",
+    "soda-core>=3.5,<3.6",
+    "soda-core-postgres>=3.5,<3.6",
 
     # -- ml --
     "scikit-learn>=1.6,<2",
@@ -54,9 +54,9 @@ dependencies = [
 
     # -- ai / rag --
     "openai>=2.26,<3",
-    "langchain>=0.3,<1",
-    "langchain-openai>=1.1,<2",
-    "langchain-community>=0.3,<1",
+    "langchain>=0.3,<0.4",
+    "langchain-openai>=0.3,<0.4",
+    "langchain-community>=0.3,<0.4",
     "faiss-cpu>=1.9,<2",        # gpu build is a pain on CI; cpu is fine for our index size
 
     # -- api --
@@ -94,6 +94,18 @@ dev = [
 
 [project.scripts]
 wellnest-api = "api.main:run"
+
+[tool.setuptools.packages.find]
+include = [
+    "ingestion*",
+    "orchestration*",
+    "ml*",
+    "ai*",
+    "api*",
+    "dashboard*",
+    "reports*",
+    "tests*",
+]
 
 # --------------------------------------------------------------------------- #
 # ruff

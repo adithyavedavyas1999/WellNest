@@ -60,7 +60,7 @@ QUALITY_TABLE = "quality.check_results"
     ),
 )
 def quality_silver_checks(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
     checks: list[dict[str, Any]] = []
@@ -127,7 +127,7 @@ def quality_silver_checks(
     ),
 )
 def quality_gold_checks(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
     checks: list[dict[str, Any]] = []
@@ -200,7 +200,7 @@ def quality_gold_checks(
     ),
 )
 def quality_freshness_checks(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
     engine = postgres.get_engine()
@@ -253,7 +253,7 @@ def quality_freshness_checks(
     ),
 )
 def quality_report(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
     engine = postgres.get_engine()
@@ -330,7 +330,7 @@ def _run_table_checks(
     engine: Any,
     table: str,
     rules: dict[str, Any],
-    context: AssetExecutionContext,
+    context,
 ) -> dict[str, Any]:
     """Run a set of declarative checks against a table."""
     passed = 0
@@ -404,7 +404,7 @@ def _run_table_checks(
     }
 
 
-def _check_score_distribution(engine: Any, context: AssetExecutionContext) -> dict[str, Any]:
+def _check_score_distribution(engine: Any, context) -> dict[str, Any]:
     """Sanity-check the wellbeing score distribution.
 
     Flags if the mean is outside a plausible range or if there are suspicious
@@ -482,7 +482,7 @@ def _check_freshness(
     engine: Any,
     table: str,
     max_age_days: int,
-    context: AssetExecutionContext,
+    context,
 ) -> dict[str, Any]:
     """Check if a table has been updated within the expected window.
 

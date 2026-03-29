@@ -66,7 +66,7 @@ MODEL_DIR = Path(__file__).resolve().parent.parent.parent / "ml" / "artifacts"
     ),
 )
 def ml_feature_matrix(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
     engine = postgres.get_engine()
@@ -149,7 +149,7 @@ def ml_feature_matrix(
     ),
 )
 def ml_proficiency_model(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
     import numpy as np
@@ -249,7 +249,7 @@ def ml_proficiency_model(
     ),
 )
 def ml_anomaly_detector(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
     import numpy as np
@@ -335,7 +335,7 @@ def ml_anomaly_detector(
     ),
 )
 def ml_predictions(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
     import numpy as np

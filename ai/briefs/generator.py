@@ -35,14 +35,9 @@ import time
 from datetime import datetime, timezone
 from typing import Any
 
+import openai
 import polars as pl
 import structlog
-from openai import (
-    APIConnectionError,
-    APITimeoutError,
-    OpenAI,
-    RateLimitError,
-)
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -96,7 +91,7 @@ class BriefGenerator:
         if not resolved_key:
             raise ValueError("No OpenAI API key — set OPENAI_API_KEY or pass api_key")
 
-        self._client: OpenAI = OpenAI(
+        self._client = openai.OpenAI(
             api_key=resolved_key,
             max_retries=2,
             timeout=45.0,
@@ -224,7 +219,9 @@ class BriefGenerator:
     # ------------------------------------------------------------------
 
     @retry(
-        retry=retry_if_exception_type((RateLimitError, APITimeoutError, APIConnectionError)),
+        retry=retry_if_exception_type(
+            (openai.RateLimitError, openai.APITimeoutError, openai.APIConnectionError)
+        ),
         stop=stop_after_attempt(4),
         wait=wait_exponential(multiplier=5, min=5, max=120),
         reraise=True,

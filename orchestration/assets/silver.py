@@ -52,7 +52,7 @@ SILVER_TAGS = {"layer": "silver", "pipeline": "transformation"}
     ),
 )
 def stg_education(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -80,7 +80,7 @@ def stg_education(
     description="dbt staging models for CDC health indicator sources.",
 )
 def stg_health(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -104,7 +104,7 @@ def stg_health(
     description="dbt staging model for Census ACS tract-level demographics.",
 )
 def stg_demographics(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -128,7 +128,7 @@ def stg_demographics(
     description="dbt staging models for environmental data (EPA air quality + FEMA NRI).",
 )
 def stg_environment(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -147,7 +147,7 @@ def stg_environment(
     description="dbt staging models for HRSA provider shortage designations.",
 )
 def stg_healthcare_access(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -166,7 +166,7 @@ def stg_healthcare_access(
     description="dbt staging model for USDA food access / food desert indicators.",
 )
 def stg_food_access(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -190,7 +190,7 @@ def stg_food_access(
     description="dbt staging model for NOAA weather alerts.",
 )
 def stg_weather_alerts(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -209,7 +209,7 @@ def stg_weather_alerts(
     description="dbt staging model for FBI UCR crime statistics.",
 )
 def stg_crime(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -244,7 +244,7 @@ def stg_crime(
     ),
 )
 def silver_school_profile(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -272,7 +272,7 @@ def silver_school_profile(
     ),
 )
 def silver_tract_indicators(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -296,7 +296,7 @@ def silver_tract_indicators(
     description="Silver county-level safety and access indicators.",
 )
 def silver_county_safety(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:

@@ -1,0 +1,598 @@
+nces_id,school_name,state,county_fips,gap_type,severity,composite_score,description
+350049007,Sunrise Elementary,NM,35004,dental,51.3,65.8,Identified dental gap in service area
+350049007,Sunrise Elementary,NM,35004,mental_health,89.3,65.8,Identified mental health gap in service area
+390014267,Excellence Academy,OH,39001,food_access,34.1,45.6,Identified food access gap in service area
+390014267,Excellence Academy,OH,39001,mental_health,43.2,45.6,Identified mental health gap in service area
+230046613,Ridgewood Preparatory School,ME,23004,dental,53.9,34.0,Identified dental gap in service area
+230046613,Ridgewood Preparatory School,ME,23004,mental_health,83.1,34.0,Identified mental health gap in service area
+220014458,Hamilton Middle School,LA,22001,food_access,51.1,73.3,Identified food access gap in service area
+220014458,Hamilton Middle School,LA,22001,dental,53.9,73.3,Identified dental gap in service area
+220014458,Hamilton Middle School,LA,22001,mental_health,74.8,73.3,Identified mental health gap in service area
+350032679,Willow Charter School,NM,35003,healthcare,45.6,77.0,Identified healthcare gap in service area
+490027808,Harmony Elementary School,UT,49002,mental_health,75.6,60.2,Identified mental health gap in service area
+230015320,Valley Elementary,ME,23001,healthcare,79.1,59.0,Identified healthcare gap in service area
+230015320,Valley Elementary,ME,23001,food_access,82.8,59.0,Identified food access gap in service area
+230015320,Valley Elementary,ME,23001,dental,34.1,59.0,Identified dental gap in service area
+560039694,Longfellow Elementary,WY,56003,food_access,43.3,45.7,Identified food access gap in service area
+270039004,Roosevelt Primary School,MN,27003,healthcare,59.1,69.1,Identified healthcare gap in service area
+270039004,Roosevelt Primary School,MN,27003,dental,78.7,69.1,Identified dental gap in service area
+210035321,Magnolia Magnet School,KY,21003,dental,50.3,66.1,Identified dental gap in service area
+210035321,Magnolia Magnet School,KY,21003,mental_health,16.3,66.1,Identified mental health gap in service area
+210035321,Magnolia Magnet School,KY,21003,food_access,66.2,66.1,Identified food access gap in service area
+300015623,Monroe Primary School,MT,30001,mental_health,40.5,33.4,Identified mental health gap in service area
+560015939,Innovation Primary School,WY,56001,dental,90.3,45.8,Identified dental gap in service area
+560015939,Innovation Primary School,WY,56001,healthcare,42.1,45.8,Identified healthcare gap in service area
+210043525,Adams Preparatory School,KY,21004,food_access,22.2,61.5,Identified food access gap in service area
+320032607,Autumn Preparatory School,NV,32003,mental_health,25.8,70.5,Identified mental health gap in service area
+050046234,Monroe Middle School,AR,05004,food_access,46.5,34.4,Identified food access gap in service area
+280033087,Westside Charter School,MS,28003,mental_health,87.7,58.5,Identified mental health gap in service area
+280033087,Westside Charter School,MS,28003,healthcare,25.8,58.5,Identified healthcare gap in service area
+280033087,Westside Charter School,MS,28003,dental,38.0,58.5,Identified dental gap in service area
+410027611,Meadow Charter School,OR,41002,mental_health,96.6,68.4,Identified mental health gap in service area
+410027611,Meadow Charter School,OR,41002,healthcare,65.3,68.4,Identified healthcare gap in service area
+410027611,Meadow Charter School,OR,41002,food_access,34.4,68.4,Identified food access gap in service area
+370017165,Pioneer Elementary,NC,37001,mental_health,42.9,59.0,Identified mental health gap in service area
+370017165,Pioneer Elementary,NC,37001,healthcare,81.5,59.0,Identified healthcare gap in service area
+250019946,Grant Magnet School,MA,25001,food_access,78.4,70.9,Identified food access gap in service area
+250019946,Grant Magnet School,MA,25001,dental,93.5,70.9,Identified dental gap in service area
+250019946,Grant Magnet School,MA,25001,mental_health,42.5,70.9,Identified mental health gap in service area
+400038444,Jackson Middle School,OK,40003,dental,91.9,40.2,Identified dental gap in service area
+400038444,Jackson Middle School,OK,40003,mental_health,79.2,40.2,Identified mental health gap in service area
+260039735,Pleasant Charter School,MI,26003,dental,55.3,34.8,Identified dental gap in service area
+260039735,Pleasant Charter School,MI,26003,healthcare,86.4,34.8,Identified healthcare gap in service area
+270031001,Emerson Preparatory School,MN,27003,mental_health,42.4,53.4,Identified mental health gap in service area
+270031001,Emerson Preparatory School,MN,27003,dental,29.1,53.4,Identified dental gap in service area
+270031001,Emerson Preparatory School,MN,27003,healthcare,93.3,53.4,Identified healthcare gap in service area
+150042063,Hawthorne Elementary,HI,15004,mental_health,80.8,52.1,Identified mental health gap in service area
+150042063,Hawthorne Elementary,HI,15004,food_access,85.2,52.1,Identified food access gap in service area
+150042063,Hawthorne Elementary,HI,15004,dental,19.3,52.1,Identified dental gap in service area
+150023683,Grant Academy,HI,15002,dental,85.7,58.3,Identified dental gap in service area
+150023683,Grant Academy,HI,15002,food_access,85.7,58.3,Identified food access gap in service area
+150023683,Grant Academy,HI,15002,healthcare,63.9,58.3,Identified healthcare gap in service area
+010036246,Greenfield Academy,AL,01003,food_access,61.7,70.2,Identified food access gap in service area
+010036246,Greenfield Academy,AL,01003,mental_health,78.1,70.2,Identified mental health gap in service area
+010036246,Greenfield Academy,AL,01003,dental,97.3,70.2,Identified dental gap in service area
+350011583,Ridgewood Elementary School,NM,35001,food_access,80.3,32.9,Identified food access gap in service area
+350011583,Ridgewood Elementary School,NM,35001,healthcare,48.0,32.9,Identified healthcare gap in service area
+250031183,Heritage Preparatory School,MA,25003,healthcare,20.0,68.2,Identified healthcare gap in service area
+250031183,Heritage Preparatory School,MA,25003,dental,33.6,68.2,Identified dental gap in service area
+460021387,Cedar Elementary,SD,46002,mental_health,51.3,69.2,Identified mental health gap in service area
+460021387,Cedar Elementary,SD,46002,food_access,19.9,69.2,Identified food access gap in service area
+460021387,Cedar Elementary,SD,46002,healthcare,36.8,69.2,Identified healthcare gap in service area
+320035346,Greenfield Magnet School,NV,32003,mental_health,62.3,60.7,Identified mental health gap in service area
+440011158,Unity Elementary School,RI,44001,food_access,38.5,56.7,Identified food access gap in service area
+230017086,Twain Magnet School,ME,23001,mental_health,88.8,87.3,Identified mental health gap in service area
+230017086,Twain Magnet School,ME,23001,food_access,33.4,87.3,Identified food access gap in service area
+050026211,Cedar Preparatory School,AR,05002,mental_health,71.1,64.8,Identified mental health gap in service area
+050026211,Cedar Preparatory School,AR,05002,healthcare,65.5,64.8,Identified healthcare gap in service area
+050026211,Cedar Preparatory School,AR,05002,dental,55.0,64.8,Identified dental gap in service area
+150044401,Franklin High School,HI,15004,food_access,66.0,65.1,Identified food access gap in service area
+150044401,Franklin High School,HI,15004,dental,49.6,65.1,Identified dental gap in service area
+150044401,Franklin High School,HI,15004,healthcare,40.9,65.1,Identified healthcare gap in service area
+490023890,Lakeview Academy,UT,49002,dental,16.8,65.7,Identified dental gap in service area
+490023890,Lakeview Academy,UT,49002,mental_health,19.9,65.7,Identified mental health gap in service area
+490023890,Lakeview Academy,UT,49002,healthcare,44.4,65.7,Identified healthcare gap in service area
+220018974,Twain Junior High School,LA,22001,dental,80.6,60.7,Identified dental gap in service area
+550047098,Pleasant Primary School,WI,55004,mental_health,88.5,60.8,Identified mental health gap in service area
+050024641,Madison Academy,AR,05002,healthcare,58.8,20.4,Identified healthcare gap in service area
+500024168,Hamilton Middle School,VT,50002,dental,52.3,44.6,Identified dental gap in service area
+500024168,Hamilton Middle School,VT,50002,healthcare,58.3,44.6,Identified healthcare gap in service area
+250039985,Pleasant Academy,MA,25003,dental,69.7,74.5,Identified dental gap in service area
+250039985,Pleasant Academy,MA,25003,food_access,72.4,74.5,Identified food access gap in service area
+250039985,Pleasant Academy,MA,25003,healthcare,18.4,74.5,Identified healthcare gap in service area
+280029118,Lakeview High School,MS,28002,healthcare,54.9,43.4,Identified healthcare gap in service area
+210033425,Adams Magnet School,KY,21003,healthcare,31.8,30.2,Identified healthcare gap in service area
+210033425,Adams Magnet School,KY,21003,dental,83.7,30.2,Identified dental gap in service area
+170048175,Harmony Academy,IL,17004,food_access,39.2,33.3,Identified food access gap in service area
+170048175,Harmony Academy,IL,17004,healthcare,22.2,33.3,Identified healthcare gap in service area
+170048175,Harmony Academy,IL,17004,dental,69.0,33.3,Identified dental gap in service area
+230025544,Fairview Middle School,ME,23002,dental,69.2,47.4,Identified dental gap in service area
+460049413,Edison Magnet School,SD,46004,healthcare,30.0,63.9,Identified healthcare gap in service area
+460049413,Edison Magnet School,SD,46004,mental_health,16.3,63.9,Identified mental health gap in service area
+470028309,Wilson Academy,TN,47002,food_access,54.1,68.8,Identified food access gap in service area
+470028309,Wilson Academy,TN,47002,healthcare,60.9,68.8,Identified healthcare gap in service area
+470028309,Wilson Academy,TN,47002,mental_health,19.0,68.8,Identified mental health gap in service area
+040019109,Oakwood Elementary,AZ,04001,healthcare,17.6,65.2,Identified healthcare gap in service area
+360035832,Whitman Elementary,NY,36003,dental,55.3,34.5,Identified dental gap in service area
+050038307,Spring High School,AR,05003,dental,80.0,64.4,Identified dental gap in service area
+050038307,Spring High School,AR,05003,food_access,52.8,64.4,Identified food access gap in service area
+050038307,Spring High School,AR,05003,mental_health,85.8,64.4,Identified mental health gap in service area
+160013446,Longfellow Elementary School,ID,16001,dental,40.8,72.6,Identified dental gap in service area
+160013446,Longfellow Elementary School,ID,16001,food_access,43.9,72.6,Identified food access gap in service area
+530043247,Northview Elementary School,WA,53004,healthcare,35.8,78.5,Identified healthcare gap in service area
+530043247,Northview Elementary School,WA,53004,dental,94.9,78.5,Identified dental gap in service area
+500042532,Whitman Preparatory School,VT,50004,mental_health,81.9,79.1,Identified mental health gap in service area
+540029391,Sunset Middle School,WV,54002,mental_health,79.0,75.9,Identified mental health gap in service area
+540029391,Sunset Middle School,WV,54002,healthcare,74.9,75.9,Identified healthcare gap in service area
+540029391,Sunset Middle School,WV,54002,food_access,24.0,75.9,Identified food access gap in service area
+320018059,Willow Magnet School,NV,32001,food_access,46.7,56.6,Identified food access gap in service area
+560014447,Heritage Junior High School,WY,56001,mental_health,45.8,62.0,Identified mental health gap in service area
+440046272,Achievement Junior High School,RI,44004,healthcare,59.6,65.7,Identified healthcare gap in service area
+010012923,Ridgewood Preparatory School,AL,01001,food_access,30.7,32.5,Identified food access gap in service area
+010012923,Ridgewood Preparatory School,AL,01001,healthcare,93.5,32.5,Identified healthcare gap in service area
+010012923,Ridgewood Preparatory School,AL,01001,mental_health,21.8,32.5,Identified mental health gap in service area
+480019978,Unity Junior High School,TX,48001,healthcare,95.8,51.4,Identified healthcare gap in service area
+480019978,Unity Junior High School,TX,48001,food_access,58.2,51.4,Identified food access gap in service area
+120026752,Central Junior High School,FL,12002,healthcare,16.9,27.9,Identified healthcare gap in service area
+120026752,Central Junior High School,FL,12002,food_access,46.3,27.9,Identified food access gap in service area
+390032134,Westside Magnet School,OH,39003,dental,26.5,64.3,Identified dental gap in service area
+010044768,Lakeview Junior High School,AL,01004,healthcare,51.5,51.6,Identified healthcare gap in service area
+010044768,Lakeview Junior High School,AL,01004,food_access,74.5,51.6,Identified food access gap in service area
+340048138,Hawthorne Elementary,NJ,34004,healthcare,83.5,62.2,Identified healthcare gap in service area
+340048138,Hawthorne Elementary,NJ,34004,mental_health,40.4,62.2,Identified mental health gap in service area
+380027527,Pioneer Elementary School,ND,38002,dental,23.9,56.1,Identified dental gap in service area
+380027527,Pioneer Elementary School,ND,38002,food_access,92.7,56.1,Identified food access gap in service area
+380027527,Pioneer Elementary School,ND,38002,healthcare,96.2,56.1,Identified healthcare gap in service area
+250016342,Valley Elementary School,MA,25001,food_access,97.1,48.1,Identified food access gap in service area
+250016342,Valley Elementary School,MA,25001,mental_health,69.9,48.1,Identified mental health gap in service area
+250034559,Greenfield Elementary,MA,25003,dental,19.5,64.5,Identified dental gap in service area
+250034559,Greenfield Elementary,MA,25003,healthcare,63.4,64.5,Identified healthcare gap in service area
+120031172,Washington Primary School,FL,12003,dental,62.0,71.2,Identified dental gap in service area
+450046486,Birch Middle School,SC,45004,food_access,28.9,42.3,Identified food access gap in service area
+450046486,Birch Middle School,SC,45004,dental,17.8,42.3,Identified dental gap in service area
+310021515,Adams Magnet School,NE,31002,mental_health,57.1,39.4,Identified mental health gap in service area
+340016259,Pioneer Preparatory School,NJ,34001,dental,53.4,78.9,Identified dental gap in service area
+210013627,Liberty Preparatory School,KY,21001,food_access,46.1,48.4,Identified food access gap in service area
+500033578,Pioneer Junior High School,VT,50003,mental_health,59.0,52.2,Identified mental health gap in service area
+120022621,Liberty High School,FL,12002,healthcare,83.9,53.1,Identified healthcare gap in service area
+120022621,Liberty High School,FL,12002,mental_health,44.7,53.1,Identified mental health gap in service area
+120022621,Liberty High School,FL,12002,food_access,21.9,53.1,Identified food access gap in service area
+300022725,Hawthorne Charter School,MT,30002,mental_health,77.2,44.5,Identified mental health gap in service area
+300022725,Hawthorne Charter School,MT,30002,dental,73.1,44.5,Identified dental gap in service area
+300022725,Hawthorne Charter School,MT,30002,healthcare,37.9,44.5,Identified healthcare gap in service area
+460036926,Edison Preparatory School,SD,46003,mental_health,50.9,64.1,Identified mental health gap in service area
+460036926,Edison Preparatory School,SD,46003,food_access,78.7,64.1,Identified food access gap in service area
+330016811,Madison Elementary,NH,33001,food_access,83.4,70.4,Identified food access gap in service area
+400048307,Achievement Elementary School,OK,40004,healthcare,36.4,36.3,Identified healthcare gap in service area
+180015439,Magnolia Elementary,IN,18001,food_access,87.5,48.8,Identified food access gap in service area
+180015439,Magnolia Elementary,IN,18001,dental,96.2,48.8,Identified dental gap in service area
+240042376,Hawthorne Elementary,MD,24004,dental,42.4,41.9,Identified dental gap in service area
+240042376,Hawthorne Elementary,MD,24004,food_access,56.0,41.9,Identified food access gap in service area
+240042376,Hawthorne Elementary,MD,24004,mental_health,15.8,41.9,Identified mental health gap in service area
+560037531,Longfellow Middle School,WY,56003,dental,78.3,64.1,Identified dental gap in service area
+120023373,Central High School,FL,12002,mental_health,89.1,60.0,Identified mental health gap in service area
+120023373,Central High School,FL,12002,healthcare,40.0,60.0,Identified healthcare gap in service area
+120023373,Central High School,FL,12002,dental,52.5,60.0,Identified dental gap in service area
+170011176,Elm Elementary,IL,17001,food_access,50.2,67.2,Identified food access gap in service area
+020031725,Meadow Charter School,AK,02003,mental_health,90.0,54.6,Identified mental health gap in service area
+450031366,Twain Elementary School,SC,45003,food_access,19.8,75.1,Identified food access gap in service area
+450031366,Twain Elementary School,SC,45003,mental_health,72.4,75.1,Identified mental health gap in service area
+450031366,Twain Elementary School,SC,45003,healthcare,70.3,75.1,Identified healthcare gap in service area
+360028133,Fairview Magnet School,NY,36002,dental,17.7,60.6,Identified dental gap in service area
+360028133,Fairview Magnet School,NY,36002,mental_health,67.7,60.6,Identified mental health gap in service area
+180023617,Pleasant Elementary School,IN,18002,mental_health,73.2,79.3,Identified mental health gap in service area
+340043923,Jackson Elementary School,NJ,34004,healthcare,35.6,71.6,Identified healthcare gap in service area
+340043923,Jackson Elementary School,NJ,34004,mental_health,49.3,71.6,Identified mental health gap in service area
+450031235,Adams Middle School,SC,45003,mental_health,16.0,48.9,Identified mental health gap in service area
+220038251,Jackson Elementary School,LA,22003,food_access,76.9,75.0,Identified food access gap in service area
+220038251,Jackson Elementary School,LA,22003,mental_health,47.0,75.0,Identified mental health gap in service area
+420015284,Kennedy Middle School,PA,42001,mental_health,41.9,74.0,Identified mental health gap in service area
+420015284,Kennedy Middle School,PA,42001,food_access,29.7,74.0,Identified food access gap in service area
+470028409,Freedom Elementary School,TN,47002,mental_health,29.9,58.8,Identified mental health gap in service area
+470028409,Freedom Elementary School,TN,47002,dental,56.7,58.8,Identified dental gap in service area
+330044453,Adams Magnet School,NH,33004,food_access,55.7,65.2,Identified food access gap in service area
+330044453,Adams Magnet School,NH,33004,healthcare,89.6,65.2,Identified healthcare gap in service area
+330044453,Adams Magnet School,NH,33004,dental,43.1,65.2,Identified dental gap in service area
+280017946,Heritage Primary School,MS,28001,mental_health,71.4,42.8,Identified mental health gap in service area
+540018707,Sunrise Middle School,WV,54001,dental,92.6,55.4,Identified dental gap in service area
+540018707,Sunrise Middle School,WV,54001,mental_health,20.8,55.4,Identified mental health gap in service area
+360014450,Brookside Magnet School,NY,36001,dental,72.5,48.1,Identified dental gap in service area
+360014450,Brookside Magnet School,NY,36001,healthcare,45.3,48.1,Identified healthcare gap in service area
+150011352,Jefferson Academy,HI,15001,dental,86.3,49.5,Identified dental gap in service area
+150011352,Jefferson Academy,HI,15001,healthcare,49.4,49.5,Identified healthcare gap in service area
+020026228,Hawthorne Elementary,AK,02002,mental_health,49.9,70.6,Identified mental health gap in service area
+020026228,Hawthorne Elementary,AK,02002,healthcare,76.9,70.6,Identified healthcare gap in service area
+020026228,Hawthorne Elementary,AK,02002,dental,47.2,70.6,Identified dental gap in service area
+530042781,Pine Primary School,WA,53004,healthcare,62.2,66.4,Identified healthcare gap in service area
+530042781,Pine Primary School,WA,53004,food_access,45.8,66.4,Identified food access gap in service area
+540047872,Elm Primary School,WV,54004,dental,24.7,46.9,Identified dental gap in service area
+130038258,Brookside Magnet School,GA,13003,food_access,32.2,59.5,Identified food access gap in service area
+300025194,Discovery Elementary,MT,30002,dental,30.6,29.4,Identified dental gap in service area
+300025194,Discovery Elementary,MT,30002,healthcare,36.6,29.4,Identified healthcare gap in service area
+100036641,Innovation Charter School,DE,10003,healthcare,27.3,70.4,Identified healthcare gap in service area
+100036641,Innovation Charter School,DE,10003,mental_health,47.8,70.4,Identified mental health gap in service area
+220013985,Pioneer Charter School,LA,22001,healthcare,25.7,50.8,Identified healthcare gap in service area
+220013985,Pioneer Charter School,LA,22001,mental_health,93.8,50.8,Identified mental health gap in service area
+170046571,Martin Luther King Jr. Elementary,IL,17004,dental,85.2,50.2,Identified dental gap in service area
+170046571,Martin Luther King Jr. Elementary,IL,17004,mental_health,89.0,50.2,Identified mental health gap in service area
+170046571,Martin Luther King Jr. Elementary,IL,17004,food_access,61.3,50.2,Identified food access gap in service area
+090027814,Sunrise Primary School,CT,09002,dental,60.9,54.8,Identified dental gap in service area
+090027814,Sunrise Primary School,CT,09002,mental_health,58.6,54.8,Identified mental health gap in service area
+090027814,Sunrise Primary School,CT,09002,food_access,62.4,54.8,Identified food access gap in service area
+050012129,Spring Elementary,AR,05001,dental,22.1,57.3,Identified dental gap in service area
+050012129,Spring Elementary,AR,05001,mental_health,50.3,57.3,Identified mental health gap in service area
+050012129,Spring Elementary,AR,05001,healthcare,33.6,57.3,Identified healthcare gap in service area
+010043252,Pioneer Academy,AL,01004,food_access,67.0,25.8,Identified food access gap in service area
+010043252,Pioneer Academy,AL,01004,dental,36.6,25.8,Identified dental gap in service area
+020049019,Magnolia Magnet School,AK,02004,dental,62.4,66.2,Identified dental gap in service area
+400049818,Hamilton Charter School,OK,40004,food_access,78.2,57.4,Identified food access gap in service area
+540017979,Central Academy,WV,54001,healthcare,26.1,44.2,Identified healthcare gap in service area
+540017979,Central Academy,WV,54001,food_access,15.4,44.2,Identified food access gap in service area
+540017979,Central Academy,WV,54001,mental_health,25.0,44.2,Identified mental health gap in service area
+010015054,Heritage Junior High School,AL,01001,mental_health,63.7,68.7,Identified mental health gap in service area
+010015054,Heritage Junior High School,AL,01001,food_access,74.6,68.7,Identified food access gap in service area
+560016705,Pleasant Elementary School,WY,56001,healthcare,55.5,62.7,Identified healthcare gap in service area
+090037143,Willow Primary School,CT,09003,healthcare,77.5,68.2,Identified healthcare gap in service area
+550026199,Roosevelt Academy,WI,55002,dental,35.2,47.5,Identified dental gap in service area
+450041774,Hawthorne Magnet School,SC,45004,healthcare,70.4,49.0,Identified healthcare gap in service area
+450041774,Hawthorne Magnet School,SC,45004,mental_health,33.8,49.0,Identified mental health gap in service area
+450041774,Hawthorne Magnet School,SC,45004,food_access,47.2,49.0,Identified food access gap in service area
+510016999,Twain High School,VA,51001,food_access,31.0,49.1,Identified food access gap in service area
+510016999,Twain High School,VA,51001,healthcare,49.3,49.1,Identified healthcare gap in service area
+480049964,Hawthorne Primary School,TX,48004,dental,32.1,21.6,Identified dental gap in service area
+480049964,Hawthorne Primary School,TX,48004,food_access,76.2,21.6,Identified food access gap in service area
+150026323,Central Elementary,HI,15002,dental,47.5,55.0,Identified dental gap in service area
+150026323,Central Elementary,HI,15002,food_access,75.7,55.0,Identified food access gap in service area
+550019297,Oakwood Elementary,WI,55001,mental_health,81.4,11.4,Identified mental health gap in service area
+010022848,Jefferson Charter School,AL,01002,mental_health,88.0,29.6,Identified mental health gap in service area
+200039700,Elm Charter School,KS,20003,healthcare,53.9,47.8,Identified healthcare gap in service area
+200039700,Elm Charter School,KS,20003,dental,16.5,47.8,Identified dental gap in service area
+200039700,Elm Charter School,KS,20003,mental_health,77.4,47.8,Identified mental health gap in service area
+130011646,Birch Elementary,GA,13001,food_access,51.9,51.6,Identified food access gap in service area
+130011646,Birch Elementary,GA,13001,mental_health,86.8,51.6,Identified mental health gap in service area
+100045661,Unity Primary School,DE,10004,food_access,80.9,39.4,Identified food access gap in service area
+100045661,Unity Primary School,DE,10004,mental_health,25.6,39.4,Identified mental health gap in service area
+530017893,Innovation Junior High School,WA,53001,food_access,21.7,74.4,Identified food access gap in service area
+530017893,Innovation Junior High School,WA,53001,dental,61.2,74.4,Identified dental gap in service area
+530017893,Innovation Junior High School,WA,53001,mental_health,72.3,74.4,Identified mental health gap in service area
+180024615,Roosevelt Elementary,IN,18002,healthcare,95.1,60.8,Identified healthcare gap in service area
+450025970,Southfield Elementary,SC,45002,healthcare,86.1,67.2,Identified healthcare gap in service area
+450025970,Southfield Elementary,SC,45002,mental_health,70.8,67.2,Identified mental health gap in service area
+450025970,Southfield Elementary,SC,45002,food_access,74.7,67.2,Identified food access gap in service area
+450035493,Brookside Elementary School,SC,45003,dental,69.9,36.4,Identified dental gap in service area
+450035493,Brookside Elementary School,SC,45003,healthcare,61.7,36.4,Identified healthcare gap in service area
+470047638,Discovery Preparatory School,TN,47004,healthcare,73.9,99.4,Identified healthcare gap in service area
+050017164,Centennial Preparatory School,AR,05001,food_access,56.7,81.1,Identified food access gap in service area
+230033334,Oakwood Magnet School,ME,23003,dental,55.2,56.6,Identified dental gap in service area
+190022959,Southfield Primary School,IA,19002,healthcare,50.2,63.2,Identified healthcare gap in service area
+190022959,Southfield Primary School,IA,19002,dental,47.6,63.2,Identified dental gap in service area
+190022959,Southfield Primary School,IA,19002,food_access,47.6,63.2,Identified food access gap in service area
+100016309,Kennedy Primary School,DE,10001,mental_health,57.1,39.6,Identified mental health gap in service area
+100016309,Kennedy Primary School,DE,10001,food_access,69.0,39.6,Identified food access gap in service area
+100016309,Kennedy Primary School,DE,10001,healthcare,28.1,39.6,Identified healthcare gap in service area
+270023418,Lakeview Charter School,MN,27002,mental_health,15.8,74.3,Identified mental health gap in service area
+270023418,Lakeview Charter School,MN,27002,food_access,31.7,74.3,Identified food access gap in service area
+280025994,Brookside Primary School,MS,28002,dental,74.5,65.8,Identified dental gap in service area
+280025994,Brookside Primary School,MS,28002,mental_health,70.4,65.8,Identified mental health gap in service area
+280025994,Brookside Primary School,MS,28002,healthcare,64.9,65.8,Identified healthcare gap in service area
+420028190,Lincoln Elementary,PA,42002,food_access,55.7,60.5,Identified food access gap in service area
+150014726,Oakwood Academy,HI,15001,mental_health,67.5,47.5,Identified mental health gap in service area
+350012965,Cedar Charter School,NM,35001,healthcare,69.8,79.3,Identified healthcare gap in service area
+120023450,Elm Elementary School,FL,12002,mental_health,76.4,40.4,Identified mental health gap in service area
+120032687,Kennedy Middle School,FL,12003,dental,94.1,53.3,Identified dental gap in service area
+270025014,Jefferson Middle School,MN,27002,dental,83.9,68.0,Identified dental gap in service area
+270025014,Jefferson Middle School,MN,27002,food_access,63.3,68.0,Identified food access gap in service area
+060011813,Riverside Junior High School,CA,06001,healthcare,35.7,65.0,Identified healthcare gap in service area
+060011813,Riverside Junior High School,CA,06001,mental_health,45.6,65.0,Identified mental health gap in service area
+130034562,Unity Middle School,GA,13003,dental,52.9,56.0,Identified dental gap in service area
+130034562,Unity Middle School,GA,13003,mental_health,20.6,56.0,Identified mental health gap in service area
+130034562,Unity Middle School,GA,13003,healthcare,73.2,56.0,Identified healthcare gap in service area
+020022036,Monroe Charter School,AK,02002,mental_health,38.6,51.6,Identified mental health gap in service area
+020022036,Monroe Charter School,AK,02002,healthcare,85.9,51.6,Identified healthcare gap in service area
+280045521,Wilson Junior High School,MS,28004,healthcare,44.5,17.8,Identified healthcare gap in service area
+280045521,Wilson Junior High School,MS,28004,mental_health,81.3,17.8,Identified mental health gap in service area
+330017321,Liberty Middle School,NH,33001,food_access,90.5,45.8,Identified food access gap in service area
+330017321,Liberty Middle School,NH,33001,mental_health,90.3,45.8,Identified mental health gap in service area
+330017321,Liberty Middle School,NH,33001,healthcare,21.1,45.8,Identified healthcare gap in service area
+400025915,Washington Middle School,OK,40002,mental_health,63.7,67.3,Identified mental health gap in service area
+440031401,Central High School,RI,44003,dental,37.3,83.2,Identified dental gap in service area
+440031401,Central High School,RI,44003,food_access,22.4,83.2,Identified food access gap in service area
+230029741,Highland Magnet School,ME,23002,healthcare,86.1,27.7,Identified healthcare gap in service area
+230029741,Highland Magnet School,ME,23002,food_access,51.6,27.7,Identified food access gap in service area
+240026861,Twain Junior High School,MD,24002,food_access,89.9,56.6,Identified food access gap in service area
+240026861,Twain Junior High School,MD,24002,mental_health,28.8,56.6,Identified mental health gap in service area
+260043275,Lincoln Junior High School,MI,26004,dental,24.0,29.7,Identified dental gap in service area
+050012391,Valley Middle School,AR,05001,mental_health,73.8,52.0,Identified mental health gap in service area
+050012391,Valley Middle School,AR,05001,dental,61.8,52.0,Identified dental gap in service area
+050012391,Valley Middle School,AR,05001,food_access,82.6,52.0,Identified food access gap in service area
+100026614,Brookside Elementary,DE,10002,mental_health,61.6,20.3,Identified mental health gap in service area
+490018360,Emerson Charter School,UT,49001,mental_health,70.7,65.9,Identified mental health gap in service area
+490018360,Emerson Charter School,UT,49001,healthcare,76.8,65.9,Identified healthcare gap in service area
+090021881,Washington Preparatory School,CT,09002,mental_health,54.9,62.6,Identified mental health gap in service area
+090021881,Washington Preparatory School,CT,09002,food_access,82.1,62.6,Identified food access gap in service area
+060045237,Unity Primary School,CA,06004,dental,74.9,25.7,Identified dental gap in service area
+060045237,Unity Primary School,CA,06004,healthcare,34.7,25.7,Identified healthcare gap in service area
+500019350,Fairview High School,VT,50001,dental,16.4,69.1,Identified dental gap in service area
+500019350,Fairview High School,VT,50001,food_access,76.2,69.1,Identified food access gap in service area
+500019350,Fairview High School,VT,50001,mental_health,88.2,69.1,Identified mental health gap in service area
+200046143,Highland Preparatory School,KS,20004,healthcare,72.9,79.1,Identified healthcare gap in service area
+330024876,Kennedy High School,NH,33002,mental_health,76.8,87.9,Identified mental health gap in service area
+330024876,Kennedy High School,NH,33002,dental,57.8,87.9,Identified dental gap in service area
+330024876,Kennedy High School,NH,33002,food_access,26.8,87.9,Identified food access gap in service area
+480016615,Hillcrest Magnet School,TX,48001,mental_health,94.6,44.4,Identified mental health gap in service area
+290043406,Southfield High School,MO,29004,food_access,91.7,54.7,Identified food access gap in service area
+290043406,Southfield High School,MO,29004,dental,63.1,54.7,Identified dental gap in service area
+290043406,Southfield High School,MO,29004,healthcare,38.6,54.7,Identified healthcare gap in service area
+170041604,Harmony High School,IL,17004,dental,17.5,77.6,Identified dental gap in service area
+190044962,Willow Junior High School,IA,19004,healthcare,79.3,73.2,Identified healthcare gap in service area
+190044962,Willow Junior High School,IA,19004,mental_health,70.7,73.2,Identified mental health gap in service area
+350025271,Greenfield Elementary School,NM,35002,healthcare,59.1,33.4,Identified healthcare gap in service area
+350025271,Greenfield Elementary School,NM,35002,mental_health,59.4,33.4,Identified mental health gap in service area
+480029058,Brookside Charter School,TX,48002,food_access,70.5,58.9,Identified food access gap in service area
+480029058,Brookside Charter School,TX,48002,healthcare,17.4,58.9,Identified healthcare gap in service area
+370028449,Washington Elementary,NC,37002,food_access,60.7,31.1,Identified food access gap in service area
+400016030,Cedar Charter School,OK,40001,healthcare,15.9,67.2,Identified healthcare gap in service area
+400016030,Cedar Charter School,OK,40001,dental,90.8,67.2,Identified dental gap in service area
+400016030,Cedar Charter School,OK,40001,mental_health,66.3,67.2,Identified mental health gap in service area
+180046021,Monroe Preparatory School,IN,18004,dental,96.2,43.3,Identified dental gap in service area
+180046021,Monroe Preparatory School,IN,18004,food_access,51.8,43.3,Identified food access gap in service area
+280046956,Eastside Preparatory School,MS,28004,food_access,68.7,29.3,Identified food access gap in service area
+310048908,Edison Middle School,NE,31004,mental_health,79.3,52.9,Identified mental health gap in service area
+160029720,Westside Elementary,ID,16002,food_access,49.9,48.1,Identified food access gap in service area
+160029720,Westside Elementary,ID,16002,dental,15.1,48.1,Identified dental gap in service area
+160029720,Westside Elementary,ID,16002,mental_health,68.2,48.1,Identified mental health gap in service area
+120011887,Magnolia Charter School,FL,12001,healthcare,69.7,46.2,Identified healthcare gap in service area
+120011887,Magnolia Charter School,FL,12001,food_access,42.1,46.2,Identified food access gap in service area
+120011887,Magnolia Charter School,FL,12001,mental_health,81.9,46.2,Identified mental health gap in service area
+440031290,Cedar Magnet School,RI,44003,dental,55.6,59.7,Identified dental gap in service area
+410032970,Excellence Preparatory School,OR,41003,mental_health,36.6,71.2,Identified mental health gap in service area
+510042961,Unity Charter School,VA,51004,food_access,35.3,63.8,Identified food access gap in service area
+510042961,Unity Charter School,VA,51004,mental_health,47.6,63.8,Identified mental health gap in service area
+040022559,Washington Academy,AZ,04002,healthcare,37.5,68.7,Identified healthcare gap in service area
+040022559,Washington Academy,AZ,04002,mental_health,50.3,68.7,Identified mental health gap in service area
+040022559,Washington Academy,AZ,04002,food_access,60.6,68.7,Identified food access gap in service area
+080014122,Lincoln Elementary School,CO,08001,dental,74.7,43.1,Identified dental gap in service area
+080014122,Lincoln Elementary School,CO,08001,mental_health,19.2,43.1,Identified mental health gap in service area
+080014122,Lincoln Elementary School,CO,08001,healthcare,44.4,43.1,Identified healthcare gap in service area
+330016558,Pine High School,NH,33001,dental,19.8,83.2,Identified dental gap in service area
+330016558,Pine High School,NH,33001,mental_health,28.3,83.2,Identified mental health gap in service area
+330016558,Pine High School,NH,33001,healthcare,32.6,83.2,Identified healthcare gap in service area
+230046862,Grant Middle School,ME,23004,food_access,95.3,48.3,Identified food access gap in service area
+360019557,Valley Charter School,NY,36001,dental,84.6,80.2,Identified dental gap in service area
+440048906,Sunset High School,RI,44004,food_access,37.6,65.4,Identified food access gap in service area
+440048906,Sunset High School,RI,44004,dental,56.1,65.4,Identified dental gap in service area
+310037272,Emerson Junior High School,NE,31003,healthcare,61.8,48.4,Identified healthcare gap in service area
+310037272,Emerson Junior High School,NE,31003,mental_health,57.8,48.4,Identified mental health gap in service area
+310037272,Emerson Junior High School,NE,31003,dental,40.4,48.4,Identified dental gap in service area
+340027987,Spring Preparatory School,NJ,34002,mental_health,47.0,18.6,Identified mental health gap in service area
+230023755,Hawthorne High School,ME,23002,dental,16.1,93.0,Identified dental gap in service area
+230023755,Hawthorne High School,ME,23002,mental_health,17.1,93.0,Identified mental health gap in service area
+280042226,Sunrise Junior High School,MS,28004,healthcare,32.4,58.0,Identified healthcare gap in service area
+280042226,Sunrise Junior High School,MS,28004,dental,57.0,58.0,Identified dental gap in service area
+280042226,Sunrise Junior High School,MS,28004,food_access,41.6,58.0,Identified food access gap in service area
+220028675,Madison Preparatory School,LA,22002,dental,34.2,58.2,Identified dental gap in service area
+220028675,Madison Preparatory School,LA,22002,mental_health,40.6,58.2,Identified mental health gap in service area
+120047084,Pine Elementary School,FL,12004,mental_health,85.1,43.7,Identified mental health gap in service area
+120047084,Pine Elementary School,FL,12004,healthcare,77.5,43.7,Identified healthcare gap in service area
+200047302,Twain Magnet School,KS,20004,healthcare,61.0,43.2,Identified healthcare gap in service area
+300022428,Birch Middle School,MT,30002,healthcare,23.9,50.5,Identified healthcare gap in service area
+300022428,Birch Middle School,MT,30002,dental,59.1,50.5,Identified dental gap in service area
+500045842,Lakeview Primary School,VT,50004,dental,58.5,59.4,Identified dental gap in service area
+500045842,Lakeview Primary School,VT,50004,food_access,26.9,59.4,Identified food access gap in service area
+500045842,Lakeview Primary School,VT,50004,healthcare,31.7,59.4,Identified healthcare gap in service area
+200029301,Franklin Charter School,KS,20002,mental_health,39.4,74.8,Identified mental health gap in service area
+200015965,Spring High School,KS,20001,mental_health,44.8,44.3,Identified mental health gap in service area
+200015965,Spring High School,KS,20001,dental,20.6,44.3,Identified dental gap in service area
+200015965,Spring High School,KS,20001,healthcare,22.2,44.3,Identified healthcare gap in service area
+410046763,Sunrise Elementary School,OR,41004,healthcare,64.9,87.9,Identified healthcare gap in service area
+410046763,Sunrise Elementary School,OR,41004,dental,86.4,87.9,Identified dental gap in service area
+410046763,Sunrise Elementary School,OR,41004,food_access,16.2,87.9,Identified food access gap in service area
+040036916,Brookside Magnet School,AZ,04003,food_access,62.9,60.0,Identified food access gap in service area
+040036916,Brookside Magnet School,AZ,04003,mental_health,20.2,60.0,Identified mental health gap in service area
+390028675,Hillcrest Academy,OH,39002,mental_health,61.9,50.4,Identified mental health gap in service area
+350014197,Washington Elementary,NM,35001,healthcare,78.1,48.8,Identified healthcare gap in service area
+350014197,Washington Elementary,NM,35001,mental_health,26.6,48.8,Identified mental health gap in service area
+350014197,Washington Elementary,NM,35001,dental,61.3,48.8,Identified dental gap in service area
+310027778,Roosevelt Elementary,NE,31002,dental,96.9,58.6,Identified dental gap in service area
+310027778,Roosevelt Elementary,NE,31002,mental_health,47.3,58.6,Identified mental health gap in service area
+310027778,Roosevelt Elementary,NE,31002,food_access,50.7,58.6,Identified food access gap in service area
+080022659,Autumn Preparatory School,CO,08002,dental,89.4,67.0,Identified dental gap in service area
+080022659,Autumn Preparatory School,CO,08002,healthcare,84.5,67.0,Identified healthcare gap in service area
+080022659,Autumn Preparatory School,CO,08002,food_access,89.2,67.0,Identified food access gap in service area
+280034270,Martin Luther King Jr. Elementary School,MS,28003,healthcare,32.6,42.9,Identified healthcare gap in service area
+280034270,Martin Luther King Jr. Elementary School,MS,28003,mental_health,65.8,42.9,Identified mental health gap in service area
+560021020,Excellence Academy,WY,56002,food_access,53.3,57.3,Identified food access gap in service area
+560021020,Excellence Academy,WY,56002,mental_health,39.1,57.3,Identified mental health gap in service area
+020038563,Freedom Academy,AK,02003,food_access,57.4,63.7,Identified food access gap in service area
+020038563,Freedom Academy,AK,02003,healthcare,48.8,63.7,Identified healthcare gap in service area
+020038563,Freedom Academy,AK,02003,mental_health,28.4,63.7,Identified mental health gap in service area
+410015815,Hillcrest Junior High School,OR,41001,food_access,73.6,49.7,Identified food access gap in service area
+410015815,Hillcrest Junior High School,OR,41001,mental_health,30.0,49.7,Identified mental health gap in service area
+410015815,Hillcrest Junior High School,OR,41001,dental,77.4,49.7,Identified dental gap in service area
+320026002,Centennial Academy,NV,32002,food_access,87.8,76.0,Identified food access gap in service area
+380039172,Pine Junior High School,ND,38003,healthcare,92.5,27.4,Identified healthcare gap in service area
+380039172,Pine Junior High School,ND,38003,food_access,61.4,27.4,Identified food access gap in service area
+270015593,Edison Preparatory School,MN,27001,mental_health,33.5,80.7,Identified mental health gap in service area
+270015593,Edison Preparatory School,MN,27001,healthcare,87.0,80.7,Identified healthcare gap in service area
+270015593,Edison Preparatory School,MN,27001,dental,21.4,80.7,Identified dental gap in service area
+530035584,Longfellow Elementary School,WA,53003,dental,43.3,54.1,Identified dental gap in service area
+530035584,Longfellow Elementary School,WA,53003,healthcare,83.8,54.1,Identified healthcare gap in service area
+120035655,Cedar High School,FL,12003,dental,20.9,22.3,Identified dental gap in service area
+120035655,Cedar High School,FL,12003,food_access,26.3,22.3,Identified food access gap in service area
+470016792,Pioneer Academy,TN,47001,food_access,19.9,50.1,Identified food access gap in service area
+470016792,Pioneer Academy,TN,47001,healthcare,28.0,50.1,Identified healthcare gap in service area
+470016792,Pioneer Academy,TN,47001,mental_health,95.5,50.1,Identified mental health gap in service area
+240036431,Excellence Charter School,MD,24003,mental_health,37.4,45.2,Identified mental health gap in service area
+240036431,Excellence Charter School,MD,24003,food_access,44.7,45.2,Identified food access gap in service area
+410013203,Westside Academy,OR,41001,food_access,32.4,48.7,Identified food access gap in service area
+410013203,Westside Academy,OR,41001,healthcare,16.1,48.7,Identified healthcare gap in service area
+410013203,Westside Academy,OR,41001,mental_health,51.3,48.7,Identified mental health gap in service area
+090042343,Pioneer Preparatory School,CT,09004,dental,37.1,86.3,Identified dental gap in service area
+090042343,Pioneer Preparatory School,CT,09004,healthcare,64.6,86.3,Identified healthcare gap in service area
+090042343,Pioneer Preparatory School,CT,09004,mental_health,70.0,86.3,Identified mental health gap in service area
+190048777,Southfield Junior High School,IA,19004,dental,41.9,59.6,Identified dental gap in service area
+370046206,Willow Primary School,NC,37004,healthcare,91.6,62.0,Identified healthcare gap in service area
+370046206,Willow Primary School,NC,37004,dental,38.4,62.0,Identified dental gap in service area
+230032374,Centennial Primary School,ME,23003,dental,72.9,94.0,Identified dental gap in service area
+230032374,Centennial Primary School,ME,23003,food_access,22.9,94.0,Identified food access gap in service area
+130023931,Sunset Primary School,GA,13002,mental_health,52.6,58.0,Identified mental health gap in service area
+130023931,Sunset Primary School,GA,13002,food_access,78.5,58.0,Identified food access gap in service area
+130023931,Sunset Primary School,GA,13002,healthcare,44.5,58.0,Identified healthcare gap in service area
+390041011,Twain Elementary,OH,39004,mental_health,96.6,27.7,Identified mental health gap in service area
+390041011,Twain Elementary,OH,39004,food_access,41.8,27.7,Identified food access gap in service area
+390041011,Twain Elementary,OH,39004,healthcare,74.8,27.7,Identified healthcare gap in service area
+350042990,Monroe Academy,NM,35004,healthcare,82.8,24.5,Identified healthcare gap in service area
+350042990,Monroe Academy,NM,35004,mental_health,45.3,24.5,Identified mental health gap in service area
+350042990,Monroe Academy,NM,35004,dental,23.7,24.5,Identified dental gap in service area
+300038699,Jackson Academy,MT,30003,healthcare,41.1,57.5,Identified healthcare gap in service area
+210045635,Westside Elementary School,KY,21004,dental,80.3,78.5,Identified dental gap in service area
+210045635,Westside Elementary School,KY,21004,healthcare,60.1,78.5,Identified healthcare gap in service area
+490032962,Hillcrest Elementary School,UT,49003,healthcare,53.2,61.4,Identified healthcare gap in service area
+490032962,Hillcrest Elementary School,UT,49003,food_access,38.8,61.4,Identified food access gap in service area
+050029412,Franklin Preparatory School,AR,05002,dental,68.9,51.0,Identified dental gap in service area
+050029412,Franklin Preparatory School,AR,05002,healthcare,20.0,51.0,Identified healthcare gap in service area
+230019669,Adams Academy,ME,23001,healthcare,60.2,41.8,Identified healthcare gap in service area
+230019669,Adams Academy,ME,23001,mental_health,56.8,41.8,Identified mental health gap in service area
+420028535,Oakwood Primary School,PA,42002,healthcare,86.3,41.4,Identified healthcare gap in service area
+040023161,Spring Preparatory School,AZ,04002,mental_health,51.0,75.3,Identified mental health gap in service area
+260042645,Unity Charter School,MI,26004,healthcare,41.6,71.4,Identified healthcare gap in service area
+260042645,Unity Charter School,MI,26004,dental,94.1,71.4,Identified dental gap in service area
+260042645,Unity Charter School,MI,26004,food_access,19.3,71.4,Identified food access gap in service area
+080023247,Oakwood Middle School,CO,08002,mental_health,46.3,62.9,Identified mental health gap in service area
+080023247,Oakwood Middle School,CO,08002,dental,72.1,62.9,Identified dental gap in service area
+080023247,Oakwood Middle School,CO,08002,food_access,85.9,62.9,Identified food access gap in service area
+040037291,Northview Charter School,AZ,04003,food_access,66.8,36.3,Identified food access gap in service area
+040037291,Northview Charter School,AZ,04003,healthcare,88.5,36.3,Identified healthcare gap in service area
+040037291,Northview Charter School,AZ,04003,dental,26.5,36.3,Identified dental gap in service area
+190034622,Pioneer Academy,IA,19003,dental,43.1,73.2,Identified dental gap in service area
+190034622,Pioneer Academy,IA,19003,healthcare,41.3,73.2,Identified healthcare gap in service area
+480039034,Kennedy Preparatory School,TX,48003,dental,92.9,44.2,Identified dental gap in service area
+480039034,Kennedy Preparatory School,TX,48003,mental_health,68.0,44.2,Identified mental health gap in service area
+090019393,Twain Primary School,CT,09001,food_access,60.1,69.5,Identified food access gap in service area
+090019393,Twain Primary School,CT,09001,mental_health,83.4,69.5,Identified mental health gap in service area
+560036615,Freedom Elementary School,WY,56003,food_access,94.8,78.8,Identified food access gap in service area
+250028580,Meadow Elementary School,MA,25002,food_access,46.3,39.9,Identified food access gap in service area
+250028580,Meadow Elementary School,MA,25002,dental,70.2,39.9,Identified dental gap in service area
+250028580,Meadow Elementary School,MA,25002,healthcare,77.0,39.9,Identified healthcare gap in service area
+080021645,Sunset Elementary,CO,08002,food_access,92.2,84.3,Identified food access gap in service area
+080021645,Sunset Elementary,CO,08002,mental_health,57.4,84.3,Identified mental health gap in service area
+560029841,Southfield Charter School,WY,56002,dental,94.6,100.0,Identified dental gap in service area
+560029841,Southfield Charter School,WY,56002,mental_health,35.8,100.0,Identified mental health gap in service area
+560029841,Southfield Charter School,WY,56002,food_access,49.7,100.0,Identified food access gap in service area
+470043331,Lincoln Academy,TN,47004,food_access,67.5,66.2,Identified food access gap in service area
+250041719,Roosevelt Academy,MA,25004,food_access,71.8,82.2,Identified food access gap in service area
+390024282,Innovation Junior High School,OH,39002,mental_health,61.5,69.9,Identified mental health gap in service area
+390024282,Innovation Junior High School,OH,39002,food_access,51.8,69.9,Identified food access gap in service area
+340021418,Kennedy Junior High School,NJ,34002,food_access,62.4,56.0,Identified food access gap in service area
+340021418,Kennedy Junior High School,NJ,34002,dental,87.0,56.0,Identified dental gap in service area
+340021418,Kennedy Junior High School,NJ,34002,healthcare,91.2,56.0,Identified healthcare gap in service area
+530049584,Heritage Primary School,WA,53004,food_access,22.5,71.3,Identified food access gap in service area
+530049584,Heritage Primary School,WA,53004,healthcare,80.9,71.3,Identified healthcare gap in service area
+530049584,Heritage Primary School,WA,53004,dental,94.9,71.3,Identified dental gap in service area
+020011519,Martin Luther King Jr. Charter School,AK,02001,food_access,87.0,37.9,Identified food access gap in service area
+020011519,Martin Luther King Jr. Charter School,AK,02001,healthcare,78.4,37.9,Identified healthcare gap in service area
+020011519,Martin Luther King Jr. Charter School,AK,02001,mental_health,86.0,37.9,Identified mental health gap in service area
+390013301,Innovation Middle School,OH,39001,mental_health,35.0,49.0,Identified mental health gap in service area
+150033459,Monroe High School,HI,15003,mental_health,90.6,52.4,Identified mental health gap in service area
+150033459,Monroe High School,HI,15003,dental,44.9,52.4,Identified dental gap in service area
+150033459,Monroe High School,HI,15003,healthcare,43.4,52.4,Identified healthcare gap in service area
+300047765,Greenfield Charter School,MT,30004,healthcare,65.9,42.8,Identified healthcare gap in service area
+300047765,Greenfield Charter School,MT,30004,mental_health,41.4,42.8,Identified mental health gap in service area
+280046690,Autumn Magnet School,MS,28004,food_access,78.6,54.4,Identified food access gap in service area
+280046690,Autumn Magnet School,MS,28004,healthcare,19.2,54.4,Identified healthcare gap in service area
+280046690,Autumn Magnet School,MS,28004,dental,34.3,54.4,Identified dental gap in service area
+310015263,Pioneer Primary School,NE,31001,food_access,31.9,67.7,Identified food access gap in service area
+310015263,Pioneer Primary School,NE,31001,healthcare,90.9,67.7,Identified healthcare gap in service area
+320012805,Emerson Elementary School,NV,32001,food_access,30.8,48.2,Identified food access gap in service area
+320012805,Emerson Elementary School,NV,32001,dental,70.4,48.2,Identified dental gap in service area
+320012805,Emerson Elementary School,NV,32001,mental_health,87.3,48.2,Identified mental health gap in service area
+210031587,Elm Preparatory School,KY,21003,mental_health,96.7,7.2,Identified mental health gap in service area
+090046131,Emerson Academy,CT,09004,dental,23.3,74.8,Identified dental gap in service area
+090046131,Emerson Academy,CT,09004,food_access,83.8,74.8,Identified food access gap in service area
+090046131,Emerson Academy,CT,09004,mental_health,56.8,74.8,Identified mental health gap in service area
+550039078,Edison High School,WI,55003,dental,22.7,70.9,Identified dental gap in service area
+550039078,Edison High School,WI,55003,mental_health,27.3,70.9,Identified mental health gap in service area
+550039078,Edison High School,WI,55003,healthcare,76.3,70.9,Identified healthcare gap in service area
+480046356,Harmony Charter School,TX,48004,healthcare,49.7,81.2,Identified healthcare gap in service area
+480046356,Harmony Charter School,TX,48004,mental_health,85.6,81.2,Identified mental health gap in service area
+220049278,Adams Elementary School,LA,22004,mental_health,39.3,30.2,Identified mental health gap in service area
+220049278,Adams Elementary School,LA,22004,food_access,66.9,30.2,Identified food access gap in service area
+120041118,Sunset Magnet School,FL,12004,dental,19.2,59.3,Identified dental gap in service area
+120041118,Sunset Magnet School,FL,12004,food_access,71.4,59.3,Identified food access gap in service area
+270033110,Meadow Academy,MN,27003,food_access,62.9,78.9,Identified food access gap in service area
+270033110,Meadow Academy,MN,27003,healthcare,85.6,78.9,Identified healthcare gap in service area
+270033110,Meadow Academy,MN,27003,mental_health,60.2,78.9,Identified mental health gap in service area
+080021323,Franklin Middle School,CO,08002,mental_health,47.8,65.7,Identified mental health gap in service area
+260018270,Harmony Magnet School,MI,26001,food_access,21.5,45.1,Identified food access gap in service area
+260018270,Harmony Magnet School,MI,26001,dental,31.8,45.1,Identified dental gap in service area
+260018270,Harmony Magnet School,MI,26001,healthcare,16.4,45.1,Identified healthcare gap in service area
+190036832,Franklin Preparatory School,IA,19003,mental_health,23.6,49.1,Identified mental health gap in service area
+190036832,Franklin Preparatory School,IA,19003,food_access,28.1,49.1,Identified food access gap in service area
+190036832,Franklin Preparatory School,IA,19003,healthcare,47.7,49.1,Identified healthcare gap in service area
+280036751,Freedom Charter School,MS,28003,healthcare,34.6,52.3,Identified healthcare gap in service area
+020027483,Eastside Junior High School,AK,02002,dental,40.9,64.2,Identified dental gap in service area
+260046514,Southfield Magnet School,MI,26004,mental_health,80.0,73.2,Identified mental health gap in service area
+470012770,Elm Charter School,TN,47001,dental,67.4,60.4,Identified dental gap in service area
+470012770,Elm Charter School,TN,47001,food_access,50.9,60.4,Identified food access gap in service area
+470012770,Elm Charter School,TN,47001,healthcare,97.9,60.4,Identified healthcare gap in service area
+510036162,Spring Middle School,VA,51003,food_access,17.9,41.8,Identified food access gap in service area
+510036162,Spring Middle School,VA,51003,mental_health,93.3,41.8,Identified mental health gap in service area
+540028482,Discovery Junior High School,WV,54002,healthcare,47.2,56.7,Identified healthcare gap in service area
+040042934,Innovation Elementary School,AZ,04004,dental,50.8,34.9,Identified dental gap in service area
+160038132,Meadow Magnet School,ID,16003,mental_health,45.1,59.1,Identified mental health gap in service area
+320014584,Greenfield Magnet School,NV,32001,mental_health,39.1,60.0,Identified mental health gap in service area
+320014584,Greenfield Magnet School,NV,32001,healthcare,15.2,60.0,Identified healthcare gap in service area
+280038031,Grant Elementary,MS,28003,mental_health,27.6,49.1,Identified mental health gap in service area
+280038031,Grant Elementary,MS,28003,food_access,89.3,49.1,Identified food access gap in service area
+280038031,Grant Elementary,MS,28003,dental,44.2,49.1,Identified dental gap in service area
+490013651,Autumn Charter School,UT,49001,healthcare,57.5,49.8,Identified healthcare gap in service area
+250024058,Grant Middle School,MA,25002,dental,46.8,48.3,Identified dental gap in service area
+250024058,Grant Middle School,MA,25002,healthcare,96.5,48.3,Identified healthcare gap in service area
+250024058,Grant Middle School,MA,25002,mental_health,49.4,48.3,Identified mental health gap in service area
+360011855,Madison Primary School,NY,36001,healthcare,30.2,56.9,Identified healthcare gap in service area
+300033885,Martin Luther King Jr. High School,MT,30003,healthcare,49.8,31.5,Identified healthcare gap in service area
+300033885,Martin Luther King Jr. High School,MT,30003,food_access,16.5,31.5,Identified food access gap in service area
+440022445,Westside Junior High School,RI,44002,dental,36.7,36.7,Identified dental gap in service area
+390049604,Monroe High School,OH,39004,mental_health,90.4,71.5,Identified mental health gap in service area
+390049604,Monroe High School,OH,39004,healthcare,74.7,71.5,Identified healthcare gap in service area
+390049604,Monroe High School,OH,39004,dental,89.0,71.5,Identified dental gap in service area
+330048843,Pleasant Middle School,NH,33004,mental_health,38.0,87.3,Identified mental health gap in service area
+450018348,Monroe Middle School,SC,45001,dental,47.3,81.1,Identified dental gap in service area
+490016163,Pioneer Junior High School,UT,49001,mental_health,96.9,47.7,Identified mental health gap in service area
+490016163,Pioneer Junior High School,UT,49001,food_access,87.5,47.7,Identified food access gap in service area
+050028404,Twain Elementary,AR,05002,food_access,90.5,80.4,Identified food access gap in service area
+410014700,Cedar Academy,OR,41001,mental_health,87.6,64.7,Identified mental health gap in service area
+410014700,Cedar Academy,OR,41001,healthcare,90.6,64.7,Identified healthcare gap in service area
+420016592,Central Preparatory School,PA,42001,food_access,79.3,27.7,Identified food access gap in service area
+420016592,Central Preparatory School,PA,42001,healthcare,62.5,27.7,Identified healthcare gap in service area
+400023491,Sunrise Junior High School,OK,40002,mental_health,36.1,37.0,Identified mental health gap in service area
+400023491,Sunrise Junior High School,OK,40002,dental,84.3,37.0,Identified dental gap in service area
+270021886,Centennial Preparatory School,MN,27002,healthcare,68.3,65.3,Identified healthcare gap in service area
+270021886,Centennial Preparatory School,MN,27002,dental,16.3,65.3,Identified dental gap in service area
+530037978,Kennedy High School,WA,53003,food_access,57.8,73.3,Identified food access gap in service area
+530037978,Kennedy High School,WA,53003,mental_health,17.0,73.3,Identified mental health gap in service area
+550046254,Adams Elementary,WI,55004,healthcare,97.2,66.0,Identified healthcare gap in service area
+530013336,Hillcrest Academy,WA,53001,healthcare,51.9,59.3,Identified healthcare gap in service area
+530013336,Hillcrest Academy,WA,53001,food_access,36.0,59.3,Identified food access gap in service area
+530013336,Hillcrest Academy,WA,53001,mental_health,43.2,59.3,Identified mental health gap in service area
+260048648,Monroe Elementary,MI,26004,food_access,79.4,92.9,Identified food access gap in service area
+360049813,Meadow Academy,NY,36004,healthcare,52.8,33.0,Identified healthcare gap in service area
+360049813,Meadow Academy,NY,36004,food_access,78.1,33.0,Identified food access gap in service area
+040019115,Sunset Primary School,AZ,04001,mental_health,82.3,56.1,Identified mental health gap in service area
+040019115,Sunset Primary School,AZ,04001,dental,29.2,56.1,Identified dental gap in service area
+200045036,Longfellow High School,KS,20004,food_access,28.0,67.8,Identified food access gap in service area
+200045036,Longfellow High School,KS,20004,dental,83.1,67.8,Identified dental gap in service area
+200045036,Longfellow High School,KS,20004,healthcare,29.9,67.8,Identified healthcare gap in service area
+470028154,Achievement Primary School,TN,47002,healthcare,18.9,55.5,Identified healthcare gap in service area
+470028154,Achievement Primary School,TN,47002,food_access,63.7,55.5,Identified food access gap in service area
+470028154,Achievement Primary School,TN,47002,dental,98.0,55.5,Identified dental gap in service area
+500027703,Adams Preparatory School,VT,50002,food_access,85.1,71.1,Identified food access gap in service area
+500027703,Adams Preparatory School,VT,50002,healthcare,87.5,71.1,Identified healthcare gap in service area
+180017162,Innovation High School,IN,18001,healthcare,49.6,66.6,Identified healthcare gap in service area
+180017162,Innovation High School,IN,18001,dental,50.7,66.6,Identified dental gap in service area
+180017162,Innovation High School,IN,18001,mental_health,42.7,66.6,Identified mental health gap in service area
+540047374,Monroe Junior High School,WV,54004,mental_health,78.0,53.0,Identified mental health gap in service area
+080018496,Jackson Magnet School,CO,08001,food_access,26.3,58.0,Identified food access gap in service area
+080018496,Jackson Magnet School,CO,08001,mental_health,77.2,58.0,Identified mental health gap in service area
+440048617,Innovation High School,RI,44004,healthcare,34.8,44.8,Identified healthcare gap in service area
+440048617,Innovation High School,RI,44004,dental,35.5,44.8,Identified dental gap in service area
+440048617,Innovation High School,RI,44004,food_access,95.0,44.8,Identified food access gap in service area
+010019525,Cedar Middle School,AL,01001,mental_health,18.8,61.2,Identified mental health gap in service area
+270023501,Horizon Academy,MN,27002,dental,35.8,51.1,Identified dental gap in service area
+380031836,Westside Middle School,ND,38003,food_access,61.6,36.7,Identified food access gap in service area
+380031836,Westside Middle School,ND,38003,healthcare,57.0,36.7,Identified healthcare gap in service area
+410044741,Southfield Charter School,OR,41004,mental_health,78.0,45.3,Identified mental health gap in service area
+410044741,Southfield Charter School,OR,41004,healthcare,92.3,45.3,Identified healthcare gap in service area
+190048011,Grant Middle School,IA,19004,food_access,44.4,41.5,Identified food access gap in service area
+190048011,Grant Middle School,IA,19004,dental,32.5,41.5,Identified dental gap in service area
+190048011,Grant Middle School,IA,19004,mental_health,63.5,41.5,Identified mental health gap in service area
+550021104,Madison Magnet School,WI,55002,food_access,61.7,62.8,Identified food access gap in service area
+550021104,Madison Magnet School,WI,55002,mental_health,44.6,62.8,Identified mental health gap in service area
+390028084,Spring Elementary School,OH,39002,healthcare,96.8,50.0,Identified healthcare gap in service area
+390028084,Spring Elementary School,OH,39002,dental,58.4,50.0,Identified dental gap in service area
+390028084,Spring Elementary School,OH,39002,mental_health,68.2,50.0,Identified mental health gap in service area
+100048517,Heritage Elementary,DE,10004,mental_health,61.2,49.9,Identified mental health gap in service area
+200031981,Magnolia Academy,KS,20003,food_access,57.8,28.2,Identified food access gap in service area
+200031981,Magnolia Academy,KS,20003,healthcare,82.4,28.2,Identified healthcare gap in service area
+200031981,Magnolia Academy,KS,20003,mental_health,42.6,28.2,Identified mental health gap in service area
+200012666,Harmony High School,KS,20001,mental_health,92.8,56.8,Identified mental health gap in service area

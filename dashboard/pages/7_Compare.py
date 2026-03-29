@@ -29,6 +29,12 @@ st.markdown(
 
 PALETTE = ["#2E86AB", "#A23B72", "#F18F01", "#3BB273", "#C73E1D"]
 
+
+def _hex_rgb(hex_color: str) -> str:
+    """Convert '#2E86AB' to '46,134,171' for rgba() usage."""
+    h = hex_color.lstrip("#")
+    return ",".join(str(int(h[i : i + 2], 16)) for i in (0, 2, 4))
+
 compare_mode = st.radio(
     "Compare",
     ["Schools", "Counties"],
@@ -374,9 +380,3 @@ else:
         use_container_width=True,
         hide_index=True,
     )
-
-
-def _hex_rgb(hex_color: str) -> str:
-    """Convert '#2E86AB' to '46,134,171' for rgba() usage."""
-    h = hex_color.lstrip("#")
-    return ",".join(str(int(h[i : i + 2], 16)) for i in (0, 2, 4))

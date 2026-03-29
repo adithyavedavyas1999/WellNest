@@ -64,7 +64,7 @@ BRIEF_BATCH_SIZE = int(os.environ.get("BRIEF_BATCH_SIZE", "50"))
     ),
 )
 def ai_rag_index(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
     openai: OpenAIResource,
 ) -> MaterializeResult:
@@ -175,7 +175,7 @@ def ai_rag_index(
     ),
 )
 def ai_community_briefs(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
     openai: OpenAIResource,
 ) -> MaterializeResult:
@@ -235,7 +235,7 @@ def ai_community_briefs(
     ),
 )
 def ai_quality_validation(
-    context: AssetExecutionContext,
+    context,
     postgres: PostgresResource,
     openai: OpenAIResource,
 ) -> MaterializeResult:

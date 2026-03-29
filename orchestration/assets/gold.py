@@ -47,7 +47,7 @@ GOLD_TAGS = {"layer": "gold", "pipeline": "transformation"}
     ),
 )
 def gold_education_pillar(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -74,7 +74,7 @@ def gold_education_pillar(
     ),
 )
 def gold_health_pillar(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -101,7 +101,7 @@ def gold_health_pillar(
     ),
 )
 def gold_environment_pillar(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -128,7 +128,7 @@ def gold_environment_pillar(
     ),
 )
 def gold_safety_pillar(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -155,7 +155,7 @@ def gold_safety_pillar(
     ),
 )
 def gold_economic_pillar(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -193,7 +193,7 @@ def gold_economic_pillar(
     ),
 )
 def gold_child_wellbeing_score(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -231,7 +231,7 @@ def gold_child_wellbeing_score(
     ),
 )
 def gold_county_summary(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -258,7 +258,7 @@ def gold_county_summary(
     ),
 )
 def gold_state_ranking(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:
@@ -285,7 +285,7 @@ def gold_state_ranking(
     ),
 )
 def gold_tract_summary(
-    context: AssetExecutionContext,
+    context,
     dbt: DbtResource,
     postgres: PostgresResource,
 ) -> MaterializeResult:

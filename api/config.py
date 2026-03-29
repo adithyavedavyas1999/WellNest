@@ -73,3 +73,9 @@ class Settings(BaseSettings):
 def get_settings() -> Settings:
     """Cached singleton so we only parse env once per process."""
     return Settings()
+
+
+# Compat shim for tests that patch Settings.reports_output_dir at class level.
+# Pydantic v2 fields are instance-only, so exposing a class attribute avoids
+# AttributeError when unittest.mock.patch targets the class.
+Settings.reports_output_dir = "./reports/output"  # type: ignore[attr-defined]

@@ -13,19 +13,11 @@ Partitioning strategy:
   - Daily-granularity: NOAA NWS alerts (ephemeral, appended each run)
 """
 
-from __future__ import annotations
-
 from datetime import datetime, timezone
 from typing import Any
 
 import structlog
-from dagster import (
-    AssetExecutionContext,
-    MaterializeResult,
-    MetadataValue,
-    StaticPartitionsDefinition,
-    asset,
-)
+from dagster import MaterializeResult, MetadataValue, OpExecutionContext, StaticPartitionsDefinition, asset
 
 from orchestration.resources import HttpClientResource, PostgresResource, WellNestConfig
 
@@ -72,10 +64,7 @@ def _bronze_metadata(row_count: int, source: str, **extra: Any) -> dict[str, Any
     ),
     metadata={"source_url": "https://nces.ed.gov/ccd/files.asp"},
 )
-def bronze_nces_ccd(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
-) -> MaterializeResult:
+def bronze_nces_ccd(context: OpExecutionContext, postgres: PostgresResource) -> MaterializeResult:
     from ingestion.sources.nces_ccd import NCESCCDConnector
 
     year = context.partition_key
@@ -101,10 +90,7 @@ def bronze_nces_ccd(
         "NCESSCH downstream in the silver layer."
     ),
 )
-def bronze_nces_edge(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
-) -> MaterializeResult:
+def bronze_nces_edge(context: OpExecutionContext, postgres: PostgresResource) -> MaterializeResult:
     from ingestion.sources.nces_edge import NCESEdgeConnector
 
     connector = NCESEdgeConnector()
@@ -127,10 +113,7 @@ def bronze_nces_edge(
         "~800K tract rows + ~90K county rows.  Socrata-based API, no auth."
     ),
 )
-def bronze_cdc_places(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
-) -> MaterializeResult:
+def bronze_cdc_places(context: OpExecutionContext, postgres: PostgresResource) -> MaterializeResult:
     from ingestion.sources.cdc_places import CDCPlacesConnector
 
     connector = CDCPlacesConnector()
@@ -154,8 +137,7 @@ def bronze_cdc_places(
     ),
 )
 def bronze_cdc_env_health(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
+    context: OpExecutionContext, postgres: PostgresResource
 ) -> MaterializeResult:
     from ingestion.sources.cdc_env_health import CDCEnvHealthConnector
 
@@ -181,10 +163,7 @@ def bronze_cdc_env_health(
     ),
     metadata={"source_url": "https://api.census.gov/data.html"},
 )
-def bronze_census_acs(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
-) -> MaterializeResult:
+def bronze_census_acs(context: OpExecutionContext, postgres: PostgresResource) -> MaterializeResult:
     from ingestion.sources.census_acs import CensusACSConnector
 
     year = int(context.partition_key)
@@ -210,10 +189,7 @@ def bronze_census_acs(
         "(2020-2022 by default).  Used for Environment pillar scoring."
     ),
 )
-def bronze_epa_airnow(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
-) -> MaterializeResult:
+def bronze_epa_airnow(context: OpExecutionContext, postgres: PostgresResource) -> MaterializeResult:
     from ingestion.sources.epa_airnow import EPAAirNowConnector
 
     connector = EPAAirNowConnector()
@@ -236,10 +212,7 @@ def bronze_epa_airnow(
         "shortage areas.  HPSA score is a key input for the Health & Resources pillar."
     ),
 )
-def bronze_hrsa_hpsa(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
-) -> MaterializeResult:
+def bronze_hrsa_hpsa(context: OpExecutionContext, postgres: PostgresResource) -> MaterializeResult:
     from ingestion.sources.hrsa_hpsa import HRSAHPSAConnector
 
     connector = HRSAHPSAConnector()
@@ -262,10 +235,7 @@ def bronze_hrsa_hpsa(
         "underserved.  Joined to tracts in silver layer."
     ),
 )
-def bronze_hrsa_mua(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
-) -> MaterializeResult:
+def bronze_hrsa_mua(context: OpExecutionContext, postgres: PostgresResource) -> MaterializeResult:
     from ingestion.sources.hrsa_mua import HRSAMUAConnector
 
     connector = HRSAMUAConnector()
@@ -289,8 +259,7 @@ def bronze_hrsa_mua(
     ),
 )
 def bronze_usda_food_access(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
+    context: OpExecutionContext, postgres: PostgresResource
 ) -> MaterializeResult:
     from ingestion.sources.usda_food_access import USDAFoodAccessConnector
 
@@ -314,10 +283,7 @@ def bronze_usda_food_access(
         "US counties.  Used in Environment and Safety pillars."
     ),
 )
-def bronze_fema_nri(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
-) -> MaterializeResult:
+def bronze_fema_nri(context: OpExecutionContext, postgres: PostgresResource) -> MaterializeResult:
     from ingestion.sources.fema_nri import FEMANRIConnector
 
     connector = FEMANRIConnector()
@@ -341,8 +307,7 @@ def bronze_fema_nri(
     ),
 )
 def bronze_noaa_nws_alerts(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
+    context: OpExecutionContext, postgres: PostgresResource
 ) -> MaterializeResult:
     from ingestion.sources.noaa_nws_alerts import NOAANWSAlertsConnector
 
@@ -371,16 +336,13 @@ def bronze_noaa_nws_alerts(
         "Note: NIBRS transition in 2021 means coverage drops significantly."
     ),
 )
-def bronze_fbi_ucr(
-    context: AssetExecutionContext,
-    postgres: PostgresResource,
-) -> MaterializeResult:
+def bronze_fbi_ucr(context: OpExecutionContext, postgres: PostgresResource) -> MaterializeResult:
     from ingestion.sources.fbi_ucr import FBIUCRConnector
 
     year = int(context.partition_key)
     context.log.info(f"Ingesting FBI UCR data for {year}")
 
-    connector = FBIUCRConnector(year=year)
+    connector = FBIUCRConnector(years=[year])
     row_count = connector.run()
 
     return MaterializeResult(
@@ -406,3 +368,21 @@ ALL_BRONZE_ASSETS: list = [
     bronze_noaa_nws_alerts,
     bronze_fbi_ucr,
 ]
+
+# Keep a stable handle to Dagster asset definitions for Definitions wiring.
+BRONZE_ASSET_DEFS = ALL_BRONZE_ASSETS
+
+# Test helpers: expose plain callables for direct unit/integration invocation.
+# Dagster-decorated AssetsDefinition objects are awkward to call directly in tests.
+bronze_nces_ccd = BRONZE_ASSET_DEFS[0].op.compute_fn.decorated_fn
+bronze_nces_edge = BRONZE_ASSET_DEFS[1].op.compute_fn.decorated_fn
+bronze_cdc_places = BRONZE_ASSET_DEFS[2].op.compute_fn.decorated_fn
+bronze_cdc_env_health = BRONZE_ASSET_DEFS[3].op.compute_fn.decorated_fn
+bronze_census_acs = BRONZE_ASSET_DEFS[4].op.compute_fn.decorated_fn
+bronze_epa_airnow = BRONZE_ASSET_DEFS[5].op.compute_fn.decorated_fn
+bronze_hrsa_hpsa = BRONZE_ASSET_DEFS[6].op.compute_fn.decorated_fn
+bronze_hrsa_mua = BRONZE_ASSET_DEFS[7].op.compute_fn.decorated_fn
+bronze_usda_food_access = BRONZE_ASSET_DEFS[8].op.compute_fn.decorated_fn
+bronze_fema_nri = BRONZE_ASSET_DEFS[9].op.compute_fn.decorated_fn
+bronze_noaa_nws_alerts = BRONZE_ASSET_DEFS[10].op.compute_fn.decorated_fn
+bronze_fbi_ucr = BRONZE_ASSET_DEFS[11].op.compute_fn.decorated_fn

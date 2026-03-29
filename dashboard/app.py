@@ -329,7 +329,7 @@ with col_chart:
         plot_bgcolor="rgba(0,0,0,0)",
         font={"family": "Inter, sans-serif", "color": "#2D3436"},
         xaxis={"tickfont": {"size": 12}},
-        yaxis={"gridcolor": "#E8ECF1", "title": "Schools", "titlefont": {"size": 12}},
+        yaxis={"gridcolor": "#E8ECF1", "title": "Schools", "title_font": {"size": 12}},
         showlegend=False,
     )
     st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
@@ -430,7 +430,7 @@ if not pillar_avgs.empty:
             "range": [0, 100],
             "gridcolor": "#E8ECF1",
             "title": "Score",
-            "titlefont": {"size": 12},
+            "title_font": {"size": 12},
         },
         xaxis={"tickfont": {"size": 12}},
         bargap=0.4,

@@ -1,0 +1,101 @@
+nces_id,school_name,state,flag_type,flag_reason,confidence,flagged_at
+260018270,Harmony Magnet School,MI,outlier,Composite score deviates >2 std from state mean,0.73,2026-03-18T23:12:38.028607
+120031172,Washington Primary School,FL,missing_data,One or more pillar scores could not be computed due to missing source data,0.74,2026-03-14T23:12:38.028607
+540038559,Birch Junior High School,WV,inconsistency,Education score and enrollment data show conflicting trends,0.87,2026-03-18T23:12:38.028607
+050017870,Edison Magnet School,AR,missing_data,One or more pillar scores could not be computed due to missing source data,0.94,2026-03-23T23:12:38.028607
+400037911,Horizon Charter School,OK,inconsistency,Education score and enrollment data show conflicting trends,0.94,2026-03-21T23:12:38.028607
+380018703,Central Charter School,ND,stale_source,CDC PLACES data for this county is >18 months old,0.68,2026-03-03T23:12:38.028607
+400024972,Riverside High School,OK,outlier,Composite score deviates >2 std from state mean,0.78,2026-03-23T23:12:38.028607
+450037183,Lincoln Elementary School,SC,stale_source,CDC PLACES data for this county is >18 months old,0.9,2026-03-21T23:12:38.028607
+220037799,Southfield Academy,LA,stale_source,CDC PLACES data for this county is >18 months old,0.81,2026-03-29T23:12:38.028607
+260022167,Oakwood Elementary School,MI,missing_data,One or more pillar scores could not be computed due to missing source data,0.84,2026-03-14T23:12:38.028607
+380026417,Achievement Elementary,ND,inconsistency,Education score and enrollment data show conflicting trends,0.87,2026-03-26T23:12:38.028607
+060018066,Fairview High School,CA,outlier,Composite score deviates >2 std from state mean,0.97,2026-03-16T23:12:38.028607
+510021693,Hamilton Charter School,VA,missing_data,One or more pillar scores could not be computed due to missing source data,0.75,2026-03-08T23:12:38.028607
+330019287,Cedar Charter School,NH,inconsistency,Education score and enrollment data show conflicting trends,0.63,2026-03-25T23:12:38.028607
+500033578,Pioneer Junior High School,VT,inconsistency,Education score and enrollment data show conflicting trends,0.9,2026-03-22T23:12:38.028607
+010012923,Ridgewood Preparatory School,AL,outlier,Composite score deviates >2 std from state mean,0.92,2026-03-25T23:12:38.028607
+050028404,Twain Elementary,AR,stale_source,CDC PLACES data for this county is >18 months old,0.95,2026-03-05T23:12:38.028607
+450025970,Southfield Elementary,SC,inconsistency,Education score and enrollment data show conflicting trends,0.62,2026-03-08T23:12:38.028607
+530035584,Longfellow Elementary School,WA,missing_data,One or more pillar scores could not be computed due to missing source data,0.98,2026-03-29T23:12:38.028607
+230017086,Twain Magnet School,ME,missing_data,One or more pillar scores could not be computed due to missing source data,0.71,2026-03-07T23:12:38.028607
+500014302,Centennial High School,VT,missing_data,One or more pillar scores could not be computed due to missing source data,0.67,2026-03-06T23:12:38.028607
+340048138,Hawthorne Elementary,NJ,inconsistency,Education score and enrollment data show conflicting trends,0.63,2026-03-12T23:12:38.028607
+360011855,Madison Primary School,NY,stale_source,CDC PLACES data for this county is >18 months old,0.62,2026-03-03T23:12:38.028607
+020039199,Jackson Magnet School,AK,stale_source,CDC PLACES data for this county is >18 months old,0.7,2026-03-05T23:12:38.028607
+390024282,Innovation Junior High School,OH,stale_source,CDC PLACES data for this county is >18 months old,0.82,2026-03-05T23:12:38.028607
+350012453,Magnolia Academy,NM,missing_data,One or more pillar scores could not be computed due to missing source data,0.92,2026-03-01T23:12:38.028607
+200045036,Longfellow High School,KS,inconsistency,Education score and enrollment data show conflicting trends,0.8,2026-03-14T23:12:38.028607
+120023373,Central High School,FL,outlier,Composite score deviates >2 std from state mean,0.6,2026-03-29T23:12:38.028607
+350025706,Oakwood Elementary,NM,missing_data,One or more pillar scores could not be computed due to missing source data,0.73,2026-03-12T23:12:38.028607
+440022241,Grant High School,RI,missing_data,One or more pillar scores could not be computed due to missing source data,0.73,2026-03-09T23:12:38.028607
+350035423,Central Middle School,NM,missing_data,One or more pillar scores could not be computed due to missing source data,0.81,2026-03-21T23:12:38.028607
+470017440,Washington Middle School,TN,missing_data,One or more pillar scores could not be computed due to missing source data,0.68,2026-03-20T23:12:38.028607
+050012391,Valley Middle School,AR,missing_data,One or more pillar scores could not be computed due to missing source data,0.73,2026-03-28T23:12:38.028607
+340034679,Meadow Primary School,NJ,missing_data,One or more pillar scores could not be computed due to missing source data,0.87,2026-03-01T23:12:38.028607
+560024781,Sunset Elementary,WY,missing_data,One or more pillar scores could not be computed due to missing source data,0.73,2026-02-27T23:12:38.028607
+010022848,Jefferson Charter School,AL,outlier,Composite score deviates >2 std from state mean,0.73,2026-03-09T23:12:38.028607
+300042633,Ridgewood Elementary,MT,inconsistency,Education score and enrollment data show conflicting trends,0.92,2026-03-11T23:12:38.028607
+220023862,Horizon Primary School,LA,missing_data,One or more pillar scores could not be computed due to missing source data,0.85,2026-02-27T23:12:38.028607
+150045659,Hillcrest Junior High School,HI,missing_data,One or more pillar scores could not be computed due to missing source data,0.9,2026-03-27T23:12:38.028607
+550033826,Jackson Junior High School,WI,missing_data,One or more pillar scores could not be computed due to missing source data,0.76,2026-03-16T23:12:38.028607
+180026503,Madison Elementary School,IN,stale_source,CDC PLACES data for this county is >18 months old,0.76,2026-03-01T23:12:38.028607
+480049964,Hawthorne Primary School,TX,outlier,Composite score deviates >2 std from state mean,0.97,2026-03-27T23:12:38.028607
+350027750,Heritage Academy,NM,outlier,Composite score deviates >2 std from state mean,0.96,2026-03-01T23:12:38.028607
+090016876,Horizon Elementary,CT,stale_source,CDC PLACES data for this county is >18 months old,0.95,2026-02-27T23:12:38.028607
+220014458,Hamilton Middle School,LA,inconsistency,Education score and enrollment data show conflicting trends,0.92,2026-03-05T23:12:38.028607
+480049115,Longfellow Academy,TX,stale_source,CDC PLACES data for this county is >18 months old,0.66,2026-03-26T23:12:38.028607
+450031366,Twain Elementary School,SC,outlier,Composite score deviates >2 std from state mean,0.88,2026-03-06T23:12:38.028607
+100025644,Martin Luther King Jr. Academy,DE,stale_source,CDC PLACES data for this county is >18 months old,0.82,2026-03-02T23:12:38.028607
+270023418,Lakeview Charter School,MN,outlier,Composite score deviates >2 std from state mean,0.75,2026-03-24T23:12:38.028607
+340036596,Westside Middle School,NJ,missing_data,One or more pillar scores could not be computed due to missing source data,0.78,2026-03-04T23:12:38.028607
+400049818,Hamilton Charter School,OK,stale_source,CDC PLACES data for this county is >18 months old,0.84,2026-03-03T23:12:38.028607
+340044955,Freedom Preparatory School,NJ,stale_source,CDC PLACES data for this county is >18 months old,0.83,2026-03-07T23:12:38.028607
+150045705,Maple Junior High School,HI,stale_source,CDC PLACES data for this county is >18 months old,0.83,2026-03-02T23:12:38.028607
+180014144,Adams Primary School,IN,outlier,Composite score deviates >2 std from state mean,0.75,2026-03-02T23:12:38.028607
+260023238,Freedom Elementary,MI,outlier,Composite score deviates >2 std from state mean,0.6,2026-03-22T23:12:38.028607
+280045521,Wilson Junior High School,MS,missing_data,One or more pillar scores could not be computed due to missing source data,0.88,2026-03-21T23:12:38.028607
+540041617,Martin Luther King Jr. Magnet School,WV,inconsistency,Education score and enrollment data show conflicting trends,0.74,2026-02-27T23:12:38.028607
+290021339,Adams Elementary School,MO,stale_source,CDC PLACES data for this county is >18 months old,0.79,2026-03-01T23:12:38.028607
+220018974,Twain Junior High School,LA,missing_data,One or more pillar scores could not be computed due to missing source data,0.9,2026-03-17T23:12:38.028607
+540024854,Autumn Primary School,WV,stale_source,CDC PLACES data for this county is >18 months old,0.79,2026-03-02T23:12:38.028607
+330011354,Hamilton High School,NH,missing_data,One or more pillar scores could not be computed due to missing source data,0.68,2026-03-20T23:12:38.028607
+420048317,Elm Magnet School,PA,stale_source,CDC PLACES data for this county is >18 months old,0.93,2026-03-20T23:12:38.028607
+310042989,Pioneer Magnet School,NE,outlier,Composite score deviates >2 std from state mean,0.96,2026-03-11T23:12:38.028607
+190039570,Discovery Magnet School,IA,inconsistency,Education score and enrollment data show conflicting trends,0.71,2026-03-26T23:12:38.028607
+270049625,Unity Preparatory School,MN,inconsistency,Education score and enrollment data show conflicting trends,0.71,2026-03-28T23:12:38.028607
+120022621,Liberty High School,FL,inconsistency,Education score and enrollment data show conflicting trends,0.66,2026-03-06T23:12:38.028607
+410029821,Liberty Preparatory School,OR,stale_source,CDC PLACES data for this county is >18 months old,0.67,2026-03-01T23:12:38.028607
+340027987,Spring Preparatory School,NJ,outlier,Composite score deviates >2 std from state mean,0.9,2026-03-02T23:12:38.028607
+120023450,Elm Elementary School,FL,outlier,Composite score deviates >2 std from state mean,0.61,2026-03-25T23:12:38.028607
+100031852,Monroe Charter School,DE,stale_source,CDC PLACES data for this county is >18 months old,0.95,2026-03-12T23:12:38.028607
+370042812,Meadow Preparatory School,NC,inconsistency,Education score and enrollment data show conflicting trends,0.75,2026-03-26T23:12:38.028607
+350032679,Willow Charter School,NM,outlier,Composite score deviates >2 std from state mean,0.76,2026-03-01T23:12:38.028607
+200047928,Wilson High School,KS,outlier,Composite score deviates >2 std from state mean,0.86,2026-03-11T23:12:38.028607
+370012174,Northview Elementary,NC,stale_source,CDC PLACES data for this county is >18 months old,0.92,2026-02-28T23:12:38.028607
+090019393,Twain Primary School,CT,stale_source,CDC PLACES data for this county is >18 months old,0.79,2026-03-19T23:12:38.028607
+210043525,Adams Preparatory School,KY,inconsistency,Education score and enrollment data show conflicting trends,0.65,2026-03-06T23:12:38.028607
+190019035,Westside Junior High School,IA,missing_data,One or more pillar scores could not be computed due to missing source data,0.87,2026-03-02T23:12:38.028607
+220013985,Pioneer Charter School,LA,outlier,Composite score deviates >2 std from state mean,0.82,2026-03-20T23:12:38.028607
+280044116,Harmony Charter School,MS,missing_data,One or more pillar scores could not be computed due to missing source data,0.8,2026-03-18T23:12:38.028607
+420015466,Oakwood Elementary School,PA,stale_source,CDC PLACES data for this county is >18 months old,0.85,2026-02-28T23:12:38.028607
+020022745,Martin Luther King Jr. Elementary School,AK,stale_source,CDC PLACES data for this county is >18 months old,0.93,2026-03-08T23:12:38.028607
+230028551,Discovery Elementary,ME,inconsistency,Education score and enrollment data show conflicting trends,0.8,2026-03-18T23:12:38.028607
+540013400,Central Elementary School,WV,missing_data,One or more pillar scores could not be computed due to missing source data,0.83,2026-03-29T23:12:38.028607
+290046526,Cedar Elementary School,MO,inconsistency,Education score and enrollment data show conflicting trends,0.84,2026-03-18T23:12:38.028607
+260031118,Pleasant Junior High School,MI,inconsistency,Education score and enrollment data show conflicting trends,0.84,2026-03-24T23:12:38.028607
+480036067,Pleasant Magnet School,TX,stale_source,CDC PLACES data for this county is >18 months old,0.86,2026-03-10T23:12:38.028607
+020026228,Hawthorne Elementary,AK,inconsistency,Education score and enrollment data show conflicting trends,0.92,2026-02-27T23:12:38.028607
+150039952,Madison Charter School,HI,inconsistency,Education score and enrollment data show conflicting trends,0.77,2026-03-24T23:12:38.028607
+090032036,Discovery Junior High School,CT,outlier,Composite score deviates >2 std from state mean,0.69,2026-03-12T23:12:38.028607
+200035702,Fairview High School,KS,outlier,Composite score deviates >2 std from state mean,0.63,2026-03-24T23:12:38.028607
+380045991,Kennedy Elementary,ND,inconsistency,Education score and enrollment data show conflicting trends,0.73,2026-03-01T23:12:38.028607
+060044111,Eastside Academy,CA,stale_source,CDC PLACES data for this county is >18 months old,0.65,2026-03-23T23:12:38.028607
+180012047,Horizon Middle School,IN,stale_source,CDC PLACES data for this county is >18 months old,0.98,2026-03-09T23:12:38.028607
+160036339,Sunset Middle School,ID,inconsistency,Education score and enrollment data show conflicting trends,0.93,2026-03-03T23:12:38.028607
+180017162,Innovation High School,IN,missing_data,One or more pillar scores could not be computed due to missing source data,0.66,2026-02-27T23:12:38.028607
+270037260,Longfellow Elementary,MN,outlier,Composite score deviates >2 std from state mean,0.95,2026-03-29T23:12:38.028607
+040034751,Lakeview Middle School,AZ,missing_data,One or more pillar scores could not be computed due to missing source data,0.94,2026-03-14T23:12:38.028607
+490019930,Fairview Academy,UT,missing_data,One or more pillar scores could not be computed due to missing source data,0.86,2026-03-29T23:12:38.028607
+160033932,Freedom Junior High School,ID,inconsistency,Education score and enrollment data show conflicting trends,0.65,2026-03-20T23:12:38.028607
+250038079,Pine Charter School,MA,stale_source,CDC PLACES data for this county is >18 months old,0.94,2026-03-29T23:12:38.028607

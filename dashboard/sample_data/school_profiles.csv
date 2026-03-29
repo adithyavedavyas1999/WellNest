@@ -1,0 +1,1001 @@
+nces_id,name,city,state,county_fips,county_name,school_type,grade_range,enrollment,title_i,latitude,longitude
+010016400,Twain Junior High School,Plymouth,AL,01001,Washington County,Regular,PK-5,166,No,31.90091,-86.91854
+010012923,Ridgewood Preparatory School,Chester,AL,01001,Washington County,Charter,6-8,1024,No,32.08312,-87.04729
+010015054,Heritage Junior High School,Vernon,AL,01001,Washington County,Regular,9-12,455,No,31.8256,-87.11713
+010019525,Cedar Middle School,Newport,AL,01001,Washington County,Magnet,PK-5,961,No,31.56326,-87.02797
+010011356,Riverside Preparatory School,Troy,AL,01001,Washington County,Regular,K-8,132,No,31.85569,-87.30703
+010023948,Innovation High School,Richmond,AL,01002,Jefferson County,Magnet,6-8,1841,No,32.42481,-86.60271
+010029802,Riverside Primary School,Fairview,AL,01002,Jefferson County,Charter,6-8,1032,Yes,32.28281,-86.24511
+010022848,Jefferson Charter School,Lexington,AL,01002,Jefferson County,Magnet,PK-5,184,No,31.95275,-86.77166
+010024559,Discovery Elementary School,Fairview,AL,01002,Jefferson County,Regular,9-12,2183,No,31.9696,-86.28236
+010029540,Edison Charter School,Ashland,AL,01002,Jefferson County,Regular,K-12,1247,Yes,32.16313,-86.4772
+010039592,Westside Charter School,Easton,AL,01003,Franklin County,Regular,6-8,731,No,31.77118,-87.00755
+010037824,Sunset Primary School,Fairview,AL,01003,Franklin County,Magnet,PK-5,1710,No,31.6983,-87.26204
+010031647,Central Middle School,Madison,AL,01003,Franklin County,Regular,K-8,1008,No,31.67063,-86.91598
+010034350,Riverside Academy,Jamestown,AL,01003,Franklin County,Regular,K-8,1437,No,31.7737,-87.14001
+010036246,Greenfield Academy,Chester,AL,01003,Franklin County,Regular,K-12,1401,No,31.57273,-86.94175
+010044768,Lakeview Junior High School,Troy,AL,01004,Lincoln County,Regular,K-8,1126,No,32.95529,-85.54572
+010046770,Monroe High School,Plymouth,AL,01004,Lincoln County,Regular,K-12,2358,No,32.73533,-85.57818
+010043252,Pioneer Academy,Greenville,AL,01004,Lincoln County,Charter,PK-5,738,Yes,32.75613,-85.83819
+010047739,Washington Elementary School,Hartford,AL,01004,Lincoln County,Magnet,K-12,1245,No,32.63519,-85.62391
+010049625,Whitman Magnet School,Arlington,AL,01004,Lincoln County,Regular,9-12,1745,Yes,32.84873,-85.86818
+020011519,Martin Luther King Jr. Charter School,Dayton,AK,02001,Madison County,Regular,K-5,1664,No,64.78647,-151.69483
+020019653,Greenfield Elementary School,Georgetown,AK,02001,Madison County,Regular,K-12,985,No,64.91546,-151.146
+020013362,Discovery Charter School,York,AK,02001,Madison County,Charter,6-8,435,No,64.85027,-151.55622
+020016666,Franklin Middle School,Easton,AK,02001,Madison County,Magnet,9-12,1070,Yes,64.95716,-151.2391
+020017150,Maple High School,Newport,AK,02001,Madison County,Regular,K-5,1676,Yes,65.2161,-151.52327
+020022745,Martin Luther King Jr. Elementary School,Ashland,AK,02002,Jackson County,Regular,PK-5,1941,No,64.61871,-153.72526
+020026315,Central Charter School,Springfield,AK,02002,Jackson County,Regular,9-12,1315,No,64.39458,-153.73578
+020022036,Monroe Charter School,Arlington,AK,02002,Jackson County,Regular,K-8,1844,No,64.45244,-153.74045
+020027483,Eastside Junior High School,Dayton,AK,02002,Jackson County,Charter,K-12,1469,No,64.36274,-153.29731
+020026228,Hawthorne Elementary,Kingston,AK,02002,Jackson County,Regular,6-8,1112,No,64.38753,-153.2967
+020038563,Freedom Academy,Farmington,AK,02003,Marion County,Magnet,6-8,1313,Yes,65.21418,-151.49461
+020038357,Highland Elementary,Kingston,AK,02003,Marion County,Charter,K-8,1761,No,65.04899,-151.49757
+020031725,Meadow Charter School,Richmond,AK,02003,Marion County,Charter,K-5,1478,No,64.78637,-151.91284
+020039199,Jackson Magnet School,Springfield,AK,02003,Marion County,Regular,PK-5,2097,Yes,64.90006,-151.41967
+020036706,Elm Middle School,Farmington,AK,02003,Marion County,Regular,K-12,1973,No,64.7631,-151.94519
+020049454,Hamilton Primary School,Clinton,AK,02004,Clay County,Regular,6-8,1475,No,63.78538,-152.66319
+020048037,Lakeview Elementary School,Oxford,AK,02004,Clay County,Charter,PK-5,999,No,63.37731,-152.38004
+020049019,Magnolia Magnet School,Lexington,AK,02004,Clay County,Charter,6-8,1711,No,63.5625,-152.59355
+020046131,Adams Academy,Ashland,AK,02004,Clay County,Magnet,6-8,599,No,63.43428,-152.71748
+020043838,Sunset High School,Glen Cove,AK,02004,Clay County,Regular,9-12,1303,No,63.32256,-152.29711
+040019109,Oakwood Elementary,Easton,AZ,04001,Monroe County,Regular,K-5,1938,No,33.62855,-110.81016
+040019115,Sunset Primary School,Bristol,AZ,04001,Monroe County,Charter,K-8,587,No,33.99327,-110.65543
+040015055,Twain Elementary School,Farmington,AZ,04001,Monroe County,Regular,PK-5,1196,No,34.04552,-111.09721
+040013281,Achievement Academy,Troy,AZ,04001,Monroe County,Charter,9-12,967,Yes,33.87024,-110.83003
+040012560,Madison Charter School,York,AZ,04001,Monroe County,Regular,K-5,362,No,34.04843,-111.07327
+040025402,Ridgewood Charter School,Dayton,AZ,04002,Grant County,Magnet,PK-5,1971,Yes,34.78118,-111.10542
+040021040,Central Middle School,Plymouth,AZ,04002,Grant County,Regular,6-8,1997,No,34.91106,-111.15609
+040023139,Meadow Elementary,Salem,AZ,04002,Grant County,Regular,6-8,1527,Yes,34.42857,-111.25779
+040023161,Spring Preparatory School,Clinton,AZ,04002,Grant County,Regular,K-8,1242,Yes,34.79375,-111.48327
+040022559,Washington Academy,Glen Cove,AZ,04002,Grant County,Regular,6-8,439,No,34.75721,-111.32183
+040034751,Lakeview Middle School,Plymouth,AZ,04003,Hamilton County,Magnet,K-5,539,Yes,34.32411,-110.76051
+040031138,Hillcrest High School,Farmington,AZ,04003,Hamilton County,Charter,6-8,1558,No,34.51295,-111.19828
+040037291,Northview Charter School,Burlington,AZ,04003,Hamilton County,Charter,9-12,692,No,34.30228,-111.23855
+040035942,Wilson Primary School,Lexington,AZ,04003,Hamilton County,Regular,PK-5,2207,No,34.58481,-111.11177
+040036916,Brookside Magnet School,Fairview,AZ,04003,Hamilton County,Regular,6-8,1704,No,34.35535,-110.87933
+040049300,Hawthorne Primary School,Richmond,AZ,04004,Greene County,Charter,9-12,1821,No,35.25359,-110.56464
+040049788,Westside Charter School,Kingston,AZ,04004,Greene County,Regular,K-5,390,No,35.25171,-110.17612
+040043877,Adams Elementary School,Oxford,AZ,04004,Greene County,Charter,9-12,682,Yes,34.9308,-110.04229
+040042934,Innovation Elementary School,Burlington,AZ,04004,Greene County,Regular,9-12,1878,No,35.14681,-110.45633
+040042685,Autumn Junior High School,Newport,AZ,04004,Greene County,Regular,PK-5,592,No,35.27697,-110.61256
+050017870,Edison Magnet School,Georgetown,AR,05001,Union County,Regular,K-8,1824,No,34.65725,-91.81737
+050012129,Spring Elementary,Vernon,AR,05001,Union County,Regular,PK-5,1276,No,34.69088,-91.53225
+050019083,Innovation Academy,Plymouth,AR,05001,Union County,Regular,PK-5,2358,No,34.58484,-91.30466
+050017164,Centennial Preparatory School,Bristol,AR,05001,Union County,Regular,K-5,960,No,34.74639,-91.28739
+050012391,Valley Middle School,Hartford,AR,05001,Union County,Regular,6-8,666,No,34.5394,-91.52341
+050026211,Cedar Preparatory School,Georgetown,AR,05002,Warren County,Regular,PK-5,425,No,33.85637,-93.01531
+050028404,Twain Elementary,Arlington,AR,05002,Warren County,Charter,K-12,611,Yes,33.86927,-93.06577
+050029412,Franklin Preparatory School,Arlington,AR,05002,Warren County,Charter,9-12,832,Yes,34.34596,-92.96464
+050024641,Madison Academy,Troy,AR,05002,Warren County,Charter,PK-5,1760,No,34.18647,-92.91486
+050023110,Martin Luther King Jr. Magnet School,Bristol,AR,05002,Warren County,Magnet,6-8,294,No,33.80508,-92.92292
+050038307,Spring High School,Franklin,AR,05003,Clark County,Regular,6-8,1126,No,35.08273,-90.82983
+050039907,Achievement Elementary School,Dayton,AR,05003,Clark County,Charter,9-12,1590,No,35.11011,-91.06869
+050035602,Franklin Elementary,Hartford,AR,05003,Clark County,Regular,K-12,1584,No,35.36779,-91.29942
+050037363,Northview High School,Clinton,AR,05003,Clark County,Regular,9-12,1088,No,35.26713,-90.94092
+050039064,Sunrise Preparatory School,Clinton,AR,05003,Clark County,Regular,K-5,2128,Yes,34.83755,-91.21993
+050046301,Franklin Elementary School,Fairview,AR,05004,Montgomery County,Regular,PK-5,700,Yes,35.41899,-92.4866
+050048157,Achievement Elementary,Manchester,AR,05004,Montgomery County,Regular,9-12,1419,No,35.33541,-92.66581
+050041029,Liberty Junior High School,Dayton,AR,05004,Montgomery County,Regular,9-12,252,No,35.27253,-92.45038
+050046234,Monroe Middle School,Troy,AR,05004,Montgomery County,Regular,K-12,1495,No,34.91794,-92.87719
+050043725,Spring Charter School,Glen Cove,AR,05004,Montgomery County,Charter,6-8,1671,No,35.23871,-92.94214
+060016221,Whitman Middle School,Greenville,CA,06001,Adams County,Charter,PK-5,1520,No,37.16216,-119.33816
+060018066,Fairview High School,Lexington,CA,06001,Adams County,Magnet,K-5,1898,No,36.66153,-119.23604
+060011813,Riverside Junior High School,Jamestown,CA,06001,Adams County,Regular,PK-5,2130,No,36.6621,-119.43241
+060012342,Elm Middle School,Ashland,CA,06001,Adams County,Charter,PK-5,1748,No,36.92286,-119.03808
+060015315,Edison Preparatory School,Kingston,CA,06001,Adams County,Regular,PK-5,372,No,37.08074,-119.03422
+060029561,Oakwood Primary School,Newport,CA,06002,Carroll County,Regular,K-12,2064,No,36.25406,-119.69643
+060028357,Hamilton High School,Madison,CA,06002,Carroll County,Magnet,K-12,909,No,35.99391,-119.69678
+060022097,Martin Luther King Jr. Charter School,Jamestown,CA,06002,Carroll County,Charter,PK-5,1747,No,36.48227,-119.43199
+060022641,Brookside Middle School,Kingston,CA,06002,Carroll County,Regular,6-8,533,No,36.48879,-119.21572
+060027581,Jefferson Charter School,Weston,CA,06002,Carroll County,Regular,K-8,1477,No,35.99787,-119.45867
+060032609,Central Academy,Fairview,CA,06003,Henry County,Magnet,K-12,1350,No,35.99082,-119.03058
+060039462,Central Magnet School,Troy,CA,06003,Henry County,Regular,6-8,350,No,35.56577,-118.79736
+060031944,Emerson Elementary School,Farmington,CA,06003,Henry County,Charter,6-8,327,No,35.94918,-119.05871
+060038775,Valley Primary School,Chester,CA,06003,Henry County,Regular,K-12,1530,No,36.02899,-119.0679
+060034688,Heritage Academy,Arlington,CA,06003,Henry County,Regular,K-12,1797,Yes,36.04518,-118.64282
+060046004,Freedom Preparatory School,Easton,CA,06004,Marshall County,Charter,K-8,1662,No,37.3231,-118.66727
+060047131,Sunset Junior High School,Lexington,CA,06004,Marshall County,Regular,K-8,1277,No,37.45835,-118.50916
+060043456,Magnolia Academy,Weston,CA,06004,Marshall County,Regular,K-12,352,No,37.44402,-118.38975
+060044111,Eastside Academy,Newport,CA,06004,Marshall County,Regular,9-12,2309,No,37.59162,-118.39508
+060045237,Unity Primary School,Richmond,CA,06004,Marshall County,Regular,K-5,869,No,37.44036,-118.66485
+080011879,Central Junior High School,Kingston,CO,08001,Lawrence County,Magnet,K-12,411,No,39.19716,-104.31571
+080018496,Jackson Magnet School,Vernon,CO,08001,Lawrence County,Regular,K-5,858,Yes,38.95605,-104.23738
+080019021,Achievement Middle School,Fairview,CO,08001,Lawrence County,Regular,6-8,1896,No,38.90554,-104.0368
+080014122,Lincoln Elementary School,Manchester,CO,08001,Lawrence County,Regular,K-5,1139,No,39.07961,-104.40939
+080019524,Highland Primary School,Burlington,CO,08001,Lawrence County,Regular,K-8,1896,No,38.86914,-104.07517
+080024460,Unity Elementary School,Kingston,CO,08002,Morgan County,Magnet,PK-5,2186,No,38.073,-105.31643
+080021323,Franklin Middle School,Easton,CO,08002,Morgan County,Regular,K-12,1939,No,38.07326,-105.59146
+080023247,Oakwood Middle School,Hartford,CO,08002,Morgan County,Charter,K-5,602,No,38.06751,-105.67934
+080021645,Sunset Elementary,York,CO,08002,Morgan County,Regular,K-12,970,No,38.19746,-105.74146
+080022659,Autumn Preparatory School,Manchester,CO,08002,Morgan County,Regular,6-8,1066,No,38.5923,-105.56549
+080032898,Kennedy Elementary School,Springfield,CO,08003,Perry County,Regular,9-12,686,No,38.4818,-104.57348
+080035453,Pioneer Charter School,Oxford,CO,08003,Perry County,Regular,PK-5,2078,No,38.67391,-104.63205
+080038178,Hamilton Junior High School,Dayton,CO,08003,Perry County,Regular,K-12,1588,Yes,38.80215,-104.58223
+080031202,Freedom Primary School,Richmond,CO,08003,Perry County,Regular,9-12,1037,No,38.59606,-104.69726
+080031894,Washington High School,Hartford,CO,08003,Perry County,Regular,6-8,2042,No,38.80625,-105.06528
+080044850,Martin Luther King Jr. Elementary,Farmington,CO,08004,Pike County,Magnet,PK-5,1955,Yes,39.87975,-106.74886
+080045990,Spring Primary School,Jamestown,CO,08004,Pike County,Regular,PK-5,967,No,39.93601,-106.79909
+080048414,Adams Middle School,Richmond,CO,08004,Pike County,Charter,K-8,1028,Yes,39.57061,-106.51917
+080047704,Kennedy Preparatory School,Lexington,CO,08004,Pike County,Magnet,K-5,922,No,39.43825,-106.50578
+080043018,Innovation Elementary,Farmington,CO,08004,Pike County,Regular,K-12,2185,No,39.94411,-107.0145
+090013845,Unity High School,Bristol,CT,09001,Shelby County,Regular,9-12,1706,No,42.44567,-74.0636
+090019393,Twain Primary School,Vernon,CT,09001,Shelby County,Regular,K-8,1405,No,42.26373,-73.9199
+090016281,Freedom Middle School,Richmond,CT,09001,Shelby County,Magnet,K-12,1562,No,42.49288,-73.7288
+090012744,Lincoln Charter School,Fairview,CT,09001,Shelby County,Regular,K-5,337,Yes,42.26314,-73.84429
+090016876,Horizon Elementary,Bristol,CT,09001,Shelby County,Regular,K-12,1038,No,42.28576,-73.82382
+090021881,Washington Preparatory School,Madison,CT,09002,Sullivan County,Regular,K-12,1934,No,41.65299,-72.32622
+090023906,Heritage Middle School,Clinton,CT,09002,Sullivan County,Regular,9-12,831,Yes,41.33242,-72.4919
+090023518,Brookside Magnet School,Lexington,CT,09002,Sullivan County,Regular,K-8,328,No,41.40043,-72.40539
+090027814,Sunrise Primary School,Dayton,CT,09002,Sullivan County,Regular,K-8,496,No,41.23882,-72.62099
+090021144,Adams Magnet School,Farmington,CT,09002,Sullivan County,Magnet,K-8,1104,No,41.68144,-72.33947
+090037143,Willow Primary School,Farmington,CT,09003,Wayne County,Charter,K-8,2113,Yes,41.37516,-71.32198
+090034453,Pleasant Academy,Vernon,CT,09003,Wayne County,Magnet,K-12,1857,Yes,41.32065,-71.21565
+090032433,Roosevelt Elementary School,Clinton,CT,09003,Wayne County,Magnet,K-8,1151,Yes,41.54228,-71.57631
+090032036,Discovery Junior High School,Franklin,CT,09003,Wayne County,Regular,K-12,417,No,41.75413,-71.64922
+090033561,Sunrise Academy,Fairview,CT,09003,Wayne County,Regular,K-12,1721,No,41.77338,-71.62645
+090047456,Sunrise Primary School,Greenville,CT,09004,Lake County,Regular,K-8,1368,No,40.86688,-72.91087
+090044183,Adams High School,Newport,CT,09004,Lake County,Regular,K-12,342,No,40.8047,-73.40911
+090044842,Kennedy Preparatory School,Lexington,CT,09004,Lake County,Regular,9-12,405,No,40.60857,-73.18261
+090046131,Emerson Academy,Oxford,CT,09004,Lake County,Regular,K-12,1906,No,40.92197,-73.37242
+090042343,Pioneer Preparatory School,Vernon,CT,09004,Lake County,Regular,PK-5,693,No,40.57584,-72.9212
+100014485,Greenfield Elementary School,Jamestown,DE,10001,Orange County,Regular,6-8,1187,No,37.91114,-74.75952
+100016961,Willow Elementary School,Newport,DE,10001,Orange County,Regular,K-5,1098,No,37.97312,-74.76448
+100011662,Edison Elementary,Georgetown,DE,10001,Orange County,Charter,K-5,377,No,37.74046,-74.82301
+100016309,Kennedy Primary School,Manchester,DE,10001,Orange County,Magnet,6-8,1240,No,37.86598,-74.5066
+100019460,Riverside Magnet School,Troy,DE,10001,Orange County,Charter,PK-5,1533,No,37.99439,-74.3164
+100023578,Southfield Junior High School,Oxford,DE,10002,Lee County,Magnet,PK-5,604,No,38.40237,-75.28737
+100023095,Meadow Junior High School,Clinton,DE,10002,Lee County,Regular,K-5,671,Yes,38.68808,-75.39738
+100025644,Martin Luther King Jr. Academy,Farmington,DE,10002,Lee County,Regular,9-12,2050,No,38.25594,-74.98728
+100026614,Brookside Elementary,Lexington,DE,10002,Lee County,Regular,PK-5,401,No,38.38053,-75.40617
+100021639,Spring Primary School,Hartford,DE,10002,Lee County,Charter,9-12,601,Yes,38.44294,-75.4073
+100031711,Liberty Primary School,Easton,DE,10003,Scott County,Charter,9-12,1059,No,38.19523,-75.80056
+100039908,Oakwood Preparatory School,Madison,DE,10003,Scott County,Magnet,PK-5,142,Yes,38.06829,-75.9586
+100035155,Whitman Primary School,Easton,DE,10003,Scott County,Magnet,K-5,1617,No,38.31658,-75.79083
+100036641,Innovation Charter School,Plymouth,DE,10003,Scott County,Regular,K-12,685,Yes,38.17019,-75.76134
+100031852,Monroe Charter School,Manchester,DE,10003,Scott County,Magnet,9-12,141,Yes,38.21545,-75.7463
+100047564,Hillcrest Primary School,Ashland,DE,10004,Douglas County,Charter,K-5,355,No,39.23037,-76.70102
+100041590,Southfield Academy,Manchester,DE,10004,Douglas County,Regular,6-8,121,No,38.89831,-76.79884
+100045661,Unity Primary School,York,DE,10004,Douglas County,Regular,9-12,1545,No,39.42417,-76.7985
+100049243,Hawthorne Magnet School,Bristol,DE,10004,Douglas County,Regular,9-12,2222,No,39.37187,-76.47651
+100048517,Heritage Elementary,Weston,DE,10004,Douglas County,Regular,K-12,232,No,38.91596,-76.92387
+120015314,Emerson Preparatory School,Greenville,FL,12001,Fulton County,Regular,6-8,1754,No,26.44602,-81.94716
+120019175,Harmony Academy,Georgetown,FL,12001,Fulton County,Charter,K-5,1111,No,26.52447,-82.38434
+120011108,Discovery Primary School,Franklin,FL,12001,Fulton County,Regular,9-12,2095,No,26.7728,-82.2106
+120011887,Magnolia Charter School,Glen Cove,FL,12001,Fulton County,Regular,K-12,2334,Yes,26.70189,-82.26977
+120017216,Valley Middle School,Burlington,FL,12001,Fulton County,Magnet,K-8,1601,No,26.51269,-82.34829
+120026981,Centennial Charter School,Arlington,FL,12002,Hancock County,Regular,K-12,1966,No,28.76475,-81.79334
+120023450,Elm Elementary School,Clinton,FL,12002,Hancock County,Charter,K-12,1846,No,28.50258,-81.84494
+120022621,Liberty High School,Franklin,FL,12002,Hancock County,Regular,6-8,1002,No,28.70782,-82.00298
+120026752,Central Junior High School,Madison,FL,12002,Hancock County,Charter,K-8,2325,No,29.00952,-82.21013
+120023373,Central High School,Manchester,FL,12002,Hancock County,Regular,PK-5,1501,No,28.80066,-82.03792
+120035444,Spring Elementary,Richmond,FL,12003,Knox County,Regular,PK-5,1607,No,26.60789,-81.27997
+120032687,Kennedy Middle School,York,FL,12003,Knox County,Regular,PK-5,2058,Yes,26.37532,-81.15209
+120035655,Cedar High School,Fairview,FL,12003,Knox County,Magnet,K-8,2277,No,26.37664,-80.99217
+120039835,Hamilton Junior High School,Lexington,FL,12003,Knox County,Regular,K-8,1990,No,26.67358,-81.00658
+120031172,Washington Primary School,Troy,FL,12003,Knox County,Magnet,K-12,678,No,26.53156,-81.06924
+120041118,Sunset Magnet School,Madison,FL,12004,Logan County,Magnet,K-12,1806,No,27.45495,-83.38584
+120045454,Hawthorne Primary School,Salem,FL,12004,Logan County,Regular,K-5,1221,No,27.3309,-83.44272
+120043492,Franklin Primary School,Springfield,FL,12004,Logan County,Regular,6-8,881,Yes,27.38737,-83.40878
+120047084,Pine Elementary School,Burlington,FL,12004,Logan County,Charter,PK-5,448,No,27.25172,-83.01841
+120045078,Lakeview Elementary,Georgetown,FL,12004,Logan County,Regular,9-12,257,No,27.4946,-83.0212
+130019534,Adams Preparatory School,Glen Cove,GA,13001,Putnam County,Regular,K-12,1343,No,33.00036,-84.07335
+130017484,Achievement Academy,Springfield,GA,13001,Putnam County,Regular,PK-5,292,No,33.19714,-84.0116
+130011979,Northview High School,Oxford,GA,13001,Putnam County,Regular,9-12,2316,Yes,32.8596,-83.965
+130011646,Birch Elementary,Jamestown,GA,13001,Putnam County,Regular,K-8,1327,No,32.89797,-83.99262
+130013539,Cedar Preparatory School,Troy,GA,13001,Putnam County,Magnet,9-12,1198,No,33.05655,-83.63905
+130022037,Pleasant Primary School,Troy,GA,13002,Russell County,Regular,9-12,1707,No,32.30924,-84.91867
+130023126,Hamilton Elementary School,Madison,GA,13002,Russell County,Magnet,K-12,558,No,32.10977,-85.19811
+130022161,Washington Academy,Manchester,GA,13002,Russell County,Charter,K-8,2132,Yes,32.27564,-84.83385
+130029667,Jefferson Middle School,Troy,GA,13002,Russell County,Regular,PK-5,1364,Yes,32.56156,-84.64085
+130023931,Sunset Primary School,Easton,GA,13002,Russell County,Regular,6-8,552,No,32.3995,-84.79567
+130038258,Brookside Magnet School,Weston,GA,13003,Randolph County,Magnet,K-12,1410,No,32.75421,-82.09989
+130035162,Southfield Elementary,Farmington,GA,13003,Randolph County,Regular,9-12,1746,Yes,32.68309,-81.75753
+130031355,Innovation Preparatory School,York,GA,13003,Randolph County,Regular,K-5,2387,No,32.30387,-82.07108
+130034562,Unity Middle School,Plymouth,GA,13003,Randolph County,Charter,K-12,1449,No,32.35104,-81.85188
+130031916,Greenfield Magnet School,Chester,GA,13003,Randolph County,Charter,K-5,1898,No,32.80545,-82.27498
+130043450,Westside Primary School,Oxford,GA,13004,Crawford County,Magnet,6-8,1024,No,32.87881,-82.04025
+130046507,Martin Luther King Jr. Elementary,Kingston,GA,13004,Crawford County,Regular,6-8,321,No,33.00603,-82.24008
+130049589,Emerson Academy,Greenville,GA,13004,Crawford County,Regular,PK-5,1210,No,33.04255,-81.92472
+130045994,Monroe Magnet School,Lexington,GA,13004,Crawford County,Regular,K-5,1931,No,33.11278,-81.92467
+130043419,Central Preparatory School,Springfield,GA,13004,Crawford County,Regular,K-8,1526,Yes,33.03157,-82.19649
+150013315,Liberty Elementary School,Dayton,HI,15001,Fayette County,Charter,K-5,2277,Yes,20.28067,-156.46293
+150016901,Central Middle School,Springfield,HI,15001,Fayette County,Regular,K-12,1318,No,20.2661,-156.27058
+150011352,Jefferson Academy,York,HI,15001,Fayette County,Regular,K-5,2288,No,20.32754,-156.26296
+150012015,Ridgewood Preparatory School,Weston,HI,15001,Fayette County,Regular,K-5,1705,Yes,20.69388,-155.92953
+150014726,Oakwood Academy,Kingston,HI,15001,Fayette County,Magnet,K-8,745,No,20.70972,-155.95316
+150026062,Liberty Primary School,York,HI,15002,Delaware County,Charter,K-5,673,No,20.47461,-155.91173
+150023384,Unity Elementary School,Richmond,HI,15002,Delaware County,Regular,K-12,1425,No,20.45392,-156.31519
+150024783,Highland Academy,Georgetown,HI,15002,Delaware County,Charter,K-5,226,No,19.92489,-156.0293
+150023683,Grant Academy,Franklin,HI,15002,Delaware County,Regular,K-5,1793,Yes,20.43246,-155.92708
+150026323,Central Elementary,Weston,HI,15002,Delaware County,Magnet,K-12,1130,No,20.12012,-156.4721
+150031630,Magnolia Middle School,Farmington,HI,15003,Harrison County,Magnet,9-12,1991,Yes,19.98787,-156.61147
+150038201,Riverside Preparatory School,Richmond,HI,15003,Harrison County,Charter,PK-5,1291,No,19.56109,-156.58225
+150039952,Madison Charter School,Easton,HI,15003,Harrison County,Regular,K-12,1444,No,19.47615,-156.48669
+150033024,Martin Luther King Jr. Middle School,Oxford,HI,15003,Harrison County,Charter,K-12,1960,No,19.51238,-156.33453
+150033459,Monroe High School,Clinton,HI,15003,Harrison County,Regular,6-8,330,No,19.64604,-156.3208
+150048514,Birch Elementary,Jamestown,HI,15004,Howard County,Magnet,6-8,143,No,18.76683,-154.19068
+150044401,Franklin High School,Fairview,HI,15004,Howard County,Charter,K-12,345,No,18.64613,-154.0317
+150045659,Hillcrest Junior High School,Kingston,HI,15004,Howard County,Regular,PK-5,846,No,19.0737,-154.32789
+150042063,Hawthorne Elementary,Fairview,HI,15004,Howard County,Regular,K-5,619,No,18.82163,-154.29575
+150045705,Maple Junior High School,Vernon,HI,15004,Howard County,Regular,K-8,1416,No,18.93933,-153.94699
+160014812,Freedom Preparatory School,Madison,ID,16001,Johnson County,Regular,PK-5,126,Yes,43.70739,-113.46632
+160011185,Ridgewood Academy,Oxford,ID,16001,Johnson County,Charter,9-12,1273,No,44.16712,-113.65694
+160011477,Pioneer High School,Madison,ID,16001,Johnson County,Regular,6-8,1473,No,44.24637,-113.55414
+160017782,Brookside Elementary School,Troy,ID,16001,Johnson County,Charter,9-12,2254,No,44.03197,-113.43468
+160013446,Longfellow Elementary School,Burlington,ID,16001,Johnson County,Regular,9-12,1656,No,44.03559,-113.60786
+160029143,Spring Academy,Chester,ID,16002,Mercer County,Regular,PK-5,1971,No,44.59788,-115.66211
+160029192,Jackson Academy,Burlington,ID,16002,Mercer County,Charter,PK-5,2100,No,44.93352,-115.75752
+160021067,Twain Elementary School,Newport,ID,16002,Mercer County,Regular,9-12,476,No,44.74833,-115.81582
+160029720,Westside Elementary,Newport,ID,16002,Mercer County,Charter,PK-5,601,No,44.55779,-115.67932
+160025641,Meadow Academy,Clinton,ID,16002,Mercer County,Regular,6-8,411,No,44.83616,-115.64026
+160033932,Freedom Junior High School,Weston,ID,16003,Noble County,Charter,K-12,1946,No,44.38966,-113.04583
+160038672,Kennedy Elementary,Ashland,ID,16003,Noble County,Regular,9-12,2026,No,44.34122,-113.40202
+160038426,Birch Elementary School,Greenville,ID,16003,Noble County,Regular,K-5,2066,Yes,44.41306,-113.25955
+160036339,Sunset Middle School,Salem,ID,16003,Noble County,Regular,9-12,1357,No,44.44269,-113.28823
+160038132,Meadow Magnet School,Jamestown,ID,16003,Noble County,Charter,K-12,1087,No,44.59977,-113.48956
+160046046,Riverside Middle School,Lexington,ID,16004,Owen County,Regular,PK-5,565,No,43.86664,-115.63551
+160043444,Cedar Primary School,Ashland,ID,16004,Owen County,Regular,K-8,1717,No,43.7876,-115.61359
+160046640,Martin Luther King Jr. Junior High School,Springfield,ID,16004,Owen County,Regular,PK-5,2210,No,44.17878,-115.511
+160045623,Central Elementary School,Georgetown,ID,16004,Owen County,Magnet,6-8,1888,No,44.04533,-115.59544
+160046902,Pioneer Charter School,Fairview,ID,16004,Owen County,Regular,PK-5,1301,No,43.75077,-115.97945
+170017813,Central Elementary,Weston,IL,17001,Ripley County,Magnet,6-8,1863,No,39.73164,-90.31303
+170019220,Longfellow Charter School,York,IL,17001,Ripley County,Regular,6-8,2357,No,39.47908,-90.54478
+170015578,Pine Primary School,Greenville,IL,17001,Ripley County,Regular,K-12,2263,Yes,39.60614,-90.1891
+170011176,Elm Elementary,Hartford,IL,17001,Ripley County,Regular,K-8,2041,No,39.71161,-89.99115
+170018752,Valley High School,Kingston,IL,17001,Ripley County,Magnet,K-8,331,No,39.94434,-90.19291
+170025209,Washington Middle School,Lexington,IL,17002,Spencer County,Regular,K-5,835,No,40.89089,-90.38544
+170023376,Highland High School,Troy,IL,17002,Spencer County,Regular,6-8,2151,No,40.95762,-90.46453
+170023745,Pine Charter School,Glen Cove,IL,17002,Spencer County,Regular,9-12,1354,No,40.94309,-90.15584
+170028353,Lakeview Magnet School,Hartford,IL,17002,Spencer County,Charter,6-8,288,Yes,41.04603,-90.22485
+170027408,Pine Academy,Plymouth,IL,17002,Spencer County,Charter,K-8,918,No,40.90203,-90.01137
+170036759,Edison Preparatory School,Arlington,IL,17003,Stark County,Regular,9-12,910,Yes,40.87042,-88.44804
+170034027,Autumn Middle School,Oxford,IL,17003,Stark County,Magnet,PK-5,874,No,41.03294,-88.10691
+170033653,Innovation Middle School,Arlington,IL,17003,Stark County,Regular,K-8,375,No,41.08935,-87.90562
+170032776,Jackson Primary School,Richmond,IL,17003,Stark County,Regular,6-8,1886,No,41.22458,-88.43945
+170033438,Fairview Elementary School,York,IL,17003,Stark County,Charter,6-8,274,No,41.01606,-88.08317
+170042148,Sunrise Academy,Springfield,IL,17004,Taylor County,Regular,K-8,1694,No,40.66672,-88.84042
+170046571,Martin Luther King Jr. Elementary,Richmond,IL,17004,Taylor County,Regular,6-8,1307,No,40.69997,-89.138
+170048175,Harmony Academy,Fairview,IL,17004,Taylor County,Magnet,K-5,266,No,40.60922,-88.56377
+170041268,Jefferson Magnet School,Franklin,IL,17004,Taylor County,Charter,K-12,1503,Yes,40.8373,-89.03459
+170041604,Harmony High School,Glen Cove,IL,17004,Taylor County,Regular,K-5,198,No,41.13831,-88.79058
+180012047,Horizon Middle School,Bristol,IN,18001,Wabash County,Magnet,K-8,2156,No,40.57587,-85.25692
+180011746,Valley High School,Burlington,IN,18001,Wabash County,Regular,K-5,378,Yes,40.70234,-84.92397
+180017162,Innovation High School,Springfield,IN,18001,Wabash County,Charter,PK-5,2114,Yes,40.54181,-85.27085
+180015439,Magnolia Elementary,Easton,IN,18001,Wabash County,Magnet,K-5,1099,No,40.90432,-85.35593
+180014144,Adams Primary School,Bristol,IN,18001,Wabash County,Regular,K-5,1602,No,40.81653,-85.00262
+180023617,Pleasant Elementary School,Franklin,IN,18002,Washington County,Magnet,9-12,1611,No,39.25145,-86.36407
+180022901,Roosevelt Academy,Plymouth,IN,18002,Washington County,Regular,K-8,1941,No,39.37714,-86.06665
+180024615,Roosevelt Elementary,Kingston,IN,18002,Washington County,Magnet,9-12,2104,Yes,39.65999,-86.42794
+180026503,Madison Elementary School,Oxford,IN,18002,Washington County,Magnet,6-8,364,No,39.2076,-86.00391
+180023784,Meadow Primary School,Vernon,IN,18002,Washington County,Charter,K-5,1060,Yes,39.37272,-86.20184
+180038114,Valley Academy,Weston,IN,18003,Jefferson County,Charter,6-8,730,Yes,39.65616,-87.62777
+180034940,Martin Luther King Jr. Primary School,Richmond,IN,18003,Jefferson County,Regular,K-8,170,No,39.97546,-87.57467
+180031399,Pine Elementary,Richmond,IN,18003,Jefferson County,Magnet,K-12,687,No,39.51647,-87.13137
+180035859,Maple Preparatory School,Oxford,IN,18003,Jefferson County,Regular,K-8,2341,No,39.87812,-87.60572
+180031669,Southfield Magnet School,Clinton,IN,18003,Jefferson County,Regular,9-12,394,No,39.48854,-87.45334
+180044693,Westside Magnet School,Weston,IN,18004,Franklin County,Magnet,K-8,1215,No,40.77649,-85.01318
+180045788,Cedar Junior High School,Chester,IN,18004,Franklin County,Magnet,PK-5,388,No,41.14534,-84.77648
+180049131,Jackson Academy,Hartford,IN,18004,Franklin County,Magnet,K-5,212,No,40.86012,-84.64176
+180044806,Pioneer Primary School,Manchester,IN,18004,Franklin County,Magnet,K-8,1495,No,40.95742,-84.65774
+180046021,Monroe Preparatory School,Georgetown,IN,18004,Franklin County,Regular,PK-5,2103,No,41.19263,-84.58935
+190013873,Pioneer High School,Clinton,IA,19001,Lincoln County,Magnet,K-5,1094,Yes,42.20339,-92.50932
+190017109,Cedar Primary School,Clinton,IA,19001,Lincoln County,Regular,6-8,2305,No,42.25159,-92.68434
+190015842,Elm Preparatory School,Richmond,IA,19001,Lincoln County,Regular,6-8,722,No,42.38191,-92.63191
+190012515,Westside Elementary School,Lexington,IA,19001,Lincoln County,Regular,K-5,919,No,42.64747,-92.23904
+190019035,Westside Junior High School,Lexington,IA,19001,Lincoln County,Magnet,K-5,2215,Yes,42.72377,-92.48266
+190022435,Wilson Elementary,Plymouth,IA,19002,Madison County,Magnet,6-8,1822,No,40.73478,-93.5807
+190026495,Roosevelt Junior High School,Richmond,IA,19002,Madison County,Magnet,K-8,1659,Yes,40.56557,-93.68082
+190025742,Sunset Elementary,Franklin,IA,19002,Madison County,Regular,K-5,1356,No,40.85806,-93.62019
+190025713,Oakwood High School,Glen Cove,IA,19002,Madison County,Charter,PK-5,1122,Yes,40.63321,-93.89777
+190022959,Southfield Primary School,Plymouth,IA,19002,Madison County,Magnet,K-8,191,No,40.65931,-94.02899
+190036832,Franklin Preparatory School,Ashland,IA,19003,Jackson County,Regular,K-5,2289,Yes,41.05292,-92.22273
+190035447,Heritage Magnet School,Bristol,IA,19003,Jackson County,Regular,9-12,2308,No,41.23859,-92.67486
+190034622,Pioneer Academy,Salem,IA,19003,Jackson County,Regular,PK-5,2273,Yes,40.99501,-92.13298
+190039570,Discovery Magnet School,Clinton,IA,19003,Jackson County,Regular,K-5,1367,Yes,41.19128,-92.61144
+190032830,Roosevelt Elementary School,Richmond,IA,19003,Jackson County,Charter,K-12,2103,No,40.77011,-92.61791
+190042581,Achievement Middle School,York,IA,19004,Marion County,Regular,PK-5,961,No,40.77637,-92.84648
+190044962,Willow Junior High School,Greenville,IA,19004,Marion County,Regular,K-8,525,Yes,40.9828,-92.62791
+190048777,Southfield Junior High School,Clinton,IA,19004,Marion County,Magnet,6-8,1920,Yes,40.77401,-92.84451
+190043226,Birch Magnet School,Oxford,IA,19004,Marion County,Regular,6-8,1300,Yes,40.71485,-92.76117
+190048011,Grant Middle School,Weston,IA,19004,Marion County,Regular,6-8,2068,No,40.77308,-92.45817
+200012666,Harmony High School,Greenville,KS,20001,Clay County,Regular,6-8,1609,No,38.24838,-98.04162
+200017557,Northview Elementary,Newport,KS,20001,Clay County,Regular,6-8,1776,No,38.35205,-98.31018
+200012117,Birch Elementary School,Clinton,KS,20001,Clay County,Regular,PK-5,1687,No,38.13684,-98.02542
+200019270,Whitman Primary School,Burlington,KS,20001,Clay County,Regular,6-8,2334,Yes,38.61675,-98.37964
+200015965,Spring High School,Glen Cove,KS,20001,Clay County,Charter,PK-5,1884,No,38.23268,-98.16515
+200029301,Franklin Charter School,Arlington,KS,20002,Monroe County,Regular,K-8,2146,No,38.01426,-97.83324
+200026591,Lakeview Middle School,Easton,KS,20002,Monroe County,Regular,K-5,1533,No,37.89126,-98.01103
+200023781,Lincoln Primary School,Burlington,KS,20002,Monroe County,Magnet,9-12,273,No,38.03876,-97.79142
+200022601,Excellence Elementary,Bristol,KS,20002,Monroe County,Regular,K-12,963,No,37.94214,-97.55803
+200022234,Pioneer Primary School,Madison,KS,20002,Monroe County,Regular,6-8,1297,No,37.67262,-97.44716
+200039700,Elm Charter School,Madison,KS,20003,Grant County,Magnet,K-8,1542,Yes,37.45982,-97.86599
+200039971,Hamilton Elementary School,Manchester,KS,20003,Grant County,Magnet,K-12,2234,No,37.41501,-97.91933
+200031981,Magnolia Academy,Chester,KS,20003,Grant County,Magnet,K-8,2014,No,37.21312,-97.59924
+200035702,Fairview High School,Arlington,KS,20003,Grant County,Regular,PK-5,1087,No,37.21199,-97.95712
+200034309,Monroe Preparatory School,Fairview,KS,20003,Grant County,Regular,9-12,239,No,37.5427,-97.88044
+200046143,Highland Preparatory School,Vernon,KS,20004,Hamilton County,Magnet,PK-5,380,No,37.56246,-97.3528
+200049551,Pleasant Junior High School,Richmond,KS,20004,Hamilton County,Regular,9-12,2271,No,37.32227,-97.70165
+200047928,Wilson High School,Bristol,KS,20004,Hamilton County,Charter,K-8,837,No,37.60635,-97.49211
+200045036,Longfellow High School,Chester,KS,20004,Hamilton County,Regular,9-12,2066,No,37.51722,-97.74316
+200047302,Twain Magnet School,Weston,KS,20004,Hamilton County,Regular,6-8,619,No,37.53899,-97.52272
+210018190,Ridgewood Magnet School,Weston,KY,21001,Greene County,Magnet,6-8,1784,Yes,38.36742,-85.77274
+210013627,Liberty Preparatory School,Hartford,KY,21001,Greene County,Regular,9-12,391,No,38.45552,-85.38326
+210013229,Washington Charter School,Madison,KY,21001,Greene County,Charter,K-5,1371,No,38.54849,-85.7543
+210016233,Cedar Elementary,Vernon,KY,21001,Greene County,Regular,K-8,666,No,38.30709,-85.46499
+210014677,Lincoln Elementary School,York,KY,21001,Greene County,Regular,K-12,1056,Yes,38.78748,-85.70184
+210022922,Washington Primary School,Easton,KY,21002,Union County,Regular,K-5,1978,No,37.16501,-83.56326
+210025636,Unity Academy,Easton,KY,21002,Union County,Regular,K-8,858,No,37.56938,-83.97414
+210023182,Central Magnet School,Oxford,KY,21002,Union County,Charter,K-12,1748,No,37.5219,-83.56633
+210021745,Washington Preparatory School,Hartford,KY,21002,Union County,Charter,K-5,1680,No,37.68041,-83.58864
+210022468,Westside Primary School,Easton,KY,21002,Union County,Magnet,K-5,700,No,37.16401,-83.9649
+210035321,Magnolia Magnet School,Easton,KY,21003,Warren County,Charter,K-5,795,No,37.20182,-83.58944
+210031587,Elm Preparatory School,Clinton,KY,21003,Warren County,Regular,6-8,2033,No,36.82931,-83.34709
+210033425,Adams Magnet School,Greenville,KY,21003,Warren County,Regular,9-12,954,No,36.86809,-83.78322
+210033958,Oakwood Middle School,Georgetown,KY,21003,Warren County,Regular,K-12,2160,Yes,37.29212,-83.86862
+210038861,Pine Preparatory School,Lexington,KY,21003,Warren County,Regular,6-8,143,No,37.34156,-83.4905
+210045635,Westside Elementary School,Plymouth,KY,21004,Clark County,Magnet,K-5,409,No,37.22163,-85.0401
+210043525,Adams Preparatory School,Glen Cove,KY,21004,Clark County,Regular,K-8,1890,No,37.70834,-84.83109
+210047931,Martin Luther King Jr. Charter School,Salem,KY,21004,Clark County,Charter,PK-5,1628,No,37.42656,-84.93759
+210049596,Martin Luther King Jr. Preparatory School,Farmington,KY,21004,Clark County,Regular,K-5,1911,Yes,37.71042,-84.90663
+210041738,Willow Middle School,Hartford,KY,21004,Clark County,Regular,9-12,1860,No,37.22279,-84.79669
+220013985,Pioneer Charter School,Franklin,LA,22001,Montgomery County,Magnet,9-12,461,No,29.77225,-92.78461
+220014458,Hamilton Middle School,Plymouth,LA,22001,Montgomery County,Regular,6-8,1182,Yes,29.50648,-92.95245
+220018974,Twain Junior High School,Troy,LA,22001,Montgomery County,Regular,K-5,1597,No,29.72898,-92.91062
+220013378,Fairview Academy,Easton,LA,22001,Montgomery County,Magnet,K-5,2326,No,29.29786,-92.50137
+220011321,Central Elementary,Kingston,LA,22001,Montgomery County,Regular,6-8,1113,No,29.4231,-92.46553
+220025764,Jefferson Elementary,Dayton,LA,22002,Adams County,Magnet,PK-5,2111,No,30.10084,-92.74138
+220026681,Cedar Charter School,Springfield,LA,22002,Adams County,Regular,6-8,780,No,30.39743,-92.49626
+220028675,Madison Preparatory School,Plymouth,LA,22002,Adams County,Regular,K-12,1718,No,30.46155,-92.37394
+220028911,Madison High School,Madison,LA,22002,Adams County,Regular,6-8,760,No,30.02224,-92.52821
+220023862,Horizon Primary School,Franklin,LA,22002,Adams County,Charter,PK-5,380,No,30.22007,-92.40726
+220035382,Autumn High School,Vernon,LA,22003,Carroll County,Magnet,6-8,2231,Yes,31.25854,-90.62502
+220032669,Horizon Primary School,Franklin,LA,22003,Carroll County,Regular,K-5,2197,Yes,30.93493,-91.11016
+220036959,Eastside High School,Bristol,LA,22003,Carroll County,Regular,PK-5,946,No,31.41648,-90.71947
+220037799,Southfield Academy,Fairview,LA,22003,Carroll County,Magnet,6-8,2289,No,31.30703,-91.0982
+220038251,Jackson Elementary School,Oxford,LA,22003,Carroll County,Magnet,K-5,2239,Yes,30.88557,-90.99212
+220049516,Hawthorne Charter School,Dayton,LA,22004,Henry County,Regular,K-8,2387,No,30.79763,-92.63108
+220049919,Hillcrest Junior High School,Manchester,LA,22004,Henry County,Regular,6-8,1931,No,30.8973,-92.35036
+220049527,Sunrise Preparatory School,Madison,LA,22004,Henry County,Regular,K-5,500,No,30.6775,-92.36507
+220049278,Adams Elementary School,Troy,LA,22004,Henry County,Regular,PK-5,1647,No,30.74089,-92.60662
+220049737,Centennial Junior High School,Georgetown,LA,22004,Henry County,Charter,K-12,1554,No,30.53542,-92.34843
+230016919,Pine Middle School,Fairview,ME,23001,Marshall County,Magnet,K-5,1863,No,45.17397,-70.69308
+230015320,Valley Elementary,Manchester,ME,23001,Marshall County,Magnet,K-12,1854,No,45.53821,-70.16171
+230019669,Adams Academy,Farmington,ME,23001,Marshall County,Regular,K-8,2058,Yes,45.5727,-70.16396
+230017086,Twain Magnet School,Ashland,ME,23001,Marshall County,Magnet,9-12,1324,No,45.14159,-70.64468
+230013004,Sunset Magnet School,Greenville,ME,23001,Marshall County,Regular,6-8,303,No,45.41351,-70.54458
+230028551,Discovery Elementary,Newport,ME,23002,Lawrence County,Charter,9-12,1959,No,44.49061,-70.30457
+230025544,Fairview Middle School,Vernon,ME,23002,Lawrence County,Regular,K-12,798,Yes,44.314,-70.022
+230021866,Meadow Primary School,Madison,ME,23002,Lawrence County,Regular,K-5,2069,Yes,44.04297,-69.93799
+230029741,Highland Magnet School,Dayton,ME,23002,Lawrence County,Regular,6-8,304,No,44.48798,-70.48574
+230023755,Hawthorne High School,Clinton,ME,23002,Lawrence County,Regular,K-12,1166,Yes,44.06334,-69.9284
+230033334,Oakwood Magnet School,Arlington,ME,23003,Morgan County,Charter,9-12,1658,Yes,46.01133,-68.57633
+230037669,Roosevelt Elementary,Springfield,ME,23003,Morgan County,Charter,9-12,1789,No,46.52844,-68.70893
+230032374,Centennial Primary School,Madison,ME,23003,Morgan County,Charter,K-5,703,No,46.30446,-68.61919
+230035739,Fairview High School,Springfield,ME,23003,Morgan County,Magnet,K-12,366,No,46.14418,-68.56957
+230039750,Meadow Middle School,Ashland,ME,23003,Morgan County,Charter,K-12,487,No,46.39926,-68.2218
+230046613,Ridgewood Preparatory School,Richmond,ME,23004,Perry County,Regular,K-8,1974,No,45.60036,-68.51099
+230048807,Washington Elementary School,Newport,ME,23004,Perry County,Magnet,6-8,830,No,45.78627,-68.68291
+230048293,Heritage Middle School,Chester,ME,23004,Perry County,Regular,K-12,1661,No,45.68485,-68.59731
+230046862,Grant Middle School,Troy,ME,23004,Perry County,Regular,K-8,1361,No,45.59335,-68.80451
+230047489,Adams Preparatory School,Kingston,ME,23004,Perry County,Charter,K-12,2169,No,45.55509,-68.98454
+240014734,Spring Primary School,Plymouth,MD,24001,Pike County,Charter,K-12,1243,No,38.6095,-78.11213
+240011849,Centennial Magnet School,Easton,MD,24001,Pike County,Regular,6-8,1786,No,38.17393,-77.81502
+240016181,Washington Charter School,Madison,MD,24001,Pike County,Regular,K-12,1490,Yes,38.62896,-77.6414
+240012584,Lincoln Elementary,Easton,MD,24001,Pike County,Regular,6-8,218,No,38.6052,-77.97771
+240018184,Discovery Middle School,Manchester,MD,24001,Pike County,Magnet,PK-5,1948,Yes,38.15222,-78.08959
+240025939,Hillcrest Charter School,Greenville,MD,24002,Shelby County,Magnet,6-8,537,Yes,37.93215,-75.95425
+240027290,Pine Charter School,Weston,MD,24002,Shelby County,Magnet,PK-5,534,No,37.98715,-75.72573
+240024172,Autumn Junior High School,Fairview,MD,24002,Shelby County,Magnet,9-12,2204,No,37.80983,-75.84236
+240026861,Twain Junior High School,Weston,MD,24002,Shelby County,Regular,K-8,2336,No,37.68505,-75.946
+240021894,Maple Magnet School,Madison,MD,24002,Shelby County,Magnet,K-12,940,No,38.06776,-75.92627
+240035909,Oakwood Magnet School,Clinton,MD,24003,Sullivan County,Regular,6-8,549,No,39.15366,-76.62867
+240036431,Excellence Charter School,Madison,MD,24003,Sullivan County,Regular,PK-5,1759,No,39.12365,-77.17096
+240036896,Jefferson Elementary School,Madison,MD,24003,Sullivan County,Regular,K-12,930,No,38.73249,-76.64377
+240031343,Pioneer High School,Dayton,MD,24003,Sullivan County,Regular,K-5,574,No,39.18967,-76.99196
+240032071,Adams High School,Weston,MD,24003,Sullivan County,Regular,K-8,655,No,38.74301,-76.94808
+240049773,Hawthorne High School,Burlington,MD,24004,Wayne County,Charter,K-5,1132,Yes,37.96578,-77.96776
+240042062,Monroe Primary School,Dayton,MD,24004,Wayne County,Regular,K-8,2205,No,37.88725,-77.85724
+240041599,Wilson Academy,Weston,MD,24004,Wayne County,Magnet,K-8,951,No,38.106,-77.89826
+240042376,Hawthorne Elementary,Hartford,MD,24004,Wayne County,Regular,9-12,1560,No,37.93848,-77.85665
+240043942,Cedar Academy,Arlington,MD,24004,Wayne County,Charter,9-12,430,No,38.12899,-77.95909
+250019946,Grant Magnet School,Madison,MA,25001,Lake County,Regular,K-12,1468,No,42.19033,-72.54806
+250015278,Washington Preparatory School,Ashland,MA,25001,Lake County,Regular,K-12,1539,No,42.57619,-72.54428
+250014438,Elm Academy,Hartford,MA,25001,Lake County,Regular,PK-5,2383,No,42.44221,-72.76056
+250011493,Southfield High School,Kingston,MA,25001,Lake County,Regular,K-12,645,No,42.57471,-73.03159
+250016342,Valley Elementary School,Kingston,MA,25001,Lake County,Charter,K-8,251,No,42.10091,-72.46582
+250027400,Roosevelt Primary School,Dayton,MA,25002,Orange County,Regular,6-8,891,No,42.01668,-70.76349
+250024058,Grant Middle School,York,MA,25002,Orange County,Regular,9-12,1700,No,42.07504,-70.93054
+250022814,Madison Primary School,Easton,MA,25002,Orange County,Regular,K-5,2078,Yes,42.1849,-70.56305
+250026084,Valley Academy,Hartford,MA,25002,Orange County,Regular,6-8,1999,No,42.07252,-70.51055
+250028580,Meadow Elementary School,Plymouth,MA,25002,Orange County,Regular,K-8,493,No,42.33928,-70.55386
+250038079,Pine Charter School,York,MA,25003,Lee County,Regular,K-5,871,Yes,41.35983,-69.65579
+250034559,Greenfield Elementary,Easton,MA,25003,Lee County,Charter,PK-5,2384,Yes,41.72089,-70.17728
+250032199,Ridgewood Elementary,Dayton,MA,25003,Lee County,Regular,PK-5,1527,No,41.63716,-69.9852
+250039985,Pleasant Academy,Oxford,MA,25003,Lee County,Regular,K-5,1912,No,41.40617,-70.05571
+250031183,Heritage Preparatory School,Fairview,MA,25003,Lee County,Charter,K-12,1924,No,41.23046,-69.79455
+250042684,Lakeview Preparatory School,Farmington,MA,25004,Scott County,Regular,K-5,334,Yes,41.9264,-71.52606
+250044148,Heritage Middle School,Georgetown,MA,25004,Scott County,Regular,9-12,515,No,42.33161,-71.72609
+250048010,Adams Academy,Madison,MA,25004,Scott County,Regular,K-12,553,No,42.09122,-71.7435
+250041719,Roosevelt Academy,Easton,MA,25004,Scott County,Charter,9-12,1355,No,42.48706,-71.69141
+250043177,Eastside High School,Manchester,MA,25004,Scott County,Magnet,9-12,1422,No,41.93771,-71.74191
+260013032,Twain Academy,Plymouth,MI,26001,Douglas County,Magnet,K-8,1875,No,43.83486,-84.99405
+260018270,Harmony Magnet School,Fairview,MI,26001,Douglas County,Magnet,9-12,1259,No,43.84916,-84.5737
+260019836,Franklin Academy,Salem,MI,26001,Douglas County,Regular,K-12,1031,No,43.77588,-84.91987
+260013057,Martin Luther King Jr. High School,Kingston,MI,26001,Douglas County,Magnet,K-12,2368,No,43.60479,-84.9831
+260018344,Ridgewood Academy,Arlington,MI,26001,Douglas County,Regular,6-8,2090,Yes,44.03361,-84.81425
+260028897,Lincoln Charter School,Easton,MI,26002,Fulton County,Regular,K-12,460,No,45.55451,-85.83942
+260023238,Freedom Elementary,Madison,MI,26002,Fulton County,Regular,K-12,753,No,45.19991,-85.41411
+260022167,Oakwood Elementary School,York,MI,26002,Fulton County,Regular,6-8,629,No,45.75668,-85.83368
+260021945,Fairview Charter School,York,MI,26002,Fulton County,Regular,K-8,1856,No,45.34281,-85.9104
+260023644,Washington Middle School,Richmond,MI,26002,Fulton County,Charter,PK-5,498,No,45.436,-85.5794
+260039735,Pleasant Charter School,Kingston,MI,26003,Hancock County,Regular,PK-5,1381,No,45.60538,-86.12901
+260037520,Liberty Preparatory School,Springfield,MI,26003,Hancock County,Magnet,K-12,809,No,45.15485,-86.6417
+260034244,Birch High School,Hartford,MI,26003,Hancock County,Regular,K-5,571,No,45.49416,-86.55606
+260032789,Central High School,Greenville,MI,26003,Hancock County,Regular,K-8,1320,Yes,45.38054,-86.51754
+260031118,Pleasant Junior High School,Salem,MI,26003,Hancock County,Charter,6-8,291,Yes,45.28054,-86.20853
+260046514,Southfield Magnet School,Burlington,MI,26004,Knox County,Regular,PK-5,1101,No,45.57125,-84.79574
+260043275,Lincoln Junior High School,Bristol,MI,26004,Knox County,Regular,K-5,2293,No,45.74284,-84.57194
+260046278,Lincoln Magnet School,Vernon,MI,26004,Knox County,Magnet,6-8,307,No,45.57896,-84.88266
+260042645,Unity Charter School,Ashland,MI,26004,Knox County,Charter,K-12,919,No,45.69412,-84.49706
+260048648,Monroe Elementary,Bristol,MI,26004,Knox County,Regular,K-12,2094,No,45.31821,-84.92054
+270015593,Edison Preparatory School,Newport,MN,27001,Logan County,Magnet,K-12,2070,Yes,45.53859,-93.11506
+270016623,Lakeview Charter School,Manchester,MN,27001,Logan County,Regular,PK-5,1909,No,45.27343,-93.59929
+270016134,Lakeview Junior High School,Plymouth,MN,27001,Logan County,Magnet,6-8,126,No,45.17643,-93.34734
+270014639,Kennedy Charter School,Springfield,MN,27001,Logan County,Regular,K-8,2324,No,45.32886,-93.17901
+270011562,Highland Magnet School,Ashland,MN,27001,Logan County,Magnet,9-12,2177,Yes,45.30337,-93.1601
+270023501,Horizon Academy,Vernon,MN,27002,Putnam County,Magnet,6-8,1041,Yes,46.94969,-94.74198
+270027921,Heritage Elementary,Chester,MN,27002,Putnam County,Regular,K-8,1723,No,46.43889,-94.77155
+270021886,Centennial Preparatory School,Farmington,MN,27002,Putnam County,Regular,K-5,790,No,46.66093,-94.91813
+270023418,Lakeview Charter School,Newport,MN,27002,Putnam County,Regular,K-5,809,Yes,46.45343,-94.6231
+270025014,Jefferson Middle School,Georgetown,MN,27002,Putnam County,Magnet,K-5,1744,No,46.57741,-94.84991
+270037260,Longfellow Elementary,Chester,MN,27003,Russell County,Charter,K-12,167,Yes,47.06368,-96.21907
+270033967,Lakeview Elementary,Manchester,MN,27003,Russell County,Charter,PK-5,1896,No,47.33655,-96.23264
+270039004,Roosevelt Primary School,Troy,MN,27003,Russell County,Regular,K-12,2327,Yes,47.4458,-96.16782
+270033110,Meadow Academy,Manchester,MN,27003,Russell County,Regular,PK-5,780,Yes,47.3312,-95.78143
+270031001,Emerson Preparatory School,Franklin,MN,27003,Russell County,Magnet,9-12,2247,No,47.38919,-96.02535
+270042622,Pleasant Elementary School,Georgetown,MN,27004,Randolph County,Regular,K-5,270,No,46.0498,-93.80435
+270045177,Whitman Charter School,Manchester,MN,27004,Randolph County,Magnet,K-12,788,No,46.23844,-93.75116
+270044156,Freedom Magnet School,Kingston,MN,27004,Randolph County,Magnet,6-8,2214,No,46.21661,-94.22591
+270042080,Eastside Middle School,Chester,MN,27004,Randolph County,Regular,K-8,1486,No,46.0526,-93.83914
+270049625,Unity Preparatory School,Kingston,MN,27004,Randolph County,Charter,K-8,2125,Yes,46.28218,-93.89773
+280019711,Sunset Junior High School,Weston,MS,28001,Crawford County,Charter,K-12,1769,No,32.91359,-88.96696
+280017064,Freedom Academy,Newport,MS,28001,Crawford County,Charter,6-8,1833,No,32.66806,-88.53065
+280012424,Twain Charter School,Richmond,MS,28001,Crawford County,Regular,K-5,1400,Yes,32.93901,-89.07638
+280017946,Heritage Primary School,York,MS,28001,Crawford County,Charter,K-12,678,No,32.85688,-88.71133
+280019754,Harmony Magnet School,Georgetown,MS,28001,Crawford County,Charter,K-12,2283,Yes,32.92262,-88.54361
+280029118,Lakeview High School,Chester,MS,28002,Fayette County,Regular,9-12,583,No,32.85523,-90.58824
+280025994,Brookside Primary School,Troy,MS,28002,Fayette County,Regular,PK-5,265,No,32.8423,-90.22909
+280027587,Northview Elementary School,Bristol,MS,28002,Fayette County,Magnet,K-5,1884,No,32.42533,-90.42064
+280025903,Southfield Charter School,Weston,MS,28002,Fayette County,Regular,6-8,866,No,32.37202,-90.47496
+280025667,Jefferson High School,Dayton,MS,28002,Fayette County,Magnet,K-5,1844,No,32.8474,-90.64191
+280033087,Westside Charter School,Hartford,MS,28003,Delaware County,Regular,PK-5,1712,No,33.63624,-90.53777
+280031131,Maple Elementary,Ashland,MS,28003,Delaware County,Regular,9-12,1275,No,33.61997,-90.34513
+280038031,Grant Elementary,Oxford,MS,28003,Delaware County,Regular,K-12,542,No,33.6836,-90.08958
+280034270,Martin Luther King Jr. Elementary School,Dayton,MS,28003,Delaware County,Regular,K-5,1788,No,33.9905,-90.01443
+280036751,Freedom Charter School,Georgetown,MS,28003,Delaware County,Regular,K-12,1430,Yes,33.67945,-90.60218
+280046956,Eastside Preparatory School,Bristol,MS,28004,Harrison County,Regular,K-5,516,Yes,32.52508,-89.96082
+280045521,Wilson Junior High School,Dayton,MS,28004,Harrison County,Regular,PK-5,477,Yes,32.19359,-89.97755
+280042226,Sunrise Junior High School,Burlington,MS,28004,Harrison County,Regular,K-12,1354,No,32.70909,-90.3019
+280046690,Autumn Magnet School,Farmington,MS,28004,Harrison County,Regular,9-12,600,No,32.15593,-90.1717
+280044116,Harmony Charter School,Glen Cove,MS,28004,Harrison County,Charter,6-8,2300,Yes,32.21461,-89.97266
+290011145,Spring Primary School,Farmington,MO,29001,Howard County,Regular,K-12,2183,No,39.36755,-91.7323
+290015550,Brookside High School,Arlington,MO,29001,Howard County,Regular,PK-5,331,No,39.77922,-91.73852
+290015326,Unity High School,Easton,MO,29001,Howard County,Regular,PK-5,1327,No,39.77666,-91.48893
+290012743,Unity Charter School,Manchester,MO,29001,Howard County,Regular,K-8,1174,No,39.67561,-91.73212
+290017039,Jackson Elementary,Greenville,MO,29001,Howard County,Regular,K-5,2151,No,39.46113,-91.37514
+290027458,Heritage Junior High School,Madison,MO,29002,Johnson County,Magnet,K-12,404,No,38.66983,-91.79005
+290021339,Adams Elementary School,Richmond,MO,29002,Johnson County,Charter,K-5,299,No,38.77561,-91.88704
+290022392,Grant High School,Glen Cove,MO,29002,Johnson County,Regular,K-5,1939,No,38.81103,-91.64985
+290022680,Willow Charter School,Fairview,MO,29002,Johnson County,Regular,K-5,124,No,38.641,-91.68092
+290022841,Birch High School,Bristol,MO,29002,Johnson County,Charter,PK-5,1039,Yes,39.20048,-91.76811
+290038022,Magnolia Magnet School,Lexington,MO,29003,Mercer County,Charter,K-8,862,No,38.48113,-91.50254
+290032251,Achievement Elementary School,Vernon,MO,29003,Mercer County,Magnet,K-12,728,No,38.58315,-91.66854
+290033089,Hamilton Charter School,Chester,MO,29003,Mercer County,Charter,6-8,1427,No,38.6453,-91.48685
+290039144,Sunrise Primary School,Glen Cove,MO,29003,Mercer County,Charter,6-8,2301,No,38.62178,-91.55432
+290031281,Southfield Primary School,Glen Cove,MO,29003,Mercer County,Regular,K-5,667,Yes,38.42675,-91.69329
+290044679,Franklin High School,Bristol,MO,29004,Noble County,Regular,6-8,706,No,38.64415,-92.86473
+290043406,Southfield High School,Greenville,MO,29004,Noble County,Regular,6-8,1123,Yes,38.21179,-92.78376
+290046526,Cedar Elementary School,Ashland,MO,29004,Noble County,Regular,9-12,575,No,38.2403,-92.89693
+290045227,Greenfield Junior High School,Hartford,MO,29004,Noble County,Charter,PK-5,1373,No,38.4585,-93.18832
+290042264,Horizon Elementary,Glen Cove,MO,29004,Noble County,Magnet,K-8,1402,No,38.70065,-93.18351
+300015623,Monroe Primary School,Bristol,MT,30001,Owen County,Regular,K-8,387,No,46.78227,-111.52019
+300018926,Jefferson Elementary School,Burlington,MT,30001,Owen County,Magnet,K-8,501,No,46.42909,-111.76011
+300016428,Oakwood Primary School,Bristol,MT,30001,Owen County,Charter,6-8,2176,No,46.43821,-111.49646
+300014794,Spring Academy,Salem,MT,30001,Owen County,Charter,K-12,696,No,47.02005,-111.67313
+300018059,Jefferson Charter School,Georgetown,MT,30001,Owen County,Regular,6-8,975,Yes,46.99881,-111.63396
+300022428,Birch Middle School,Farmington,MT,30002,Ripley County,Charter,K-8,1404,No,46.07713,-110.91942
+300025194,Discovery Elementary,Manchester,MT,30002,Ripley County,Regular,K-8,695,Yes,46.09971,-110.72334
+300026138,Southfield Middle School,Newport,MT,30002,Ripley County,Regular,K-12,1812,No,45.6744,-110.49098
+300022725,Hawthorne Charter School,Clinton,MT,30002,Ripley County,Regular,K-12,1755,Yes,45.65053,-110.4918
+300022775,Greenfield Charter School,Richmond,MT,30002,Ripley County,Charter,K-8,1894,No,45.75761,-110.97762
+300038699,Jackson Academy,Burlington,MT,30003,Spencer County,Magnet,6-8,248,No,45.59744,-111.01338
+300033885,Martin Luther King Jr. High School,Greenville,MT,30003,Spencer County,Magnet,6-8,1241,No,45.60903,-110.97423
+300036603,Discovery Preparatory School,Clinton,MT,30003,Spencer County,Regular,9-12,933,No,46.12516,-111.20952
+300034253,Roosevelt Junior High School,Lexington,MT,30003,Spencer County,Regular,K-12,712,No,45.95844,-111.0044
+300037658,Whitman Primary School,Plymouth,MT,30003,Spencer County,Magnet,K-12,135,No,46.12599,-110.98414
+300043721,Highland Charter School,Madison,MT,30004,Stark County,Regular,9-12,1545,No,48.05393,-110.71035
+300049177,Fairview Elementary,Easton,MT,30004,Stark County,Regular,9-12,1800,No,47.69383,-110.96792
+300047251,Hawthorne Charter School,Manchester,MT,30004,Stark County,Regular,PK-5,1280,Yes,48.07972,-110.80984
+300042633,Ridgewood Elementary,Hartford,MT,30004,Stark County,Charter,6-8,253,No,47.99352,-111.16628
+300047765,Greenfield Charter School,Springfield,MT,30004,Stark County,Regular,K-12,1654,No,47.78704,-111.13283
+310011535,Washington Elementary School,Fairview,NE,31001,Taylor County,Regular,6-8,1653,No,40.12665,-98.1636
+310018030,Madison Charter School,Plymouth,NE,31001,Taylor County,Regular,6-8,831,No,40.4681,-98.42873
+310015263,Pioneer Primary School,Clinton,NE,31001,Taylor County,Charter,PK-5,1440,No,39.98155,-98.72372
+310013138,Pine Magnet School,Clinton,NE,31001,Taylor County,Magnet,K-5,1101,No,40.10375,-98.41785
+310012694,Adams Elementary,York,NE,31001,Taylor County,Regular,K-5,622,Yes,40.0107,-98.5819
+310027778,Roosevelt Elementary,Manchester,NE,31002,Wabash County,Magnet,K-8,432,No,42.0133,-98.02785
+310021515,Adams Magnet School,Chester,NE,31002,Wabash County,Regular,PK-5,2102,Yes,41.69593,-97.80798
+310024554,Lincoln Magnet School,Fairview,NE,31002,Wabash County,Regular,K-8,1020,Yes,42.03755,-97.68909
+310029123,Maple Primary School,Dayton,NE,31002,Wabash County,Regular,K-12,910,No,41.70468,-97.84077
+310028992,Maple Elementary,Easton,NE,31002,Wabash County,Regular,6-8,1232,No,41.97465,-97.88862
+310039378,Whitman Junior High School,Easton,NE,31003,Washington County,Magnet,K-8,1322,No,42.19318,-98.92921
+310033003,Washington Magnet School,Oxford,NE,31003,Washington County,Regular,K-8,164,No,42.08246,-98.65752
+310032225,Meadow Charter School,Newport,NE,31003,Washington County,Magnet,PK-5,1902,No,42.44224,-98.87911
+310037272,Emerson Junior High School,Springfield,NE,31003,Washington County,Magnet,PK-5,1287,Yes,42.3404,-98.48434
+310031266,Roosevelt Elementary,Bristol,NE,31003,Washington County,Regular,6-8,1820,No,42.119,-98.54578
+310042989,Pioneer Magnet School,Lexington,NE,31004,Jefferson County,Regular,K-5,540,Yes,39.95441,-98.96843
+310047043,Horizon Primary School,Springfield,NE,31004,Jefferson County,Regular,PK-5,335,No,40.34999,-99.43785
+310043257,Valley Elementary,Bristol,NE,31004,Jefferson County,Magnet,6-8,637,No,40.33714,-99.01188
+310048908,Edison Middle School,Arlington,NE,31004,Jefferson County,Regular,K-5,1333,Yes,40.03181,-98.96237
+310047308,Grant Elementary,Bristol,NE,31004,Jefferson County,Regular,9-12,1514,No,40.3084,-99.00674
+320014584,Greenfield Magnet School,Dayton,NV,32001,Franklin County,Magnet,K-8,1973,No,39.75961,-116.42463
+320012805,Emerson Elementary School,Weston,NV,32001,Franklin County,Magnet,9-12,2007,No,39.45165,-116.25166
+320018059,Willow Magnet School,Franklin,NV,32001,Franklin County,Magnet,6-8,1927,No,39.51347,-116.50792
+320012788,Heritage Elementary School,Manchester,NV,32001,Franklin County,Charter,PK-5,1139,Yes,39.42335,-116.50552
+320017421,Riverside Middle School,Georgetown,NV,32001,Franklin County,Regular,K-8,1218,No,39.41502,-116.06596
+320026002,Centennial Academy,Clinton,NV,32002,Lincoln County,Regular,6-8,1410,Yes,39.77009,-116.38011
+320023797,Heritage Elementary School,Lexington,NV,32002,Lincoln County,Magnet,K-5,1562,No,40.02,-116.28642
+320023741,Discovery High School,Richmond,NV,32002,Lincoln County,Magnet,6-8,504,Yes,39.85286,-116.13769
+320026777,Twain Magnet School,Weston,NV,32002,Lincoln County,Regular,K-12,2241,No,39.73776,-116.16793
+320028056,Southfield Academy,Plymouth,NV,32002,Lincoln County,Regular,PK-5,485,No,40.22249,-116.35273
+320035346,Greenfield Magnet School,Weston,NV,32003,Madison County,Regular,K-8,1476,No,37.69139,-116.83674
+320036685,Hawthorne Middle School,Springfield,NV,32003,Madison County,Charter,K-8,2163,No,37.61769,-117.31376
+320034560,Hawthorne Junior High School,Bristol,NV,32003,Madison County,Regular,K-12,337,No,37.52139,-117.14571
+320033540,Martin Luther King Jr. Preparatory School,Fairview,NV,32003,Madison County,Regular,K-5,925,No,37.68903,-117.35547
+320032607,Autumn Preparatory School,York,NV,32003,Madison County,Charter,K-8,1357,No,37.44188,-117.14241
+320045871,Meadow Elementary,Jamestown,NV,32004,Jackson County,Regular,PK-5,871,No,38.85424,-117.03509
+320048643,Oakwood Charter School,Farmington,NV,32004,Jackson County,Charter,K-5,233,Yes,38.9593,-117.28285
+320045806,Franklin Charter School,Fairview,NV,32004,Jackson County,Magnet,9-12,1770,Yes,38.66248,-117.0776
+320045760,Meadow Elementary,Oxford,NV,32004,Jackson County,Regular,9-12,1477,Yes,38.45767,-117.18463
+320043535,Twain Preparatory School,Plymouth,NV,32004,Jackson County,Regular,PK-5,146,No,38.759,-117.41498
+330019287,Cedar Charter School,Franklin,NH,33001,Marion County,Charter,K-5,618,No,44.33933,-70.26848
+330011354,Hamilton High School,Troy,NH,33001,Marion County,Magnet,K-5,1105,No,44.40351,-70.43832
+330017321,Liberty Middle School,Farmington,NH,33001,Marion County,Charter,PK-5,1827,No,44.1855,-70.68805
+330016811,Madison Elementary,Weston,NH,33001,Marion County,Charter,9-12,1997,No,44.10207,-70.76311
+330016558,Pine High School,Arlington,NH,33001,Marion County,Magnet,6-8,1360,No,44.13753,-70.3545
+330025247,Madison Magnet School,Kingston,NH,33002,Clay County,Regular,K-12,1545,No,42.04344,-71.50929
+330024876,Kennedy High School,Plymouth,NH,33002,Clay County,Regular,K-8,1693,No,42.55633,-71.48984
+330023851,Westside Middle School,Oxford,NH,33002,Clay County,Regular,9-12,1961,No,42.08283,-71.14456
+330029659,Excellence Academy,Greenville,NH,33002,Clay County,Regular,PK-5,219,Yes,42.12502,-71.04099
+330029653,Birch Academy,Troy,NH,33002,Clay County,Regular,9-12,969,No,42.30341,-71.31311
+330039474,Twain Middle School,Bristol,NH,33003,Monroe County,Regular,PK-5,2162,No,43.63429,-72.73248
+330033586,Hawthorne Middle School,Jamestown,NH,33003,Monroe County,Regular,K-12,1108,No,43.84293,-73.02281
+330034285,Eastside Elementary School,Fairview,NH,33003,Monroe County,Regular,PK-5,956,No,44.1579,-72.6588
+330036666,Roosevelt Charter School,Lexington,NH,33003,Monroe County,Regular,PK-5,450,No,44.17136,-72.89449
+330034731,Lincoln Elementary School,Springfield,NH,33003,Monroe County,Magnet,9-12,923,No,44.01256,-72.61405
+330048175,Adams Junior High School,Weston,NH,33004,Grant County,Regular,PK-5,1626,No,43.80199,-71.94189
+330041750,Excellence Elementary School,Vernon,NH,33004,Grant County,Regular,K-5,1143,Yes,43.73177,-72.12777
+330048843,Pleasant Middle School,Newport,NH,33004,Grant County,Regular,6-8,434,Yes,43.83592,-71.87761
+330045001,Magnolia Preparatory School,Burlington,NH,33004,Grant County,Charter,K-12,2337,Yes,43.7182,-71.66354
+330044453,Adams Magnet School,Plymouth,NH,33004,Grant County,Magnet,K-12,701,Yes,44.27255,-71.78479
+340012384,Franklin Preparatory School,Vernon,NJ,34001,Hamilton County,Regular,6-8,1692,No,38.83021,-75.81435
+340016698,Brookside Elementary School,York,NJ,34001,Hamilton County,Regular,PK-5,1497,No,39.30505,-75.68932
+340012789,Sunset Charter School,Plymouth,NJ,34001,Hamilton County,Regular,9-12,1297,No,39.0732,-75.61237
+340015495,Martin Luther King Jr. Academy,Richmond,NJ,34001,Hamilton County,Regular,9-12,2343,No,39.02142,-75.80714
+340016259,Pioneer Preparatory School,Vernon,NJ,34001,Hamilton County,Regular,6-8,852,No,39.09653,-75.77995
+340025529,Autumn Junior High School,Jamestown,NJ,34002,Greene County,Regular,K-8,1406,Yes,40.47226,-74.9128
+340022875,Fairview Elementary School,Clinton,NJ,34002,Greene County,Regular,K-12,2195,No,40.55593,-75.04243
+340026789,Sunrise Elementary School,Lexington,NJ,34002,Greene County,Charter,PK-5,1081,No,40.2735,-74.76344
+340027987,Spring Preparatory School,Fairview,NJ,34002,Greene County,Regular,6-8,221,No,40.57218,-74.85143
+340021418,Kennedy Junior High School,Madison,NJ,34002,Greene County,Regular,9-12,1402,No,40.77196,-74.8403
+340034679,Meadow Primary School,Kingston,NJ,34003,Union County,Regular,9-12,2365,No,39.17198,-74.70505
+340034998,Eastside Academy,Salem,NJ,34003,Union County,Regular,PK-5,1602,No,39.12209,-74.32889
+340036935,Fairview Elementary,Lexington,NJ,34003,Union County,Charter,K-5,1063,No,39.32038,-74.63994
+340036596,Westside Middle School,Greenville,NJ,34003,Union County,Regular,6-8,1793,No,39.15162,-74.68876
+340038698,Harmony Middle School,Fairview,NJ,34003,Union County,Regular,PK-5,259,No,38.86296,-74.67764
+340044955,Freedom Preparatory School,Bristol,NJ,34004,Warren County,Regular,K-12,1499,No,39.49769,-74.64272
+340048138,Hawthorne Elementary,Oxford,NJ,34004,Warren County,Regular,9-12,671,No,39.57702,-74.65897
+340043895,Willow Junior High School,Arlington,NJ,34004,Warren County,Charter,9-12,516,No,39.32121,-74.80803
+340043923,Jackson Elementary School,Troy,NJ,34004,Warren County,Regular,9-12,982,No,39.45428,-74.66762
+340045726,Greenfield Preparatory School,Lexington,NJ,34004,Warren County,Charter,K-5,554,No,39.54266,-74.9281
+350014197,Washington Elementary,Troy,NM,35001,Clark County,Magnet,9-12,225,No,32.99138,-106.41512
+350012965,Cedar Charter School,Glen Cove,NM,35001,Clark County,Regular,K-12,1197,Yes,33.3882,-106.38435
+350016494,Longfellow Elementary,Manchester,NM,35001,Clark County,Magnet,PK-5,2220,Yes,33.29359,-106.79131
+350011583,Ridgewood Elementary School,Georgetown,NM,35001,Clark County,Regular,K-5,680,No,33.39277,-106.84807
+350012453,Magnolia Academy,Springfield,NM,35001,Clark County,Regular,K-12,1898,Yes,33.16391,-106.61347
+350029691,Pleasant High School,Weston,NM,35002,Montgomery County,Magnet,6-8,1349,No,35.10332,-104.48381
+350025706,Oakwood Elementary,Burlington,NM,35002,Montgomery County,Regular,K-8,1133,No,34.64779,-104.60576
+350027750,Heritage Academy,Springfield,NM,35002,Montgomery County,Regular,6-8,1311,No,34.88279,-104.35071
+350025271,Greenfield Elementary School,Arlington,NM,35002,Montgomery County,Magnet,K-8,2108,No,34.7822,-104.39349
+350026401,Madison Junior High School,Jamestown,NM,35002,Montgomery County,Regular,K-12,201,Yes,35.05975,-104.83045
+350034251,Monroe Primary School,Dayton,NM,35003,Adams County,Magnet,K-8,1059,No,34.71167,-104.60361
+350032679,Willow Charter School,Salem,NM,35003,Adams County,Regular,K-5,2106,Yes,34.32507,-104.96912
+350035423,Central Middle School,Greenville,NM,35003,Adams County,Charter,9-12,422,No,34.24299,-104.70441
+350036303,Maple Primary School,Plymouth,NM,35003,Adams County,Charter,K-8,215,No,34.39533,-105.0284
+350039736,Willow Academy,Dayton,NM,35003,Adams County,Regular,9-12,190,No,34.66743,-104.57913
+350042785,Fairview Preparatory School,Burlington,NM,35004,Carroll County,Charter,6-8,708,Yes,33.85123,-107.05175
+350044808,Franklin Elementary,Arlington,NM,35004,Carroll County,Regular,PK-5,1806,No,34.23831,-106.65271
+350049007,Sunrise Elementary,Burlington,NM,35004,Carroll County,Regular,9-12,1085,No,34.07082,-106.8635
+350042990,Monroe Academy,Farmington,NM,35004,Carroll County,Charter,K-12,585,Yes,34.3253,-106.85619
+350045820,Unity Preparatory School,Hartford,NM,35004,Carroll County,Charter,K-8,1440,No,34.13229,-107.05373
+360014450,Brookside Magnet School,York,NY,36001,Henry County,Regular,PK-5,674,No,42.34383,-73.34906
+360012537,Sunrise Elementary,Burlington,NY,36001,Henry County,Regular,PK-5,507,Yes,42.40418,-73.49003
+360017982,Valley Preparatory School,Chester,NY,36001,Henry County,Regular,K-5,1771,No,42.36587,-73.46174
+360019557,Valley Charter School,Burlington,NY,36001,Henry County,Regular,K-5,1255,No,42.15478,-73.8451
+360011855,Madison Primary School,Salem,NY,36001,Henry County,Regular,9-12,1920,No,42.42811,-73.65045
+360026193,Magnolia Middle School,Weston,NY,36002,Marshall County,Regular,K-12,996,No,43.26099,-75.00784
+360028133,Fairview Magnet School,Clinton,NY,36002,Marshall County,Magnet,K-8,223,No,43.20692,-75.04555
+360021174,Grant Elementary,Chester,NY,36002,Marshall County,Regular,PK-5,2274,No,42.69707,-75.32177
+360027525,Jefferson Preparatory School,Arlington,NY,36002,Marshall County,Magnet,9-12,354,Yes,43.21161,-74.95146
+360021472,Hillcrest High School,Oxford,NY,36002,Marshall County,Regular,PK-5,844,No,42.74339,-75.00756
+360031273,Eastside Magnet School,Weston,NY,36003,Lawrence County,Magnet,6-8,813,No,42.8567,-74.85637
+360032375,Hamilton Elementary,Franklin,NY,36003,Lawrence County,Regular,K-12,1248,No,42.96013,-75.17515
+360038585,Martin Luther King Jr. Middle School,York,NY,36003,Lawrence County,Regular,9-12,490,No,42.98463,-75.3093
+360035042,Twain Academy,Plymouth,NY,36003,Lawrence County,Regular,K-5,663,No,42.5789,-74.99715
+360035832,Whitman Elementary,Arlington,NY,36003,Lawrence County,Charter,K-12,498,No,42.75999,-75.20253
+360049813,Meadow Academy,Oxford,NY,36004,Morgan County,Regular,K-8,1897,No,44.2065,-75.87519
+360044452,Whitman Academy,Farmington,NY,36004,Morgan County,Regular,K-12,1188,Yes,44.37205,-75.97418
+360046281,Liberty Middle School,Manchester,NY,36004,Morgan County,Regular,K-8,1589,Yes,43.91415,-75.9991
+360048478,Valley Junior High School,Oxford,NY,36004,Morgan County,Regular,K-12,1901,No,44.10304,-76.13825
+360049306,Kennedy Charter School,Easton,NY,36004,Morgan County,Regular,K-5,1223,No,44.17475,-76.18598
+370013128,Pleasant Magnet School,Salem,NC,37001,Perry County,Magnet,K-8,340,Yes,35.24666,-80.10461
+370014024,Emerson Academy,Easton,NC,37001,Perry County,Regular,K-8,489,No,35.15358,-80.23089
+370017165,Pioneer Elementary,Oxford,NC,37001,Perry County,Magnet,K-5,1114,Yes,35.29364,-80.37309
+370012174,Northview Elementary,Newport,NC,37001,Perry County,Regular,K-5,230,No,35.59245,-80.4572
+370014769,Madison Elementary,Madison,NC,37001,Perry County,Regular,6-8,301,No,35.24226,-80.50839
+370027909,Hamilton High School,Dayton,NC,37002,Pike County,Regular,K-12,2239,Yes,34.84435,-78.42172
+370028449,Washington Elementary,Manchester,NC,37002,Pike County,Regular,K-8,1765,No,35.02822,-78.28953
+370029765,Southfield Middle School,Salem,NC,37002,Pike County,Regular,K-12,852,No,34.88443,-78.24122
+370028454,Maple Elementary School,Farmington,NC,37002,Pike County,Regular,K-8,1273,Yes,34.63833,-78.17753
+370029892,Longfellow High School,Ashland,NC,37002,Pike County,Regular,K-12,1581,No,34.57591,-78.27652
+370032549,Madison High School,Manchester,NC,37003,Shelby County,Charter,6-8,2141,No,35.00253,-78.31527
+370032253,Westside Magnet School,Franklin,NC,37003,Shelby County,Regular,PK-5,721,Yes,34.69605,-77.93434
+370032298,Pioneer Charter School,Bristol,NC,37003,Shelby County,Regular,9-12,904,No,35.06385,-78.15315
+370034042,Longfellow Primary School,Newport,NC,37003,Shelby County,Regular,K-8,307,No,35.01275,-78.11558
+370036212,Kennedy Academy,Georgetown,NC,37003,Shelby County,Charter,K-12,194,No,34.59953,-78.15567
+370041205,Eastside Magnet School,Burlington,NC,37004,Sullivan County,Regular,6-8,1538,No,35.73427,-77.32779
+370042287,Ridgewood Elementary,Jamestown,NC,37004,Sullivan County,Regular,K-8,1534,Yes,35.76773,-77.24948
+370046761,Meadow Charter School,Easton,NC,37004,Sullivan County,Magnet,K-5,215,No,35.97706,-77.54595
+370042812,Meadow Preparatory School,Clinton,NC,37004,Sullivan County,Magnet,K-5,771,No,35.97324,-77.62919
+370046206,Willow Primary School,Jamestown,NC,37004,Sullivan County,Regular,6-8,1726,No,36.15863,-77.5435
+380016473,Discovery Elementary,Manchester,ND,38001,Wayne County,Magnet,6-8,825,Yes,47.64941,-100.85234
+380017697,Lincoln Magnet School,Lexington,ND,38001,Wayne County,Regular,PK-5,1143,No,47.76098,-100.96105
+380013644,Pine Magnet School,Plymouth,ND,38001,Wayne County,Regular,K-5,1100,No,47.7027,-100.81652
+380018268,Emerson High School,Farmington,ND,38001,Wayne County,Regular,K-5,2168,Yes,47.90161,-100.74147
+380018703,Central Charter School,Greenville,ND,38001,Wayne County,Charter,K-12,1828,No,47.94941,-100.9218
+380027527,Pioneer Elementary School,Chester,ND,38002,Lake County,Regular,K-5,1756,No,47.73315,-100.70437
+380023325,Greenfield Academy,Salem,ND,38002,Lake County,Regular,K-12,2096,No,47.6347,-100.58078
+380026417,Achievement Elementary,Oxford,ND,38002,Lake County,Charter,K-5,1176,No,47.83266,-100.32201
+380023593,Meadow Preparatory School,Glen Cove,ND,38002,Lake County,Regular,K-5,1921,No,47.56866,-100.29568
+380023430,Valley Elementary School,Arlington,ND,38002,Lake County,Regular,K-8,1611,No,47.76218,-100.2388
+380039605,Elm High School,Glen Cove,ND,38003,Orange County,Regular,K-5,1675,Yes,47.17295,-100.83425
+380039172,Pine Junior High School,York,ND,38003,Orange County,Magnet,PK-5,169,No,47.21653,-100.65496
+380039810,Central Middle School,Salem,ND,38003,Orange County,Regular,K-8,349,No,47.11172,-100.72432
+380035354,Sunset Preparatory School,Greenville,ND,38003,Orange County,Regular,K-8,898,Yes,47.31538,-100.79357
+380031836,Westside Middle School,Madison,ND,38003,Orange County,Charter,PK-5,2079,Yes,47.03684,-100.58748
+380048252,Innovation Academy,Kingston,ND,38004,Lee County,Magnet,K-8,1988,Yes,46.24495,-99.9328
+380049719,Emerson Magnet School,Arlington,ND,38004,Lee County,Magnet,K-5,2180,No,46.46945,-100.11022
+380045991,Kennedy Elementary,Burlington,ND,38004,Lee County,Regular,K-5,2326,No,46.21006,-100.11187
+380044445,Meadow High School,Burlington,ND,38004,Lee County,Charter,K-5,760,No,46.55374,-99.70561
+380045413,Edison Preparatory School,Glen Cove,ND,38004,Lee County,Regular,K-8,1363,No,46.18089,-99.97687
+390017697,Northview High School,Farmington,OH,39001,Scott County,Regular,K-12,1243,Yes,41.02052,-84.42157
+390014267,Excellence Academy,Lexington,OH,39001,Scott County,Regular,K-5,2180,No,41.04324,-84.4788
+390017390,Liberty Elementary,Georgetown,OH,39001,Scott County,Regular,K-8,1267,No,40.56499,-84.50923
+390017779,Horizon High School,Vernon,OH,39001,Scott County,Regular,6-8,736,No,40.87385,-84.2058
+390013301,Innovation Middle School,Vernon,OH,39001,Scott County,Regular,K-5,1405,No,41.07246,-84.2754
+390021379,Madison Middle School,Manchester,OH,39002,Douglas County,Charter,PK-5,1802,No,41.23368,-83.40809
+390026358,Achievement Primary School,Glen Cove,OH,39002,Douglas County,Regular,9-12,1277,No,41.37652,-83.25924
+390028675,Hillcrest Academy,Richmond,OH,39002,Douglas County,Regular,K-12,419,No,41.48655,-83.42047
+390028084,Spring Elementary School,Dayton,OH,39002,Douglas County,Regular,PK-5,1323,Yes,41.37011,-83.46593
+390024282,Innovation Junior High School,York,OH,39002,Douglas County,Regular,K-8,1572,No,41.10921,-83.61093
+390032134,Westside Magnet School,York,OH,39003,Fulton County,Regular,K-8,1062,No,39.76402,-83.47203
+390037145,Lincoln Elementary,Vernon,OH,39003,Fulton County,Regular,K-5,974,No,39.67253,-83.30687
+390039462,Adams High School,Richmond,OH,39003,Fulton County,Regular,K-8,978,Yes,40.20742,-83.12561
+390038486,Lincoln Elementary School,Dayton,OH,39003,Fulton County,Regular,K-8,1840,No,40.21994,-83.50996
+390037384,Spring Elementary,Springfield,OH,39003,Fulton County,Charter,K-5,1245,No,39.67022,-83.06155
+390044437,Central Preparatory School,Chester,OH,39004,Hancock County,Regular,9-12,1819,No,40.70204,-83.32502
+390049151,Wilson Preparatory School,Dayton,OH,39004,Hancock County,Regular,PK-5,1648,No,40.82365,-83.41271
+390049604,Monroe High School,Bristol,OH,39004,Hancock County,Regular,PK-5,181,No,40.98881,-83.37453
+390041011,Twain Elementary,Glen Cove,OH,39004,Hancock County,Regular,9-12,1172,No,40.64423,-83.10581
+390043336,Edison Middle School,Plymouth,OH,39004,Hancock County,Regular,K-5,508,No,40.61988,-83.06079
+400019468,Meadow Preparatory School,Richmond,OK,40001,Knox County,Regular,9-12,659,No,34.12511,-97.61588
+400011558,Pioneer Academy,Clinton,OK,40001,Knox County,Regular,K-8,1745,No,33.87893,-97.72413
+400019943,Cedar Middle School,Plymouth,OK,40001,Knox County,Regular,K-8,1264,No,34.07425,-97.47708
+400019504,Whitman Middle School,Salem,OK,40001,Knox County,Regular,K-5,1616,No,34.25728,-97.43375
+400016030,Cedar Charter School,Jamestown,OK,40001,Knox County,Regular,9-12,459,No,34.11043,-97.44785
+400023486,Meadow Primary School,Hartford,OK,40002,Logan County,Regular,9-12,312,No,35.25707,-98.02098
+400023491,Sunrise Junior High School,Easton,OK,40002,Logan County,Regular,6-8,948,No,34.96275,-97.85571
+400025915,Washington Middle School,Arlington,OK,40002,Logan County,Regular,9-12,2396,No,35.05865,-97.99712
+400024972,Riverside High School,Manchester,OK,40002,Logan County,Regular,K-8,1836,No,35.28825,-98.28806
+400023487,Wilson Elementary,Fairview,OK,40002,Logan County,Charter,K-8,1248,No,34.93986,-98.36682
+400038444,Jackson Middle School,Weston,OK,40003,Putnam County,Regular,K-8,1518,No,36.39669,-97.04362
+400035769,Edison Primary School,Bristol,OK,40003,Putnam County,Magnet,6-8,482,No,35.97178,-96.55822
+400035123,Ridgewood Primary School,Burlington,OK,40003,Putnam County,Magnet,PK-5,1838,No,36.41685,-97.01834
+400038993,Sunset Junior High School,Troy,OK,40003,Putnam County,Regular,K-12,1659,No,35.85226,-97.00352
+400037911,Horizon Charter School,Oxford,OK,40003,Putnam County,Charter,6-8,283,No,36.21525,-96.80405
+400041420,Wilson Junior High School,Clinton,OK,40004,Russell County,Magnet,PK-5,218,No,34.44208,-95.5062
+400048307,Achievement Elementary School,Burlington,OK,40004,Russell County,Charter,9-12,1996,No,34.84397,-95.96224
+400042456,Eastside Magnet School,Lexington,OK,40004,Russell County,Regular,K-12,2324,No,34.57272,-95.8751
+400048953,Northview Magnet School,Salem,OK,40004,Russell County,Regular,K-8,1913,No,34.83566,-95.48301
+400049818,Hamilton Charter School,Lexington,OK,40004,Russell County,Magnet,K-12,431,No,34.43882,-95.6316
+410015815,Hillcrest Junior High School,Greenville,OR,41001,Randolph County,Regular,9-12,1446,No,44.48852,-121.86034
+410014700,Cedar Academy,Fairview,OR,41001,Randolph County,Magnet,9-12,170,No,44.36921,-121.87234
+410017547,Ridgewood Junior High School,Weston,OR,41001,Randolph County,Magnet,K-8,1705,No,44.64705,-121.29565
+410013203,Westside Academy,Salem,OR,41001,Randolph County,Magnet,9-12,2324,No,44.28097,-121.33431
+410014669,Pine Preparatory School,Kingston,OR,41001,Randolph County,Regular,6-8,337,No,44.59428,-121.58652
+410023422,Roosevelt Magnet School,Greenville,OR,41002,Crawford County,Charter,K-12,1250,No,43.55261,-119.57394
+410029821,Liberty Preparatory School,Burlington,OR,41002,Crawford County,Charter,K-12,1072,No,43.07074,-119.68683
+410022163,Hillcrest Middle School,Hartford,OR,41002,Crawford County,Regular,9-12,1814,No,43.42373,-119.86132
+410027611,Meadow Charter School,Salem,OR,41002,Crawford County,Regular,K-8,1789,No,43.40205,-119.92749
+410027576,Grant Academy,Chester,OR,41002,Crawford County,Regular,K-8,454,No,43.25524,-119.95418
+410039669,Washington Elementary School,Burlington,OR,41003,Fayette County,Regular,9-12,1695,No,44.54969,-120.51221
+410036656,Kennedy High School,Lexington,OR,41003,Fayette County,Charter,K-5,1652,No,45.06796,-120.63148
+410032970,Excellence Preparatory School,York,OR,41003,Fayette County,Regular,9-12,1313,Yes,44.74253,-120.94705
+410039978,Pioneer Charter School,Salem,OR,41003,Fayette County,Regular,K-5,1954,Yes,44.93432,-121.01602
+410038871,Excellence Junior High School,Bristol,OR,41003,Fayette County,Charter,9-12,2249,Yes,44.93121,-120.86297
+410048338,Discovery Academy,Ashland,OR,41004,Delaware County,Magnet,PK-5,1866,No,44.46038,-121.83777
+410041903,Magnolia Elementary School,Madison,OR,41004,Delaware County,Charter,9-12,485,No,44.73456,-121.43849
+410046763,Sunrise Elementary School,Troy,OR,41004,Delaware County,Regular,PK-5,1896,No,44.50455,-121.47852
+410044387,Meadow Junior High School,Springfield,OR,41004,Delaware County,Regular,K-8,305,No,44.32292,-121.47357
+410044741,Southfield Charter School,Franklin,OR,41004,Delaware County,Magnet,K-8,758,No,44.55855,-121.51414
+420015466,Oakwood Elementary School,Easton,PA,42001,Harrison County,Regular,6-8,1814,No,39.91245,-77.81235
+420014653,Roosevelt Middle School,Bristol,PA,42001,Harrison County,Regular,K-5,770,No,39.7855,-78.03084
+420015284,Kennedy Middle School,Dayton,PA,42001,Harrison County,Charter,K-5,947,Yes,40.07845,-78.05422
+420012104,Emerson Charter School,Lexington,PA,42001,Harrison County,Charter,PK-5,1639,No,40.18861,-78.08779
+420016592,Central Preparatory School,York,PA,42001,Harrison County,Magnet,PK-5,838,No,40.02282,-77.81206
+420028190,Lincoln Elementary,Greenville,PA,42002,Howard County,Regular,K-8,1126,No,40.60641,-76.99708
+420026270,Southfield Elementary School,Fairview,PA,42002,Howard County,Magnet,PK-5,545,No,40.27584,-77.08105
+420028805,Brookside Junior High School,Manchester,PA,42002,Howard County,Regular,K-12,1701,No,40.68367,-76.85104
+420023509,Pine Primary School,Weston,PA,42002,Howard County,Magnet,K-5,1595,No,40.35894,-76.70084
+420028535,Oakwood Primary School,Vernon,PA,42002,Howard County,Magnet,K-5,1049,No,40.34731,-76.7072
+420036341,Pleasant Charter School,Fairview,PA,42003,Johnson County,Regular,9-12,2290,No,41.5721,-77.69865
+420037688,Southfield Preparatory School,Madison,PA,42003,Johnson County,Regular,6-8,1729,No,41.70664,-77.8005
+420033567,Pleasant Charter School,York,PA,42003,Johnson County,Regular,K-12,2239,No,41.53269,-77.86041
+420037584,Meadow Academy,Fairview,PA,42003,Johnson County,Magnet,K-5,1804,No,41.70565,-77.60538
+420032070,Martin Luther King Jr. Elementary School,Springfield,PA,42003,Johnson County,Regular,K-8,336,No,41.93606,-77.93822
+420048317,Elm Magnet School,Oxford,PA,42004,Mercer County,Regular,K-5,837,No,42.17014,-76.8864
+420045607,Liberty Academy,Bristol,PA,42004,Mercer County,Magnet,6-8,720,No,42.04644,-77.34417
+420043979,Cedar Elementary School,Glen Cove,PA,42004,Mercer County,Regular,PK-5,1528,No,42.58089,-76.83591
+420044229,Ridgewood Magnet School,Ashland,PA,42004,Mercer County,Charter,PK-5,460,No,42.34989,-76.88821
+420049526,Autumn Elementary School,Glen Cove,PA,42004,Mercer County,Regular,K-8,1424,No,42.01941,-77.22452
+440012314,Eastside Primary School,Franklin,RI,44001,Noble County,Regular,6-8,655,Yes,42.33438,-72.21717
+440019398,Centennial Charter School,Easton,RI,44001,Noble County,Regular,9-12,1521,No,42.45934,-71.79723
+440016220,Central Primary School,Weston,RI,44001,Noble County,Regular,PK-5,584,Yes,42.38005,-71.74496
+440011158,Unity Elementary School,Plymouth,RI,44001,Noble County,Regular,6-8,1517,Yes,41.98735,-71.85302
+440012329,Hamilton Middle School,Oxford,RI,44001,Noble County,Regular,K-5,495,Yes,42.15338,-71.81734
+440029115,Highland High School,Glen Cove,RI,44002,Owen County,Regular,PK-5,1299,Yes,41.21101,-71.97985
+440022241,Grant High School,Vernon,RI,44002,Owen County,Regular,9-12,1436,No,41.04295,-71.90322
+440029692,Washington Preparatory School,Ashland,RI,44002,Owen County,Regular,K-12,780,Yes,40.98247,-71.98805
+440022445,Westside Junior High School,Richmond,RI,44002,Owen County,Magnet,K-8,1600,Yes,41.28702,-71.84811
+440024117,Edison Junior High School,Clinton,RI,44002,Owen County,Magnet,K-8,294,No,41.19134,-71.75642
+440031401,Central High School,Salem,RI,44003,Ripley County,Regular,6-8,1417,No,42.41236,-70.08988
+440032553,Lincoln Charter School,Glen Cove,RI,44003,Ripley County,Regular,6-8,733,No,42.02089,-70.45619
+440038091,Maple High School,Glen Cove,RI,44003,Ripley County,Magnet,K-8,364,No,42.39536,-70.42906
+440036046,Ridgewood High School,Burlington,RI,44003,Ripley County,Regular,9-12,1392,No,42.18548,-70.10973
+440031290,Cedar Magnet School,Easton,RI,44003,Ripley County,Magnet,K-8,1128,No,42.38525,-70.05623
+440046272,Achievement Junior High School,York,RI,44004,Spencer County,Magnet,9-12,1057,No,41.72419,-73.04064
+440049670,Birch Elementary,Lexington,RI,44004,Spencer County,Regular,K-8,1209,Yes,41.50589,-72.72364
+440048906,Sunset High School,Salem,RI,44004,Spencer County,Regular,9-12,1237,No,41.52702,-73.0016
+440044193,Magnolia Primary School,Ashland,RI,44004,Spencer County,Regular,PK-5,1136,No,41.48999,-72.69895
+440048617,Innovation High School,Farmington,RI,44004,Spencer County,Regular,PK-5,1684,No,41.59251,-72.73502
+450011277,Adams Elementary School,Vernon,SC,45001,Stark County,Magnet,K-12,1457,No,33.76999,-81.41074
+450011565,Fairview Preparatory School,Burlington,SC,45001,Stark County,Regular,6-8,281,Yes,33.98237,-81.1717
+450016903,Northview Magnet School,Greenville,SC,45001,Stark County,Regular,9-12,1810,No,33.99921,-81.30443
+450018348,Monroe Middle School,Richmond,SC,45001,Stark County,Regular,9-12,1188,No,33.69226,-81.21304
+450013500,Central High School,Hartford,SC,45001,Stark County,Regular,6-8,1428,No,33.78122,-81.2193
+450024278,Valley Elementary School,Madison,SC,45002,Taylor County,Regular,9-12,1060,No,33.14439,-82.13111
+450025610,Longfellow Primary School,Chester,SC,45002,Taylor County,Regular,9-12,2212,No,33.23602,-82.43125
+450029385,Innovation Charter School,Madison,SC,45002,Taylor County,Regular,K-12,877,Yes,33.1651,-82.06942
+450025970,Southfield Elementary,Franklin,SC,45002,Taylor County,Regular,PK-5,1061,No,33.27018,-82.53791
+450027402,Highland High School,York,SC,45002,Taylor County,Regular,K-12,2133,No,33.4766,-82.38099
+450035493,Brookside Elementary School,Ashland,SC,45003,Wabash County,Regular,PK-5,1942,No,33.67285,-80.41537
+450031366,Twain Elementary School,Weston,SC,45003,Wabash County,Regular,K-5,611,No,33.3207,-80.71794
+450031235,Adams Middle School,Plymouth,SC,45003,Wabash County,Regular,9-12,1081,No,33.75748,-80.64423
+450037183,Lincoln Elementary School,Glen Cove,SC,45003,Wabash County,Regular,9-12,1891,No,33.48305,-80.40836
+450035379,Lincoln Preparatory School,Vernon,SC,45003,Wabash County,Regular,K-12,890,No,33.64941,-80.50589
+450041774,Hawthorne Magnet School,Greenville,SC,45004,Washington County,Regular,K-8,1624,No,34.52713,-80.09885
+450047096,Pine Magnet School,Richmond,SC,45004,Washington County,Charter,6-8,1317,No,34.52324,-79.9746
+450048644,Cedar Primary School,Vernon,SC,45004,Washington County,Regular,K-12,792,Yes,34.24077,-79.87462
+450044372,Horizon Charter School,Greenville,SC,45004,Washington County,Regular,9-12,1836,Yes,34.629,-80.0992
+450046486,Birch Middle School,Burlington,SC,45004,Washington County,Charter,K-5,1649,No,34.34857,-79.93398
+460014085,Freedom Elementary School,Weston,SD,46001,Jefferson County,Regular,K-12,2186,Yes,44.73392,-98.61619
+460011385,Lincoln Elementary School,Ashland,SD,46001,Jefferson County,Regular,PK-5,615,No,44.54823,-98.70006
+460015918,Eastside Charter School,Chester,SD,46001,Jefferson County,Charter,6-8,973,No,44.69391,-98.81189
+460018759,Central Charter School,Richmond,SD,46001,Jefferson County,Magnet,K-8,2327,Yes,44.69042,-98.81343
+460012508,Martin Luther King Jr. Academy,Plymouth,SD,46001,Jefferson County,Magnet,9-12,505,No,44.66471,-98.96327
+460021168,Heritage High School,Kingston,SD,46002,Franklin County,Charter,K-8,235,No,42.80976,-99.74146
+460029046,Hamilton Elementary,Ashland,SD,46002,Franklin County,Regular,PK-5,786,Yes,42.94247,-99.65135
+460023893,Innovation Charter School,Franklin,SD,46002,Franklin County,Magnet,9-12,1358,No,42.90235,-99.33086
+460021387,Cedar Elementary,Chester,SD,46002,Franklin County,Charter,K-8,1881,Yes,43.19335,-99.31159
+460025305,Spring Magnet School,Glen Cove,SD,46002,Franklin County,Regular,PK-5,1763,No,43.31227,-99.32488
+460035309,Elm Middle School,Salem,SD,46003,Lincoln County,Regular,K-5,879,No,44.77471,-101.09845
+460039594,Pleasant Preparatory School,Kingston,SD,46003,Lincoln County,Regular,K-8,2293,Yes,44.88721,-100.63542
+460037354,Sunset Primary School,Vernon,SD,46003,Lincoln County,Regular,K-5,410,No,45.10545,-100.60759
+460036926,Edison Preparatory School,Easton,SD,46003,Lincoln County,Regular,6-8,364,No,44.73095,-100.93001
+460033086,Elm Junior High School,Salem,SD,46003,Lincoln County,Regular,K-5,2207,No,45.09282,-100.66904
+460042390,Freedom High School,Richmond,SD,46004,Madison County,Regular,K-12,283,No,44.23203,-98.0356
+460047325,Discovery Junior High School,Oxford,SD,46004,Madison County,Charter,K-8,682,No,44.26785,-97.78925
+460049413,Edison Magnet School,York,SD,46004,Madison County,Regular,K-8,1447,No,44.40521,-97.99499
+460043281,Excellence Preparatory School,Madison,SD,46004,Madison County,Regular,9-12,1600,No,44.18828,-97.92649
+460046527,Hamilton Elementary,Chester,SD,46004,Madison County,Magnet,9-12,1126,No,44.35621,-98.04166
+470017440,Washington Middle School,Madison,TN,47001,Jackson County,Regular,9-12,1163,No,35.87566,-85.67689
+470012770,Elm Charter School,Dayton,TN,47001,Jackson County,Regular,PK-5,1402,Yes,35.68664,-86.19765
+470017934,Wilson Elementary School,Weston,TN,47001,Jackson County,Regular,K-12,365,Yes,35.66966,-85.6853
+470016792,Pioneer Academy,Fairview,TN,47001,Jackson County,Regular,6-8,214,No,36.06021,-86.16829
+470018966,Adams Middle School,Georgetown,TN,47001,Jackson County,Regular,K-5,1784,No,35.74801,-85.90564
+470028309,Wilson Academy,Bristol,TN,47002,Marion County,Magnet,K-12,455,No,35.64846,-87.77038
+470028154,Achievement Primary School,Burlington,TN,47002,Marion County,Charter,6-8,1439,Yes,35.52042,-87.66652
+470027619,Wilson Academy,Burlington,TN,47002,Marion County,Magnet,K-5,1566,No,35.38549,-87.60694
+470028409,Freedom Elementary School,Dayton,TN,47002,Marion County,Magnet,K-12,1533,No,35.44958,-87.74133
+470028840,Monroe High School,Georgetown,TN,47002,Marion County,Regular,K-8,2238,No,35.72854,-87.4484
+470032298,Magnolia Preparatory School,Farmington,TN,47003,Clay County,Regular,K-5,730,No,34.39648,-85.48576
+470033882,Hawthorne Primary School,Glen Cove,TN,47003,Clay County,Charter,K-5,1853,No,34.45325,-85.26266
+470038578,Sunset Magnet School,Plymouth,TN,47003,Clay County,Regular,PK-5,852,No,34.63169,-85.63522
+470033211,Monroe Elementary School,Glen Cove,TN,47003,Clay County,Charter,K-8,758,No,34.45666,-85.38192
+470031692,Roosevelt Charter School,Fairview,TN,47003,Clay County,Magnet,K-12,122,No,34.58796,-85.268
+470047638,Discovery Preparatory School,Hartford,TN,47004,Monroe County,Regular,PK-5,1789,No,34.60269,-87.14906
+470045907,Southfield Elementary School,Burlington,TN,47004,Monroe County,Regular,K-12,2115,No,34.75099,-87.31956
+470043331,Lincoln Academy,Weston,TN,47004,Monroe County,Regular,6-8,1918,No,34.59287,-87.16909
+470042659,Hawthorne Magnet School,Franklin,TN,47004,Monroe County,Regular,6-8,1555,No,34.84644,-86.91667
+470048855,Roosevelt Magnet School,Burlington,TN,47004,Monroe County,Regular,PK-5,912,No,34.85399,-87.34933
+480018345,Riverside Magnet School,Salem,TX,48001,Grant County,Charter,PK-5,2005,No,31.71576,-101.24194
+480019978,Unity Junior High School,Hartford,TX,48001,Grant County,Magnet,K-12,395,No,31.90247,-101.18615
+480015518,Riverside Academy,Franklin,TX,48001,Grant County,Charter,6-8,300,No,31.34997,-101.33313
+480014450,Washington Middle School,Clinton,TX,48001,Grant County,Magnet,K-5,273,No,31.77904,-100.94069
+480016615,Hillcrest Magnet School,Vernon,TX,48001,Grant County,Regular,K-12,2040,No,31.68893,-101.08414
+480025570,Excellence Junior High School,Richmond,TX,48002,Hamilton County,Regular,K-8,1124,No,30.81946,-98.71698
+480025221,Kennedy High School,Jamestown,TX,48002,Hamilton County,Regular,K-5,1035,No,30.85895,-98.82806
+480024973,Monroe Junior High School,Glen Cove,TX,48002,Hamilton County,Magnet,6-8,391,No,30.88617,-98.94316
+480029058,Brookside Charter School,Kingston,TX,48002,Hamilton County,Charter,K-5,996,No,30.58856,-98.83623
+480022348,Achievement Elementary School,Fairview,TX,48002,Hamilton County,Regular,K-12,2333,No,30.62609,-98.92191
+480036853,Pleasant Junior High School,Greenville,TX,48003,Greene County,Charter,PK-5,285,No,30.25993,-99.67891
+480039034,Kennedy Preparatory School,Kingston,TX,48003,Greene County,Magnet,PK-5,1313,Yes,30.22328,-99.70633
+480035648,Jefferson Charter School,Vernon,TX,48003,Greene County,Charter,K-8,1507,No,30.14115,-99.39084
+480036067,Pleasant Magnet School,Madison,TX,48003,Greene County,Regular,PK-5,1105,No,29.81343,-99.78387
+480036451,Liberty Magnet School,Kingston,TX,48003,Greene County,Charter,K-12,1099,No,29.9854,-99.80343
+480047402,Grant Magnet School,Greenville,TX,48004,Union County,Regular,6-8,320,Yes,31.98527,-101.23272
+480046356,Harmony Charter School,Newport,TX,48004,Union County,Magnet,K-8,1409,No,31.48506,-101.24498
+480049115,Longfellow Academy,Plymouth,TX,48004,Union County,Regular,K-8,859,No,31.50367,-101.70936
+480044458,Jackson Magnet School,Newport,TX,48004,Union County,Charter,9-12,2188,No,31.79912,-101.18115
+480049964,Hawthorne Primary School,Richmond,TX,48004,Union County,Regular,9-12,1989,Yes,31.65129,-101.70415
+490016163,Pioneer Junior High School,Georgetown,UT,49001,Warren County,Regular,PK-5,1960,No,39.17547,-110.62727
+490018360,Emerson Charter School,Springfield,UT,49001,Warren County,Charter,K-8,1881,Yes,39.57048,-110.53707
+490016016,Innovation Junior High School,Newport,UT,49001,Warren County,Charter,K-12,329,No,39.58862,-110.89045
+490019930,Fairview Academy,Springfield,UT,49001,Warren County,Regular,6-8,1879,Yes,39.19256,-110.87114
+490013651,Autumn Charter School,Madison,UT,49001,Warren County,Charter,K-8,791,No,39.05386,-110.45946
+490024924,Roosevelt Preparatory School,Clinton,UT,49002,Clark County,Magnet,9-12,584,No,38.38192,-111.35282
+490023890,Lakeview Academy,Jamestown,UT,49002,Clark County,Regular,PK-5,1145,Yes,38.72595,-111.28089
+490026757,Lincoln Magnet School,Vernon,UT,49002,Clark County,Regular,6-8,1714,No,38.24154,-111.34565
+490024715,Pioneer Elementary,Jamestown,UT,49002,Clark County,Regular,PK-5,1995,No,38.37273,-111.43178
+490027808,Harmony Elementary School,Burlington,UT,49002,Clark County,Charter,9-12,2018,Yes,38.25985,-111.59551
+490032962,Hillcrest Elementary School,Salem,UT,49003,Montgomery County,Regular,K-8,1418,No,38.30103,-111.2951
+490037219,Jackson Preparatory School,Burlington,UT,49003,Montgomery County,Regular,6-8,1807,Yes,38.69888,-111.57013
+490033251,Brookside Primary School,Lexington,UT,49003,Montgomery County,Regular,K-8,530,No,38.18182,-111.20362
+490039868,Greenfield Middle School,Salem,UT,49003,Montgomery County,Magnet,PK-5,2368,No,38.65759,-111.39366
+490031852,Madison Middle School,Bristol,UT,49003,Montgomery County,Magnet,K-8,136,Yes,38.64864,-111.76289
+490043758,Hamilton Junior High School,Oxford,UT,49004,Adams County,Regular,K-5,545,Yes,40.15619,-111.20835
+490045477,Meadow Academy,Glen Cove,UT,49004,Adams County,Magnet,K-12,2362,No,39.90962,-111.519
+490045713,Longfellow Academy,Lexington,UT,49004,Adams County,Regular,PK-5,630,No,40.027,-111.28245
+490042965,Pleasant Academy,Fairview,UT,49004,Adams County,Regular,K-12,284,No,40.47289,-111.19867
+490042814,Pioneer Elementary School,Easton,UT,49004,Adams County,Regular,K-12,558,No,39.9978,-111.55897
+500014302,Centennial High School,Madison,VT,50001,Carroll County,Regular,K-12,1714,No,45.0031,-72.70009
+500011976,Harmony Elementary,Hartford,VT,50001,Carroll County,Regular,K-5,1304,No,45.13834,-72.57082
+500016699,Twain Academy,Farmington,VT,50001,Carroll County,Regular,K-8,942,No,45.39398,-72.5215
+500019350,Fairview High School,Bristol,VT,50001,Carroll County,Charter,K-8,1216,No,45.20352,-72.68566
+500015633,Whitman Academy,Richmond,VT,50001,Carroll County,Regular,PK-5,2397,No,45.26681,-72.51313
+500024168,Hamilton Middle School,Plymouth,VT,50002,Henry County,Regular,9-12,1374,No,42.7675,-73.17314
+500024215,Spring Academy,Burlington,VT,50002,Henry County,Regular,9-12,307,No,42.83093,-73.20054
+500024789,Oakwood Elementary School,Madison,VT,50002,Henry County,Charter,PK-5,2033,No,42.93779,-73.21273
+500027703,Adams Preparatory School,Manchester,VT,50002,Henry County,Regular,9-12,1962,No,42.67289,-73.10176
+500028798,Liberty Preparatory School,Jamestown,VT,50002,Henry County,Magnet,K-5,804,Yes,43.17254,-73.36217
+500036717,Brookside Magnet School,Richmond,VT,50003,Marshall County,Charter,K-12,1972,No,44.26214,-72.14989
+500034208,Horizon Academy,Madison,VT,50003,Marshall County,Charter,K-5,663,No,44.52251,-71.8114
+500035908,Pioneer Charter School,Fairview,VT,50003,Marshall County,Regular,K-8,379,No,44.53024,-72.20383
+500033518,Oakwood Middle School,Easton,VT,50003,Marshall County,Charter,9-12,1059,No,44.40568,-71.89624
+500033578,Pioneer Junior High School,Jamestown,VT,50003,Marshall County,Regular,6-8,1003,No,44.50093,-71.84183
+500045842,Lakeview Primary School,Farmington,VT,50004,Lawrence County,Regular,PK-5,492,Yes,44.81256,-73.58473
+500043215,Franklin Primary School,Clinton,VT,50004,Lawrence County,Charter,PK-5,2327,No,44.81397,-73.51651
+500042532,Whitman Preparatory School,Burlington,VT,50004,Lawrence County,Regular,6-8,2368,No,44.83147,-73.63439
+500047916,Unity Primary School,Greenville,VT,50004,Lawrence County,Regular,K-8,1438,No,44.43338,-73.49501
+500041497,Martin Luther King Jr. Magnet School,Clinton,VT,50004,Lawrence County,Magnet,PK-5,452,Yes,44.74737,-73.37233
+510013453,Northview Magnet School,Dayton,VA,51001,Morgan County,Charter,PK-5,591,No,38.60502,-77.57862
+510012255,Jackson High School,Troy,VA,51001,Morgan County,Magnet,9-12,1303,Yes,38.34197,-77.45378
+510016594,Martin Luther King Jr. Magnet School,Plymouth,VA,51001,Morgan County,Regular,9-12,2233,No,38.47152,-77.49199
+510016999,Twain High School,Salem,VA,51001,Morgan County,Regular,6-8,1657,Yes,38.48503,-77.71147
+510011278,Innovation Junior High School,Richmond,VA,51001,Morgan County,Regular,PK-5,2273,No,38.22896,-77.69867
+510025286,Ridgewood Preparatory School,Vernon,VA,51002,Perry County,Regular,9-12,846,No,37.29587,-77.62266
+510022073,Jackson Charter School,Lexington,VA,51002,Perry County,Regular,K-12,1328,No,37.30983,-77.79409
+510029656,Maple Academy,Bristol,VA,51002,Perry County,Regular,6-8,1388,No,37.0461,-77.65713
+510021693,Hamilton Charter School,Salem,VA,51002,Perry County,Regular,K-8,1058,No,37.20076,-77.77129
+510025584,Central Preparatory School,Hartford,VA,51002,Perry County,Regular,K-8,2292,Yes,37.46002,-77.74273
+510038629,Hillcrest Elementary School,Newport,VA,51003,Pike County,Regular,K-8,1512,Yes,36.88112,-77.13165
+510036162,Spring Middle School,Dayton,VA,51003,Pike County,Charter,K-12,1028,No,37.19087,-77.46107
+510034950,Valley Middle School,Manchester,VA,51003,Pike County,Regular,K-8,930,No,36.83737,-77.2721
+510039272,Birch Magnet School,Dayton,VA,51003,Pike County,Charter,9-12,510,No,37.28374,-77.00007
+510032748,Eastside Charter School,Bristol,VA,51003,Pike County,Regular,PK-5,2371,No,37.20986,-77.20078
+510042961,Unity Charter School,York,VA,51004,Shelby County,Regular,K-8,132,No,36.87346,-76.93785
+510045699,Kennedy Primary School,Ashland,VA,51004,Shelby County,Charter,PK-5,1045,No,36.8766,-77.01729
+510049287,Jackson Middle School,Georgetown,VA,51004,Shelby County,Regular,PK-5,1968,No,36.83951,-77.05274
+510041702,Pioneer Magnet School,Manchester,VA,51004,Shelby County,Magnet,6-8,207,No,36.78099,-76.74234
+510041294,Jefferson Academy,Vernon,VA,51004,Shelby County,Regular,9-12,346,No,36.85519,-77.065
+530014487,Kennedy High School,Richmond,WA,53001,Sullivan County,Charter,6-8,1015,No,47.2846,-122.13242
+530013336,Hillcrest Academy,Hartford,WA,53001,Sullivan County,Regular,K-5,1200,No,47.1959,-122.32169
+530018813,Central Primary School,Plymouth,WA,53001,Sullivan County,Regular,K-12,2285,No,46.99057,-122.21872
+530011778,Willow Magnet School,Kingston,WA,53001,Sullivan County,Magnet,PK-5,385,No,46.91756,-122.23683
+530017893,Innovation Junior High School,Kingston,WA,53001,Sullivan County,Magnet,9-12,1659,No,47.24427,-121.96085
+530025066,Jackson Magnet School,Kingston,WA,53002,Wayne County,Charter,K-8,541,No,47.58696,-120.09814
+530024654,Hawthorne High School,Richmond,WA,53002,Wayne County,Magnet,PK-5,1880,No,47.91255,-119.82202
+530027843,Autumn Elementary School,Manchester,WA,53002,Wayne County,Regular,K-12,1930,No,48.02377,-120.2127
+530029523,Madison Primary School,Richmond,WA,53002,Wayne County,Regular,6-8,191,No,48.07101,-119.86005
+530023412,Riverside Junior High School,Richmond,WA,53002,Wayne County,Magnet,9-12,1589,No,47.83469,-120.23878
+530037978,Kennedy High School,Richmond,WA,53003,Lake County,Regular,PK-5,899,No,48.6377,-119.70422
+530039339,Longfellow Elementary School,Vernon,WA,53003,Lake County,Charter,PK-5,240,No,48.58185,-120.15826
+530037343,Willow Academy,Greenville,WA,53003,Lake County,Regular,PK-5,452,No,48.78339,-120.0916
+530032198,Centennial Magnet School,Franklin,WA,53003,Lake County,Regular,9-12,1976,No,48.75899,-119.77476
+530035584,Longfellow Elementary School,Weston,WA,53003,Lake County,Regular,K-5,2148,No,48.56042,-120.1236
+530043247,Northview Elementary School,Jamestown,WA,53004,Orange County,Regular,6-8,497,No,47.73819,-120.405
+530049584,Heritage Primary School,Arlington,WA,53004,Orange County,Regular,PK-5,395,No,47.42226,-120.62828
+530042781,Pine Primary School,York,WA,53004,Orange County,Regular,K-5,444,No,47.30958,-120.39087
+530046206,Madison Elementary,Glen Cove,WA,53004,Orange County,Regular,6-8,2356,No,47.52879,-120.78637
+530046292,Franklin High School,Vernon,WA,53004,Orange County,Magnet,PK-5,1740,No,47.60936,-120.31675
+540018707,Sunrise Middle School,York,WV,54001,Lee County,Regular,9-12,700,No,39.84215,-81.26321
+540019785,Horizon High School,Bristol,WV,54001,Lee County,Charter,K-5,912,No,39.70925,-80.97879
+540017979,Central Academy,Vernon,WV,54001,Lee County,Charter,K-5,2329,No,39.92359,-81.05415
+540011375,Birch Junior High School,Jamestown,WV,54001,Lee County,Magnet,6-8,1875,No,39.80605,-80.96632
+540013400,Central Elementary School,Chester,WV,54001,Lee County,Regular,K-5,129,No,39.72197,-81.51239
+540026997,Washington Magnet School,Jamestown,WV,54002,Scott County,Regular,K-5,1952,Yes,38.66355,-80.47554
+540028482,Discovery Junior High School,Franklin,WV,54002,Scott County,Regular,9-12,2308,No,38.39263,-80.34444
+540021555,Highland Academy,Newport,WV,54002,Scott County,Regular,K-12,2341,No,38.83651,-80.35957
+540029391,Sunset Middle School,Manchester,WV,54002,Scott County,Magnet,9-12,464,No,38.45957,-80.34286
+540024854,Autumn Primary School,Dayton,WV,54002,Scott County,Regular,K-12,1953,No,38.53806,-80.39494
+540038559,Birch Junior High School,Jamestown,WV,54003,Douglas County,Magnet,9-12,2137,No,39.71629,-79.47199
+540039092,Harmony Elementary School,Salem,WV,54003,Douglas County,Regular,K-12,2299,No,39.80004,-79.98581
+540036904,Discovery Charter School,Dayton,WV,54003,Douglas County,Regular,PK-5,1479,No,39.73262,-79.96782
+540039578,Riverside Elementary,Kingston,WV,54003,Douglas County,Regular,9-12,1734,No,39.47531,-79.49032
+540037412,Pioneer Academy,Vernon,WV,54003,Douglas County,Regular,PK-5,916,Yes,39.59521,-79.88755
+540047374,Monroe Junior High School,Clinton,WV,54004,Fulton County,Charter,9-12,1773,No,38.106,-80.65094
+540047409,Southfield Magnet School,Springfield,WV,54004,Fulton County,Regular,9-12,2125,No,38.15876,-80.21455
+540044181,Twain Junior High School,Bristol,WV,54004,Fulton County,Charter,6-8,2218,Yes,38.14079,-80.71638
+540041617,Martin Luther King Jr. Magnet School,Madison,WV,54004,Fulton County,Regular,PK-5,1735,No,37.63792,-80.60811
+540047872,Elm Primary School,Bristol,WV,54004,Fulton County,Charter,PK-5,1095,No,37.8534,-80.59391
+550012427,Jefferson Magnet School,Clinton,WI,55001,Hancock County,Charter,PK-5,1990,No,43.21103,-89.33271
+550016914,Madison Academy,Vernon,WI,55001,Hancock County,Charter,K-8,2226,No,43.08292,-89.36739
+550019297,Oakwood Elementary,Jamestown,WI,55001,Hancock County,Regular,6-8,1931,No,43.02079,-89.80095
+550017913,Southfield Magnet School,Salem,WI,55001,Hancock County,Regular,9-12,1299,No,43.14282,-89.71877
+550011645,Jefferson High School,Salem,WI,55001,Hancock County,Regular,K-5,1376,No,43.2251,-89.5497
+550026199,Roosevelt Academy,Springfield,WI,55002,Knox County,Magnet,K-12,1447,No,44.15522,-87.64503
+550027276,Lakeview Junior High School,Lexington,WI,55002,Knox County,Magnet,K-5,2129,No,44.16665,-87.44789
+550021104,Madison Magnet School,Vernon,WI,55002,Knox County,Charter,PK-5,2230,No,44.41844,-87.78535
+550022030,Madison Academy,Lexington,WI,55002,Knox County,Magnet,PK-5,706,Yes,44.24305,-87.58366
+550028588,Northview Elementary School,Jamestown,WI,55002,Knox County,Magnet,K-12,796,No,44.10932,-87.5344
+550035352,Elm High School,Dayton,WI,55003,Logan County,Magnet,9-12,753,Yes,44.06076,-89.53213
+550038201,Adams Elementary,Clinton,WI,55003,Logan County,Regular,K-12,379,No,44.27799,-89.78431
+550033826,Jackson Junior High School,Kingston,WI,55003,Logan County,Magnet,K-12,996,No,44.39444,-89.33009
+550034874,Autumn High School,Burlington,WI,55003,Logan County,Regular,9-12,1609,No,44.33911,-89.38988
+550039078,Edison High School,Salem,WI,55003,Logan County,Regular,K-8,1730,No,44.01378,-89.89156
+550048320,Highland Junior High School,Farmington,WI,55004,Putnam County,Regular,K-5,131,No,44.53373,-89.77701
+550044510,Birch Magnet School,Fairview,WI,55004,Putnam County,Regular,K-12,2245,No,44.2695,-90.02425
+550041616,Spring Elementary School,Arlington,WI,55004,Putnam County,Charter,6-8,2390,No,44.55505,-89.47726
+550047098,Pleasant Primary School,Chester,WI,55004,Putnam County,Regular,PK-5,876,No,44.57356,-89.80449
+550046254,Adams Elementary,Greenville,WI,55004,Putnam County,Regular,9-12,1540,No,44.76356,-89.5179
+560016705,Pleasant Elementary School,Greenville,WY,56001,Russell County,Charter,K-12,1360,No,42.97718,-107.08385
+560014447,Heritage Junior High School,Glen Cove,WY,56001,Russell County,Regular,K-5,500,Yes,42.77751,-107.44705
+560013287,Franklin Middle School,Lexington,WY,56001,Russell County,Regular,K-5,485,Yes,42.75803,-107.23448
+560019669,Discovery Elementary,York,WY,56001,Russell County,Regular,K-5,1138,No,43.24569,-107.02804
+560015939,Innovation Primary School,Bristol,WY,56001,Russell County,Charter,PK-5,732,No,42.79608,-107.42204
+560023205,Jackson Junior High School,Ashland,WY,56002,Randolph County,Regular,K-5,1658,No,43.36497,-106.96116
+560021020,Excellence Academy,Oxford,WY,56002,Randolph County,Regular,PK-5,1534,No,43.82223,-107.10502
+560029841,Southfield Charter School,Ashland,WY,56002,Randolph County,Regular,PK-5,653,No,43.86251,-107.29949
+560024781,Sunset Elementary,Arlington,WY,56002,Randolph County,Regular,K-12,367,No,43.71414,-107.41819
+560022753,Eastside Magnet School,Arlington,WY,56002,Randolph County,Regular,K-8,769,Yes,43.4878,-107.0289
+560038396,Southfield Charter School,Weston,WY,56003,Crawford County,Regular,K-8,1382,Yes,43.80733,-107.50013
+560035114,Pine Charter School,Springfield,WY,56003,Crawford County,Regular,9-12,572,Yes,43.91776,-107.39271
+560037531,Longfellow Middle School,Glen Cove,WY,56003,Crawford County,Regular,9-12,783,No,43.89457,-107.52758
+560036615,Freedom Elementary School,Farmington,WY,56003,Crawford County,Regular,PK-5,465,No,43.88982,-107.60905
+560039694,Longfellow Elementary,Ashland,WY,56003,Crawford County,Regular,PK-5,937,No,43.68979,-107.43176
+560048036,Highland Preparatory School,Glen Cove,WY,56004,Fayette County,Regular,K-5,241,No,42.2376,-107.13542
+560047449,Maple High School,Greenville,WY,56004,Fayette County,Magnet,K-12,1566,Yes,42.48007,-106.64028
+560041408,Discovery Middle School,Salem,WY,56004,Fayette County,Regular,6-8,597,Yes,42.43346,-106.84731
+560042113,Horizon Junior High School,Richmond,WY,56004,Fayette County,Regular,K-12,1224,Yes,42.35433,-106.73807
+560049141,Brookside Charter School,Salem,WY,56004,Fayette County,Magnet,K-5,2287,No,42.54863,-106.74988

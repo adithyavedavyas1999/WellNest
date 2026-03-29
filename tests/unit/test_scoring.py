@@ -90,7 +90,7 @@ def score_category(score: float | None) -> str:
         return "Thriving"
     if score >= 51:
         return "Moderate"
-    if score >= 26:
+    if score >= 25.5:
         return "At Risk"
     return "Critical"
 

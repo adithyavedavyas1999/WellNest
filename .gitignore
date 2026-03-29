@@ -22,6 +22,7 @@ data/
 *.parquet
 *.csv
 !tests/fixtures/*.csv
+!dashboard/sample_data/*.csv
 *.pkl
 *.pickle
 *.feather
@@ -105,6 +106,9 @@ reports/output/
 .Trashes
 ehthumbs.db
 Desktop.ini
+
+# --- Spec file (private) ---
+WELLNEST_SPEC.md
 
 # --- Misc ---
 *.log
