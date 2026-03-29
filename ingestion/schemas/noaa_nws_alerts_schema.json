@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "wellnest/ingestion/noaa_nws_alerts",
+  "title": "NOAA/NWS Active Weather Alerts",
+  "description": "Real-time weather alerts from the National Weather Service API. Alert areas use NWS zone codes, not FIPS -- the zone-to-county mapping is many-to-many. Data is ephemeral; we snapshot at ingestion time.",
+  "type": "object",
+  "required": ["alert_id", "event", "severity"],
+  "properties": {
+    "alert_id": {
+      "type": "string"
+    },
+    "event": {
+      "type": "string",
+      "description": "Alert event type (e.g., Tornado Warning, Heat Advisory)"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["Extreme", "Severe", "Moderate", "Minor", "Unknown"]
+    },
+    "certainty": {
+      "type": ["string", "null"]
+    },
+    "urgency": {
+      "type": ["string", "null"]
+    },
+    "headline": {
+      "type": ["string", "null"]
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "Truncated to 2000 chars during ingestion"
+    },
+    "area_desc": {
+      "type": ["string", "null"],
+      "description": "Human-readable area description"
+    },
+    "affected_zones": {
+      "type": "string",
+      "description": "Comma-separated NWS zone codes"
+    },
+    "state": {
+      "type": ["string", "null"],
+      "description": "Two-letter state code extracted from UGC codes"
+    },
+    "onset": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "expires": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "sender": {
+      "type": ["string", "null"]
+    },
+    "message_type": {
+      "type": ["string", "null"]
+    },
+    "severity_rank": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Numeric severity: 5=Extreme, 4=Severe, 3=Moderate, 2=Minor, 1=Unknown"
+    },
+    "ingested_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

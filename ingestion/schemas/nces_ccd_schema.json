@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "wellnest/ingestion/nces_ccd",
+  "title": "NCES Common Core of Data - School Directory",
+  "description": "Annual public school directory from the National Center for Education Statistics. One row per public school in the US. FIPS codes arrive as integers so zero-padding is done during ingestion.",
+  "type": "object",
+  "required": ["ncessch", "school_name", "state_abbr", "state_fips"],
+  "properties": {
+    "ncessch": {
+      "type": "string",
+      "pattern": "^[0-9]{12}$",
+      "description": "12-digit NCES school ID"
+    },
+    "school_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lea_name": {
+      "type": ["string", "null"],
+      "description": "Local education agency (district) name"
+    },
+    "state_abbr": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "state_fips": {
+      "type": "string",
+      "pattern": "^[0-9]{2}$"
+    },
+    "county_fips": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{5}$"
+    },
+    "latitude": {
+      "type": ["number", "null"],
+      "minimum": 17.0,
+      "maximum": 72.0
+    },
+    "longitude": {
+      "type": ["number", "null"],
+      "minimum": -180.0,
+      "maximum": -65.0
+    },
+    "school_type": {
+      "type": ["integer", "null"],
+      "enum": [1, 2, 3, 4, null],
+      "description": "1=regular, 2=special-ed, 3=vocational, 4=alternative"
+    },
+    "enrollment": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "free_reduced_lunch": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Count of students eligible for free/reduced-price lunch"
+    },
+    "title_i_status": {
+      "type": ["string", "null"]
+    },
+    "school_level": {
+      "type": ["string", "null"],
+      "description": "Primary, Middle, High, Other"
+    }
+  },
+  "additionalProperties": true
+}

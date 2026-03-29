@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "wellnest/ingestion/epa_airnow",
+  "title": "EPA AQS Annual County AQI Summary",
+  "description": "Annual air quality index summary by county from EPA's Air Quality System. AQI of -999 means insufficient monitoring data for that county/year. Counties with fewer than 200 days_with_aqi should be flagged for low data coverage.",
+  "type": "object",
+  "required": ["state_code", "county_code", "year"],
+  "properties": {
+    "state_name": {
+      "type": "string"
+    },
+    "county_name": {
+      "type": "string"
+    },
+    "state_code": {
+      "type": "string",
+      "pattern": "^[0-9]{2}$"
+    },
+    "county_code": {
+      "type": "string",
+      "pattern": "^[0-9]{3}$"
+    },
+    "county_fips": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{5}$"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "days_with_aqi": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 366
+    },
+    "good_days": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "moderate_days": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "unhealthy_sensitive_days": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "unhealthy_days": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "very_unhealthy_days": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "hazardous_days": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "max_aqi": {
+      "type": ["integer", "null"],
+      "description": "Highest AQI reading for the year. Null if originally -999."
+    },
+    "percentile_90_aqi": {
+      "type": ["integer", "null"]
+    },
+    "median_aqi": {
+      "type": ["integer", "null"]
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "wellnest/ingestion/usda_food_access",
+  "title": "USDA Food Access Research Atlas",
+  "description": "Census-tract-level food access indicators. The CensusTract column sometimes gets read as float64 by Excel readers, which truncates it -- we handle this in ingestion. PovertyRate can exceed 100 in a few tracts due to denominator revisions; we cap at 100.",
+  "type": "object",
+  "required": ["census_tract"],
+  "properties": {
+    "census_tract": {
+      "type": "string",
+      "pattern": "^[0-9]{11}$",
+      "description": "11-digit census tract FIPS"
+    },
+    "state": {
+      "type": ["string", "null"]
+    },
+    "county": {
+      "type": ["string", "null"]
+    },
+    "urban": {
+      "type": ["boolean", "null"],
+      "description": "True for urban tracts, false for rural"
+    },
+    "poverty_rate": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "median_family_income": {
+      "type": ["number", "null"]
+    },
+    "low_access_1": {
+      "type": "boolean",
+      "description": "Low access at 1 mile (urban) or 10 miles (rural)"
+    },
+    "low_access_half": {
+      "type": "boolean",
+      "description": "Low access at 0.5 mile (urban) or 10 miles (rural)"
+    },
+    "low_income": {
+      "type": "boolean"
+    },
+    "lila_1_and_10": {
+      "type": "boolean",
+      "description": "Low income AND low access at 1/10 mile threshold"
+    },
+    "lila_half_and_10": {
+      "type": "boolean"
+    },
+    "total_pop": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "kids_pop": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "seniors_pop": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    }
+  },
+  "additionalProperties": true
+}

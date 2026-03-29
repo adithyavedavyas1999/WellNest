@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "wellnest/ingestion/hrsa_hpsa",
+  "title": "HRSA Health Professional Shortage Areas",
+  "description": "HPSA designation data from HRSA. Covers primary care, dental, and mental health shortages. Withdrawn designations are filtered out during ingestion. HPSA score is 0-25 for primary care, 0-26 for mental health (higher = worse shortage).",
+  "type": "object",
+  "required": ["hpsa_id", "hpsa_name", "state_abbr", "hpsa_status"],
+  "properties": {
+    "hpsa_id": {
+      "type": "string"
+    },
+    "hpsa_name": {
+      "type": "string"
+    },
+    "state_abbr": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "state_fips": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{2}$"
+    },
+    "county_fips": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{5}$"
+    },
+    "hpsa_score": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 26,
+      "description": "HPSA shortage score. Higher = worse. Max is 25 for PC, 26 for MH."
+    },
+    "hpsa_status": {
+      "type": "string",
+      "description": "Designation status (Designated, Proposed Withdrawal, etc.)"
+    },
+    "designation_type": {
+      "type": ["string", "null"]
+    },
+    "discipline": {
+      "type": ["string", "null"],
+      "enum": ["Primary Care", "Dental Health", "Mental Health", null]
+    },
+    "hpsa_component_type": {
+      "type": ["string", "null"],
+      "description": "Single county, partial county, or facility"
+    },
+    "designation_date": {
+      "type": ["string", "null"]
+    },
+    "last_update": {
+      "type": ["string", "null"]
+    },
+    "geo_type": {
+      "type": ["string", "null"]
+    },
+    "latitude": {
+      "type": ["number", "null"]
+    },
+    "longitude": {
+      "type": ["number", "null"]
+    }
+  },
+  "additionalProperties": true
+}

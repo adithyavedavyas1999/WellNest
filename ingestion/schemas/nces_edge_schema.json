@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "wellnest/ingestion/nces_edge",
+  "title": "NCES EDGE School Geocodes",
+  "description": "Precise lat/lon coordinates for public schools from the EDGE program. Join to CCD on NCESSCH. About 200 schools have 0,0 coordinates (geocoding failures) -- we null those out.",
+  "type": "object",
+  "required": ["ncessch"],
+  "properties": {
+    "ncessch": {
+      "type": "string",
+      "pattern": "^[0-9]{12}$",
+      "description": "12-digit NCES school ID, matches CCD"
+    },
+    "latitude": {
+      "type": ["number", "null"],
+      "description": "WGS84 latitude. Null if geocode failed (was 0.0 in source)."
+    },
+    "longitude": {
+      "type": ["number", "null"],
+      "description": "WGS84 longitude. Null if geocode failed."
+    },
+    "street_address": {
+      "type": ["string", "null"]
+    },
+    "city": {
+      "type": ["string", "null"]
+    },
+    "state": {
+      "type": ["string", "null"],
+      "pattern": "^[A-Z]{2}$"
+    },
+    "zip_code": {
+      "type": ["string", "null"]
+    },
+    "county_name": {
+      "type": ["string", "null"]
+    },
+    "county_fips": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9]{5}$"
+    },
+    "locale_code": {
+      "type": ["string", "null"],
+      "description": "NCES locale code (11=city-large, 21=suburb-large, 31=town-fringe, 41=rural-fringe, etc.)"
+    }
+  },
+  "additionalProperties": true
+}
