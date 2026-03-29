@@ -1,0 +1,69 @@
+# Dockerfile.dagster — shared image for webserver + daemon
+#
+# Both dagster-webserver and dagster-daemon use this image;
+# the entrypoint is overridden in docker-compose.yml so we
+# don't bake a specific CMD here.
+
+FROM python:3.11-slim AS builder
+
+WORKDIR /build
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        libpq-dev \
+        libgeos-dev \
+        libproj-dev \
+        gdal-bin \
+        libgdal-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY pyproject.toml ./
+
+RUN python -m venv /build/venv && \
+    /build/venv/bin/pip install --upgrade pip setuptools wheel && \
+    /build/venv/bin/pip install --no-cache-dir .
+
+COPY orchestration/ ./orchestration/
+COPY ingestion/ ./ingestion/
+COPY transformation/ ./transformation/
+COPY ml/ ./ml/
+COPY ai/ ./ai/
+COPY api/ ./api/
+
+RUN /build/venv/bin/pip install --no-cache-dir -e .
+
+# ---------------------------------------------------------------------------
+FROM python:3.11-slim AS runtime
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libpq5 \
+        libgeos3.11.1 \
+        libproj25 \
+        gdal-bin \
+        curl && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN groupadd --gid 1000 dagster && \
+    useradd --uid 1000 --gid dagster --create-home dagster
+
+COPY --from=builder /build/venv /home/dagster/venv
+COPY --from=builder /build/orchestration /home/dagster/src/orchestration
+COPY --from=builder /build/ingestion /home/dagster/src/ingestion
+COPY --from=builder /build/transformation /home/dagster/src/transformation
+COPY --from=builder /build/ml /home/dagster/src/ml
+COPY --from=builder /build/ai /home/dagster/src/ai
+COPY --from=builder /build/api /home/dagster/src/api
+COPY pyproject.toml /home/dagster/src/
+
+# dagster needs a workspace.yaml and dagster.yaml in DAGSTER_HOME
+RUN mkdir -p /opt/dagster/home && chown -R dagster:dagster /opt/dagster/home
+
+WORKDIR /home/dagster/src
+USER dagster
+
+ENV PATH="/home/dagster/venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    DAGSTER_HOME=/opt/dagster/home

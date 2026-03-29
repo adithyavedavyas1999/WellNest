@@ -1,0 +1,147 @@
+# docker-compose.yml — local dev stack for WellNest
+#
+# Spins up Postgres (w/ PostGIS), the Dagster webserver + daemon,
+# and the FastAPI backend.  This is NOT the production topology;
+# it's what you run on your laptop while iterating.
+#
+# Usage:
+#   docker compose up -d
+#   docker compose logs -f api
+#   docker compose down -v   # nuke volumes when you want a clean slate
+
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL + PostGIS
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: wellnest-postgres
+    restart: unless-stopped
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-wellnest}
+      POSTGRES_USER: ${POSTGRES_USER:-wellnest}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      # creates the dagster metadata DB on first boot so we don't have to
+      # do it manually
+      POSTGRES_MULTIPLE_DATABASES: dagster
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-wellnest} -d ${POSTGRES_DB:-wellnest}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    networks:
+      - wellnest
+
+  # ---------------------------------------------------------------------------
+  # Dagster webserver  (the UI you open in your browser)
+  # ---------------------------------------------------------------------------
+  dagster-webserver:
+    build:
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile.dagster
+    container_name: wellnest-dagster-webserver
+    restart: unless-stopped
+    entrypoint: ["dagster-webserver", "-h", "0.0.0.0", "-p", "3000"]
+    ports:
+      - "3000:3000"
+    environment:
+      DAGSTER_HOME: /opt/dagster/home
+      DAGSTER_PG_HOST: postgres
+      DAGSTER_PG_PORT: "5432"
+      DAGSTER_PG_DB: ${DAGSTER_PG_DB:-dagster}
+      DAGSTER_PG_USER: ${POSTGRES_USER:-wellnest}
+      DAGSTER_PG_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: ${POSTGRES_DB:-wellnest}
+      POSTGRES_USER: ${POSTGRES_USER:-wellnest}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - dagster-home:/opt/dagster/home
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - wellnest
+
+  # ---------------------------------------------------------------------------
+  # Dagster daemon  (runs schedules, sensors, and the run queue)
+  # ---------------------------------------------------------------------------
+  dagster-daemon:
+    build:
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile.dagster
+    container_name: wellnest-dagster-daemon
+    restart: unless-stopped
+    entrypoint: ["dagster-daemon", "run"]
+    environment:
+      DAGSTER_HOME: /opt/dagster/home
+      DAGSTER_PG_HOST: postgres
+      DAGSTER_PG_PORT: "5432"
+      DAGSTER_PG_DB: ${DAGSTER_PG_DB:-dagster}
+      DAGSTER_PG_USER: ${POSTGRES_USER:-wellnest}
+      DAGSTER_PG_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: ${POSTGRES_DB:-wellnest}
+      POSTGRES_USER: ${POSTGRES_USER:-wellnest}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - dagster-home:/opt/dagster/home
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - wellnest
+
+  # ---------------------------------------------------------------------------
+  # FastAPI backend
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile.api
+    container_name: wellnest-api
+    restart: unless-stopped
+    ports:
+      - "${API_PORT:-8000}:8000"
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: ${POSTGRES_DB:-wellnest}
+      POSTGRES_USER: ${POSTGRES_USER:-wellnest}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      DATABASE_URL: "postgresql://${POSTGRES_USER:-wellnest}:${POSTGRES_PASSWORD:-changeme}@postgres:5432/${POSTGRES_DB:-wellnest}"
+      API_HOST: "0.0.0.0"
+      API_PORT: "8000"
+      API_LOG_LEVEL: ${API_LOG_LEVEL:-info}
+      API_CORS_ORIGINS: ${API_CORS_ORIGINS:-http://localhost:8501,http://localhost:3000}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - wellnest
+
+volumes:
+  pgdata:
+    driver: local
+  dagster-home:
+    driver: local
+
+networks:
+  wellnest:
+    driver: bridge

@@ -1,0 +1,74 @@
+# Dockerfile.api — multi-stage build for the WellNest FastAPI service
+#
+# Stage 1: install deps into a venv so the final image stays slim
+# Stage 2: copy only what we need to run
+
+# ---------------------------------------------------------------------------
+# build stage
+# ---------------------------------------------------------------------------
+FROM python:3.11-slim AS builder
+
+WORKDIR /build
+
+# system deps needed to compile psycopg2, shapely wheels, etc.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        libpq-dev \
+        libgeos-dev \
+        libproj-dev \
+        gdal-bin \
+        libgdal-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY pyproject.toml ./
+
+# venv keeps our runtime image clean — no global site-packages pollution
+RUN python -m venv /build/venv && \
+    /build/venv/bin/pip install --upgrade pip setuptools wheel && \
+    /build/venv/bin/pip install --no-cache-dir .
+
+# copy source so the editable install resolves package imports
+COPY api/ ./api/
+COPY ingestion/ ./ingestion/
+COPY ml/ ./ml/
+COPY ai/ ./ai/
+
+# reinstall in editable mode now that source is present
+RUN /build/venv/bin/pip install --no-cache-dir -e .
+
+# ---------------------------------------------------------------------------
+# runtime stage
+# ---------------------------------------------------------------------------
+FROM python:3.11-slim AS runtime
+
+# same geo libs at runtime, but skip the compilers
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libpq5 \
+        libgeos3.11.1 \
+        libproj25 \
+        gdal-bin \
+        curl && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN groupadd --gid 1000 app && \
+    useradd --uid 1000 --gid app --create-home app
+
+COPY --from=builder /build/venv /home/app/venv
+COPY --from=builder /build/api /home/app/src/api
+COPY --from=builder /build/ingestion /home/app/src/ingestion
+COPY --from=builder /build/ml /home/app/src/ml
+COPY --from=builder /build/ai /home/app/src/ai
+COPY pyproject.toml /home/app/src/
+
+WORKDIR /home/app/src
+USER app
+
+ENV PATH="/home/app/venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+EXPOSE 8000
+
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
