@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WellNest County Report — {{ county_name }}, {{ state }}</title>
+  <style>
+    /* Print-ready A4 layout */
+    @page {
+      size: A4 portrait;
+      margin: 18mm 15mm 20mm 15mm;
+
+      @bottom-center {
+        content: "WellNest County Report — Page " counter(page) " of " counter(pages);
+        font-size: 8pt;
+        color: #6c757d;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #212529;
+      font-size: 10pt;
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* WellNest brand colors */
+    :root {
+      --primary: #1E3A5F;
+      --accent: #2E86AB;
+      --critical: #C73E1D;
+      --at-risk: #F18F01;
+      --moderate: #2E86AB;
+      --thriving: #3BB273;
+      --light-bg: #f8f9fa;
+      --border: #dee2e6;
+      --muted: #6c757d;
+    }
+
+    /* ---- Header ---- */
+    .report-header {
+      background: var(--primary);
+      color: white;
+      padding: 16px 24px;
+      margin: -18mm -15mm 20px -15mm;
+      /* bleed into page margins */
+      padding-left: 15mm;
+      padding-right: 15mm;
+    }
+
+    .report-header h1 {
+      font-size: 20pt;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .report-header .subtitle {
+      font-size: 13pt;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    /* ---- Score badge ---- */
+    .score-badge {
+      display: inline-block;
+      font-size: 26pt;
+      font-weight: 700;
+      margin: 8px 0 4px 0;
+    }
+    .score-badge.critical { color: var(--critical); }
+    .score-badge.at-risk  { color: var(--at-risk); }
+    .score-badge.moderate { color: var(--moderate); }
+    .score-badge.thriving { color: var(--thriving); }
+
+    .score-label {
+      font-size: 11pt;
+      color: var(--muted);
+      margin-left: 8px;
+    }
+
+    /* ---- Section headings ---- */
+    h2 {
+      font-size: 14pt;
+      color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 4px;
+      margin: 20px 0 10px 0;
+    }
+
+    /* ---- Stats row ---- */
+    .stats-row {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .stat-item {
+      flex: 1;
+      padding: 8px 12px;
+      background: var(--light-bg);
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .stat-item .value {
+      font-size: 16pt;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-item .label {
+      font-size: 8pt;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ---- Tables ---- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 12px;
+      font-size: 9pt;
+    }
+
+    th {
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    td {
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tr:nth-child(even) td {
+      background: var(--light-bg);
+    }
+
+    .text-center { text-align: center; }
+    .text-right  { text-align: right; }
+
+    /* score-colored cells */
+    .score-cell.critical { color: var(--critical); font-weight: 600; }
+    .score-cell.at-risk  { color: var(--at-risk);  font-weight: 600; }
+    .score-cell.moderate { color: var(--moderate);  font-weight: 600; }
+    .score-cell.thriving { color: var(--thriving);  font-weight: 600; }
+
+    /* ---- AI Brief ---- */
+    .ai-brief {
+      background: var(--light-bg);
+      border-left: 4px solid var(--accent);
+      padding: 12px 16px;
+      margin-top: 8px;
+      font-size: 9.5pt;
+      line-height: 1.6;
+    }
+
+    .ai-brief p { margin-bottom: 6px; }
+    .ai-brief strong { color: var(--primary); }
+
+    /* ---- Footer ---- */
+    .report-footer {
+      margin-top: 24px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      font-size: 7pt;
+      color: var(--muted);
+    }
+
+    /* ---- Utility ---- */
+    .page-break { page-break-before: always; }
+    .no-break { page-break-inside: avoid; }
+
+    /* priority badges */
+    .priority-badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 8pt;
+      font-weight: 600;
+    }
+    .priority-badge.high     { background: #fff3cd; color: #856404; }
+    .priority-badge.critical { background: #f8d7da; color: #721c24; }
+    .priority-badge.moderate { background: #d1ecf1; color: #0c5460; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="report-header">
+    <h1>WellNest County Report</h1>
+    <div class="subtitle">{{ county_name }}, {{ state }}</div>
+  </div>
+
+  <!-- Overview -->
+  <div class="no-break">
+    <h2>County Overview</h2>
+
+    <div>
+      <span class="score-badge {{ category }}">{{ "%.1f"|format(composite_score) }}/100</span>
+      <span class="score-label">{{ category|replace('_', ' ')|title }}</span>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="value">{{ school_count }}</div>
+        <div class="label">Schools</div>
+      </div>
+      <div class="stat-item">
+        <div class="value">{{ "{:,}".format(population) if population else "N/A" }}</div>
+        <div class="label">Population</div>
+      </div>
+      <div class="stat-item">
+        <div class="value">#{{ national_rank }}</div>
+        <div class="label">National Rank</div>
+      </div>
+      <div class="stat-item">
+        <div class="value">{{ "%.1f%%"|format(avg_poverty_rate) if avg_poverty_rate else "N/A" }}</div>
+        <div class="label">Avg Poverty Rate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Score Breakdown -->
+  <div class="no-break">
+    <h2>Pillar Score Breakdown</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Pillar</th>
+          <th class="text-center">Score</th>
+          <th class="text-center">Category</th>
+          <th class="text-center">Weight</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pillar in pillars %}
+        <tr>
+          <td>{{ pillar.name }}</td>
+          <td class="text-center score-cell {{ pillar.category }}">
+            {{ "%.1f"|format(pillar.score) if pillar.score is not none else "N/A" }}
+          </td>
+          <td class="text-center">{{ pillar.category_label }}</td>
+          <td class="text-center">{{ pillar.weight }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p style="font-size: 8.5pt; color: var(--muted);">
+      School distribution:
+      {{ thriving_count }} Thriving &middot;
+      {{ moderate_count }} Moderate &middot;
+      {{ at_risk_count }} At Risk &middot;
+      {{ critical_count }} Critical
+    </p>
+  </div>
+
+  <!-- Schools Table -->
+  {% if schools %}
+  <div class="no-break">
+    <h2>Schools (Lowest Scoring)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>School</th>
+          <th class="text-center">Score</th>
+          <th class="text-center">Edu</th>
+          <th class="text-center">Health</th>
+          <th class="text-center">Env</th>
+          <th class="text-center">Safety</th>
+          <th class="text-right">Enrollment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for school in schools[:20] %}
+        <tr>
+          <td>{{ school.school_name|truncate(35) }}</td>
+          <td class="text-center score-cell {{ school.score_category }}">
+            {{ "%.1f"|format(school.composite_score) }}
+          </td>
+          <td class="text-center">{{ "%.1f"|format(school.education_score) if school.education_score else "—" }}</td>
+          <td class="text-center">{{ "%.1f"|format(school.health_score) if school.health_score else "—" }}</td>
+          <td class="text-center">{{ "%.1f"|format(school.environment_score) if school.environment_score else "—" }}</td>
+          <td class="text-center">{{ "%.1f"|format(school.safety_score) if school.safety_score else "—" }}</td>
+          <td class="text-right">{{ "{:,}".format(school.enrollment) if school.enrollment else "—" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if schools|length > 20 %}
+    <p style="font-size: 8pt; color: var(--muted); font-style: italic;">
+      Showing 20 of {{ schools|length }} schools.
+    </p>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <!-- Resource Gaps -->
+  {% if gaps %}
+  <div class="no-break">
+    <h2>Resource Gap Analysis</h2>
+    <p style="margin-bottom: 8px;">
+      {{ gaps|length }} school{{ "s" if gaps|length != 1 }} with identified resource gaps in this county.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>School</th>
+          <th class="text-center">Weakest Pillar</th>
+          <th class="text-center">Gap Count</th>
+          <th class="text-center">Spread</th>
+          <th class="text-center">Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for gap in gaps[:15] %}
+        <tr>
+          <td>{{ gap.school_name|truncate(30) }}</td>
+          <td class="text-center">{{ gap.weakest_pillar }}</td>
+          <td class="text-center">{{ gap.gap_count }}</td>
+          <td class="text-center">{{ "%.1f"|format(gap.pillar_spread) }}</td>
+          <td class="text-center">
+            {% if gap.intervention_priority == "Critical Need" %}
+              <span class="priority-badge critical">{{ gap.intervention_priority }}</span>
+            {% elif gap.intervention_priority == "High Priority" %}
+              <span class="priority-badge high">{{ gap.intervention_priority }}</span>
+            {% else %}
+              <span class="priority-badge moderate">{{ gap.intervention_priority }}</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  <!-- AI Brief -->
+  {% if ai_brief %}
+  <div class="no-break">
+    <h2>AI-Generated Community Brief</h2>
+    <div class="ai-brief">
+      {{ ai_brief|safe }}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <p>Generated by WellNest on {{ generated_at }} &mdash;
+    Data sources: NCES CCD/EDGE, CDC PLACES, Census ACS, EPA AQS,
+    HRSA HPSA/MUA, USDA Food Access, FEMA NRI, FBI UCR</p>
+    <p>&copy; {{ current_year }} Chicago Education &amp; Analytics Collaborative (ChiEAC)</p>
+  </div>
+
+</body>
+</html>
