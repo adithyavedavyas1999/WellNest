@@ -1,0 +1,171 @@
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "wellnest"
+version = "0.1.0"
+description = "Health equity analytics for Chicago — ingestion, modeling, and community dashboards"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [
+    { name = "ChiEAC", email = "engineering@chieac.org" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: GIS",
+]
+
+dependencies = [
+    # -- core data stack --
+    "polars>=1.39,<2",
+    "duckdb>=1.5,<2",           # switched from pandas — never looking back
+    "geopandas>=1.0,<2",
+    "shapely>=2.0,<3",
+    "h3>=4.1,<5",               # uber's hex grid; we use res 8 for Chicago tracts
+    "psycopg2-binary>=2.9,<3",  # binary wheel so we skip the libpq build dance
+    "sqlalchemy>=2.0,<3",
+    "python-dotenv>=1.0,<2",
+    "pydantic>=2.12,<3",
+    "pydantic-settings>=2.7,<3",
+
+    # -- orchestration --
+    "dagster>=1.12,<2",
+    "dagster-webserver>=1.12,<2",
+    "dagster-postgres>=0.28,<1",
+
+    # -- transformation --
+    "dbt-core>=1.11,<1.12",     # pinned minor — dbt likes breaking between minors
+    "dbt-postgres>=1.11,<1.12",
+
+    # -- data quality --
+    "soda-core>=4.3,<5",
+    "soda-core-postgres>=4.3,<5",
+
+    # -- ml --
+    "scikit-learn>=1.6,<2",
+    "xgboost>=3.2,<4",
+    "lightgbm>=4.6,<5",
+    "mlflow>=3.10,<4",
+
+    # -- ai / rag --
+    "openai>=2.26,<3",
+    "langchain>=0.3,<1",
+    "langchain-openai>=1.1,<2",
+    "langchain-community>=0.3,<1",
+    "faiss-cpu>=1.9,<2",        # gpu build is a pain on CI; cpu is fine for our index size
+
+    # -- api --
+    "fastapi>=0.135,<1",
+    "uvicorn[standard]>=0.34,<1",
+    "httpx>=0.28,<1",
+
+    # -- dashboard --
+    "streamlit>=1.55,<2",
+    "plotly>=6.0,<7",
+    "folium>=0.19,<1",
+    "streamlit-folium>=0.25,<1",
+
+    # -- reports --
+    "weasyprint>=63,<70",       # needs system cairo — see docs/setup.md
+    "fpdf2>=2.8,<3",
+
+    # -- utilities --
+    "requests>=2.32,<3",
+    "tenacity>=9.0,<10",        # retry decorator for flaky CDC endpoints
+    "tqdm>=4.67,<5",
+    "structlog>=24.4,<26",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9",
+    "pytest-cov>=6.0,<7",
+    "pytest-asyncio>=0.25,<1",
+    "ruff>=0.15,<1",
+    "mypy>=1.15,<2",
+    "pre-commit>=4.1,<5",
+    "ipykernel>=6.29",          # jupyter support for scratch notebooks
+]
+
+[project.scripts]
+wellnest-api = "api.main:run"
+
+# --------------------------------------------------------------------------- #
+# ruff
+# --------------------------------------------------------------------------- #
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "T20",  # flake8-print — catch stray print() calls before they hit prod
+    "RUF",  # ruff-specific
+]
+ignore = [
+    "E501",   # line length handled by formatter
+    "B008",   # function call in default arg — FastAPI Depends() triggers this
+    "RUF012", # mutable class attrs — pydantic models need these
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["wellnest", "ingestion", "transformation", "ml", "ai", "api", "dashboard"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+# --------------------------------------------------------------------------- #
+# mypy
+# --------------------------------------------------------------------------- #
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false          # too noisy while prototyping
+ignore_missing_imports = true          # half our geo stack has no stubs
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+
+# --------------------------------------------------------------------------- #
+# pytest
+# --------------------------------------------------------------------------- #
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: marks tests that hit real databases or APIs",
+    "integration: end-to-end pipeline tests",
+]
+asyncio_mode = "auto"
+
+# --------------------------------------------------------------------------- #
+# coverage
+# --------------------------------------------------------------------------- #
+[tool.coverage.run]
+source = ["ingestion", "transformation", "ml", "ai", "api", "dashboard", "reports"]
+omit = ["tests/*", "scripts/*", "orchestration/*"]
+
+[tool.coverage.report]
+fail_under = 60
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "if __name__",
+]

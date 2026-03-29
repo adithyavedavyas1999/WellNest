@@ -1,0 +1,114 @@
+# ============================================================
+# WellNest .gitignore
+# ============================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+
+# --- Virtual envs ---
+.venv/
+venv/
+env/
+
+# --- Data files (never commit raw data) ---
+data/
+*.parquet
+*.csv
+!tests/fixtures/*.csv
+*.pkl
+*.pickle
+*.feather
+*.arrow
+*.geojson
+!infrastructure/seed/*.geojson
+*.shp
+*.shx
+*.dbf
+*.prj
+
+# --- Notebooks & scratch ---
+notebooks/
+scratch/
+*.ipynb_checkpoints/
+.ipynb_checkpoints/
+
+# --- Environment / secrets ---
+.env
+.env.local
+.env.production
+*.pem
+credentials.json
+service-account*.json
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Testing / QA ---
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# --- Linting / type-checking ---
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+
+# --- MLflow ---
+mlruns/
+mlartifacts/
+mlflow.db
+
+# --- dbt ---
+transformation/target/
+transformation/dbt_packages/
+transformation/logs/
+transformation/dbt_modules/
+
+# --- Dagster ---
+orchestration/storage/
+orchestration/logs/
+.dagster/
+
+# --- Soda ---
+.soda/
+
+# --- Docker / Postgres local data ---
+infrastructure/pgdata/
+infrastructure/postgres-data/
+*.sql.gz
+
+# --- Reports output ---
+reports/output/
+*.pdf
+!docs/*.pdf
+
+# --- Streamlit ---
+.streamlit/secrets.toml
+
+# --- OS junk ---
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# --- Misc ---
+*.log
+*.bak
+*.tmp
+*.temp
+.terraform/
