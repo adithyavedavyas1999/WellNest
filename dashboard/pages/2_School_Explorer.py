@@ -7,6 +7,11 @@ click through to a detail card with radar chart and historical trend.
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+
 import plotly.graph_objects as go
 import streamlit as st
 

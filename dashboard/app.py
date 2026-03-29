@@ -10,6 +10,11 @@ for multi-page navigation.
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import streamlit as st
 
 from dashboard.components.score_gauge import render_gauge, score_to_category

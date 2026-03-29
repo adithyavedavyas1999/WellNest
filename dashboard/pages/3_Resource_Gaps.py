@@ -8,6 +8,11 @@ severity score (composite of gap depth and school size).
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
