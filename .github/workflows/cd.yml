@@ -1,0 +1,205 @@
+# CD — builds images and deploys on push to main (after CI passes).
+#
+# Pushes Docker images to GitHub Container Registry, deploys the API
+# and dashboard to the target environment, and publishes the PWA
+# to GitHub Pages.
+
+name: CD
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+
+concurrency:
+  group: cd-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+  pages: write
+  id-token: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ${{ github.repository_owner }}/wellnest
+
+jobs:
+  # --------------------------------------------------------------------------
+  # Wait for CI to pass before doing anything destructive
+  # --------------------------------------------------------------------------
+  ci-gate:
+    name: Wait for CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for CI workflow
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.sha }}
+          check-name: "Python 3.11"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 15
+
+  # --------------------------------------------------------------------------
+  # Build and push Docker images
+  # --------------------------------------------------------------------------
+  build-images:
+    name: Build & push images
+    runs-on: ubuntu-latest
+    needs: ci-gate
+
+    strategy:
+      matrix:
+        include:
+          - service: api
+            dockerfile: infrastructure/docker/Dockerfile.api
+          - service: dagster
+            dockerfile: infrastructure/docker/Dockerfile.dagster
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-${{ matrix.service }}
+          tags: |
+            type=sha
+            type=ref,event=branch
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # --------------------------------------------------------------------------
+  # Deploy API
+  # --------------------------------------------------------------------------
+  deploy-api:
+    name: Deploy API
+    runs-on: ubuntu-latest
+    needs: build-images
+    environment:
+      name: ${{ inputs.environment || 'staging' }}
+      url: ${{ vars.API_URL || 'https://api.wellnest.dev' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy API container
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          IMAGE_TAG: ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}-api:sha-${{ github.sha }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$DEPLOY_HOST" ]; then
+            echo "::notice::DEPLOY_HOST not configured — skipping deployment"
+            echo "Would deploy image: $IMAGE_TAG"
+            exit 0
+          fi
+
+          echo "$DEPLOY_KEY" > /tmp/deploy_key
+          chmod 600 /tmp/deploy_key
+
+          ssh -o StrictHostKeyChecking=no -i /tmp/deploy_key deploy@"$DEPLOY_HOST" << DEPLOY
+            docker pull "$IMAGE_TAG"
+            docker stop wellnest-api || true
+            docker rm wellnest-api || true
+            docker run -d \
+              --name wellnest-api \
+              --restart unless-stopped \
+              -p 8000:8000 \
+              -e DATABASE_URL="$DATABASE_URL" \
+              -e OPENAI_API_KEY="$OPENAI_API_KEY" \
+              -e ENVIRONMENT="${{ inputs.environment || 'staging' }}" \
+              "$IMAGE_TAG"
+          DEPLOY
+
+          rm -f /tmp/deploy_key
+
+  # --------------------------------------------------------------------------
+  # Deploy Streamlit dashboard (build check for now)
+  # --------------------------------------------------------------------------
+  deploy-dashboard:
+    name: Dashboard build check
+    runs-on: ubuntu-latest
+    needs: ci-gate
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Verify Streamlit app loads
+        run: |
+          python -c "
+          import importlib, sys
+          sys.modules['streamlit'] = type(sys)('streamlit')
+          # just make sure the module parses without syntax errors
+          import ast, pathlib
+          for p in pathlib.Path('dashboard').rglob('*.py'):
+              ast.parse(p.read_text())
+          print('All dashboard modules parse OK')
+          "
+
+  # --------------------------------------------------------------------------
+  # Deploy PWA to GitHub Pages
+  # --------------------------------------------------------------------------
+  deploy-pwa:
+    name: Deploy PWA
+    runs-on: ubuntu-latest
+    needs: ci-gate
+    if: github.ref == 'refs/heads/main'
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload PWA artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pwa/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

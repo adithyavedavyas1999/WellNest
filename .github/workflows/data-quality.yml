@@ -1,0 +1,198 @@
+# Data quality — runs Soda checks + dbt tests against the production database.
+#
+# Scheduled weekly (Sunday 06:00 UTC) and also available via manual trigger.
+# Posts a Markdown summary to the workflow run.  Fails on critical issues
+# so whoever's on call sees the red badge.
+
+name: Data Quality
+
+on:
+  schedule:
+    - cron: "0 6 * * 0"
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "dbt target to check against"
+        required: false
+        default: prod
+        type: choice
+        options:
+          - dev
+          - prod
+
+permissions:
+  contents: read
+
+env:
+  DBT_TARGET: ${{ inputs.target || 'prod' }}
+  WELLNEST_DB_HOST: ${{ secrets.WELLNEST_DB_HOST }}
+  WELLNEST_DB_PORT: ${{ secrets.WELLNEST_DB_PORT }}
+  WELLNEST_DB_USER: ${{ secrets.WELLNEST_DB_USER }}
+  WELLNEST_DB_PASSWORD: ${{ secrets.WELLNEST_DB_PASSWORD }}
+  WELLNEST_DB_NAME: ${{ secrets.WELLNEST_DB_NAME }}
+
+jobs:
+  quality-checks:
+    name: Soda + dbt tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-dq-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
+          restore-keys: pip-dq-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      # ----------------------------------------------------------------
+      # Soda data quality checks
+      # ----------------------------------------------------------------
+      - name: Run Soda checks
+        id: soda
+        continue-on-error: true
+        run: |
+          cd transformation/quality
+
+          soda scan \
+            -d wellnest \
+            -c soda_config.yml \
+            soda_checks/ \
+            2>&1 | tee /tmp/soda_output.txt
+
+          SODA_EXIT=$?
+          echo "exit_code=$SODA_EXIT" >> "$GITHUB_OUTPUT"
+
+          # count failures for the summary
+          FAILS=$(grep -c "FAIL" /tmp/soda_output.txt || echo "0")
+          WARNS=$(grep -c "WARN" /tmp/soda_output.txt || echo "0")
+          echo "failures=$FAILS" >> "$GITHUB_OUTPUT"
+          echo "warnings=$WARNS" >> "$GITHUB_OUTPUT"
+
+      # ----------------------------------------------------------------
+      # dbt tests
+      # ----------------------------------------------------------------
+      - name: Install dbt packages
+        run: |
+          cd transformation/dbt_project
+          dbt deps --target "$DBT_TARGET"
+
+      - name: Run dbt tests
+        id: dbt
+        continue-on-error: true
+        run: |
+          cd transformation/dbt_project
+
+          dbt test \
+            --target "$DBT_TARGET" \
+            --store-failures \
+            2>&1 | tee /tmp/dbt_output.txt
+
+          DBT_EXIT=$?
+          echo "exit_code=$DBT_EXIT" >> "$GITHUB_OUTPUT"
+
+          DBT_FAILS=$(grep -cE "^Failure in|^ERROR" /tmp/dbt_output.txt || echo "0")
+          echo "failures=$DBT_FAILS" >> "$GITHUB_OUTPUT"
+
+      # ----------------------------------------------------------------
+      # Freshness check (are our source tables up to date?)
+      # ----------------------------------------------------------------
+      - name: dbt source freshness
+        id: freshness
+        continue-on-error: true
+        run: |
+          cd transformation/dbt_project
+          dbt source freshness --target "$DBT_TARGET" 2>&1 | tee /tmp/freshness_output.txt
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+
+      # ----------------------------------------------------------------
+      # Summary
+      # ----------------------------------------------------------------
+      - name: Post results summary
+        if: always()
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" << 'HEADER'
+          ## Data Quality Report
+
+          | Check Suite | Status | Details |
+          |-------------|--------|---------|
+          HEADER
+
+          SODA_STATUS="pass"
+          if [ "${{ steps.soda.outputs.exit_code }}" != "0" ]; then
+            SODA_STATUS="FAIL"
+          fi
+
+          DBT_STATUS="pass"
+          if [ "${{ steps.dbt.outputs.exit_code }}" != "0" ]; then
+            DBT_STATUS="FAIL"
+          fi
+
+          FRESH_STATUS="pass"
+          if [ "${{ steps.freshness.outputs.exit_code }}" != "0" ]; then
+            FRESH_STATUS="stale"
+          fi
+
+          cat >> "$GITHUB_STEP_SUMMARY" << EOF
+          | Soda checks | ${SODA_STATUS} | ${{ steps.soda.outputs.failures }} failures, ${{ steps.soda.outputs.warnings }} warnings |
+          | dbt tests | ${DBT_STATUS} | ${{ steps.dbt.outputs.failures }} failures |
+          | Source freshness | ${FRESH_STATUS} | exit ${{ steps.freshness.outputs.exit_code }} |
+
+          ---
+          *Run triggered by: ${{ github.event_name }} | Target: ${DBT_TARGET}*
+          EOF
+
+          # Extract a few lines of soda output for context
+          if [ -f /tmp/soda_output.txt ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "<details><summary>Soda output (last 40 lines)</summary>" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            tail -40 /tmp/soda_output.txt >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            echo "</details>" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f /tmp/dbt_output.txt ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "<details><summary>dbt test output (last 40 lines)</summary>" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            tail -40 /tmp/dbt_output.txt >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            echo "</details>" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # ----------------------------------------------------------------
+      # Fail the workflow if anything critical broke
+      # ----------------------------------------------------------------
+      - name: Fail on critical issues
+        if: always()
+        run: |
+          FAILED=0
+
+          if [ "${{ steps.soda.outputs.exit_code }}" != "0" ]; then
+            echo "::error::Soda data quality checks failed (${{ steps.soda.outputs.failures }} failures)"
+            FAILED=1
+          fi
+
+          if [ "${{ steps.dbt.outputs.exit_code }}" != "0" ]; then
+            echo "::error::dbt tests failed (${{ steps.dbt.outputs.failures }} failures)"
+            FAILED=1
+          fi
+
+          if [ "$FAILED" = "1" ]; then
+            exit 1
+          fi
+
+          echo "All quality checks passed."
