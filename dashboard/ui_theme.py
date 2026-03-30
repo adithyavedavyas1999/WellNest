@@ -1,159 +1,34 @@
 """
-Theme selector + dynamic CSS for light/dark appearance.
+Dark-mode CSS and color tokens for every dashboard page.
 
-Session state key: wn_theme — "dark" | "light"
+Call ``setup_page_theme()`` once per page, right after ``set_page_config``.
+It injects the global stylesheet and returns the color dict so inline
+HTML / Plotly can reference ``tc["grid"]``, ``tc["text_muted"]``, etc.
 """
 
 from __future__ import annotations
 
 import streamlit as st
 
-from dashboard.theme import THEMES, ThemeMode
-
-SESSION_KEY = "wn_theme"
-
-
-def ensure_theme_state() -> None:
-    if SESSION_KEY not in st.session_state:
-        st.session_state[SESSION_KEY] = "dark"
-
-
-def current_mode() -> ThemeMode:
-    ensure_theme_state()
-    m = st.session_state[SESSION_KEY]
-    return m if m in ("dark", "light") else "dark"
+from dashboard.theme import DARK
 
 
 def theme_colors() -> dict[str, str]:
-    return THEMES[current_mode()]
+    """Return the dark-mode token dict."""
+    return DARK
 
 
-def render_theme_selector() -> None:
-    """Visible Dark/Light toggle at the top-right of the page."""
-    ensure_theme_state()
-
-    left, right = st.columns([10, 2])
-    with right:
-        current = "Dark" if st.session_state[SESSION_KEY] == "dark" else "Light"
-        choice = st.radio(
-            "Theme",
-            ["Dark", "Light"],
-            index=0 if current == "Dark" else 1,
-            horizontal=True,
-            key="wn_global_theme_radio",
-        )
-    st.session_state[SESSION_KEY] = "dark" if choice == "Dark" else "light"
-
-
-def build_css(colors: dict[str, str]) -> str:
-    """Global Streamlit chrome overrides for the active theme."""
-    t = colors
-    is_light = t["app_bg"] == "#F5F7FA"
-
-    light_widget_overrides = ""
-    if is_light:
-        light_widget_overrides = f"""
-    /* --- Light-mode overrides for Streamlit native widgets --- */
-    header[data-testid="stHeader"] {{
-        background-color: {t["app_bg"]} !important;
-    }}
-    [data-testid="stToolbar"] {{
-        background-color: transparent !important;
-    }}
-    .stTextInput > div > div > input,
-    .stTextArea > div > div > textarea {{
-        background-color: {t["surface"]} !important;
-        color: {t["text_primary"]} !important;
-        border-color: {t["border"]} !important;
-    }}
-
-    .stSelectbox > div > div,
-    .stMultiSelect > div > div {{
-        background-color: {t["surface"]} !important;
-        color: {t["text_primary"]} !important;
-    }}
-    .stSelectbox [data-baseweb="select"] > div,
-    .stMultiSelect [data-baseweb="select"] > div {{
-        background-color: {t["surface"]} !important;
-        color: {t["text_primary"]} !important;
-    }}
-    [data-baseweb="select"] [data-baseweb="tag"] {{
-        background-color: {t["metric_bg"]} !important;
-    }}
-    [data-baseweb="popover"] > div,
-    [data-baseweb="menu"] {{
-        background-color: {t["surface"]} !important;
-        color: {t["text_primary"]} !important;
-    }}
-    [data-baseweb="menu"] li {{
-        color: {t["text_primary"]} !important;
-    }}
-    [data-baseweb="menu"] li:hover {{
-        background-color: {t["metric_bg"]} !important;
-    }}
-
-    .stSlider > div > div > div {{
-        color: {t["text_primary"]} !important;
-    }}
-
-    .stCheckbox label span,
-    .stRadio label span {{
-        color: {t["text_primary"]} !important;
-    }}
-
-    .stDataFrame, .stDataFrame > div {{
-        background-color: {t["surface"]} !important;
-    }}
-
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] span,
-    section[data-testid="stSidebar"] p {{
-        color: {t["text_primary"]} !important;
-    }}
-
-    section[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div {{
-        background-color: {t["metric_bg"]} !important;
-    }}
-
-    section[data-testid="stSidebar"] .stTextInput > div > div > input {{
-        background-color: {t["metric_bg"]} !important;
-        color: {t["text_primary"]} !important;
-        border-color: {t["border"]} !important;
-    }}
-
-    .stExpander {{
-        background-color: {t["surface"]} !important;
-        border-color: {t["border"]} !important;
-    }}
-
-    .stTabs [data-baseweb="tab"] {{
-        color: {t["text_primary"]} !important;
-    }}
-
-    .stMarkdown, .stMarkdown p {{
-        color: {t["text_primary"]};
-    }}
-
-    div[data-testid="stMetricDelta"] {{
-        color: {t["text_muted"]} !important;
-    }}
-
-    .stCaption, .stCaption p {{
-        color: {t["text_muted"]} !important;
-    }}
-"""
-
-    return f"""
+_CSS = f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
     html, body, [class*="css"] {{
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        color: {t["text_primary"]};
+        color: {DARK["text_primary"]};
     }}
 
     .stApp {{
-        background-color: {t["app_bg"]};
+        background-color: {DARK["app_bg"]};
     }}
 
     .block-container {{
@@ -163,8 +38,8 @@ def build_css(colors: dict[str, str]) -> str:
     }}
 
     section[data-testid="stSidebar"] {{
-        background-color: {t["sidebar_bg"]};
-        border-right: 1px solid {t["sidebar_border"]};
+        background-color: {DARK["sidebar_bg"]};
+        border-right: 1px solid {DARK["sidebar_border"]};
     }}
     section[data-testid="stSidebar"] .block-container {{
         padding-top: 1.5rem;
@@ -176,20 +51,20 @@ def build_css(colors: dict[str, str]) -> str:
         letter-spacing: -0.5px !important;
     }}
     h2, h3 {{
-        color: {t["text_primary"]} !important;
+        color: {DARK["text_primary"]} !important;
         font-weight: 600 !important;
     }}
 
     [data-testid="stMetric"] {{
-        background: {t["metric_bg"]};
-        border: 1px solid {t["metric_border"]};
+        background: {DARK["metric_bg"]};
+        border: 1px solid {DARK["metric_border"]};
         border-radius: 10px;
         padding: 16px 20px;
-        box-shadow: 0 1px 3px {t["metric_shadow"]};
+        box-shadow: 0 1px 3px {DARK["metric_shadow"]};
     }}
     [data-testid="stMetricLabel"] {{
         font-size: 13px !important;
-        color: {t["text_muted"]} !important;
+        color: {DARK["text_muted"]} !important;
         font-weight: 500 !important;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -197,7 +72,7 @@ def build_css(colors: dict[str, str]) -> str:
     [data-testid="stMetricValue"] {{
         font-size: 28px !important;
         font-weight: 700 !important;
-        color: {t["text_primary"]} !important;
+        color: {DARK["text_primary"]} !important;
     }}
 
     .stButton > button {{
@@ -241,13 +116,13 @@ def build_css(colors: dict[str, str]) -> str:
 
     hr {{
         border: none;
-        border-top: 1px solid {t["hr"]};
+        border-top: 1px solid {DARK["hr"]};
         margin: 1.5rem 0;
     }}
 
     .streamlit-expanderHeader {{
         font-weight: 600;
-        color: {t["text_primary"]};
+        color: {DARK["text_primary"]};
     }}
 
     .stAlert {{
@@ -262,7 +137,7 @@ def build_css(colors: dict[str, str]) -> str:
     footer {{visibility: hidden;}}
 
     section[data-testid="stSidebar"] a {{
-        color: {t["text_primary"]} !important;
+        color: {DARK["text_primary"]} !important;
         text-decoration: none;
     }}
     section[data-testid="stSidebar"] a:hover {{
@@ -270,19 +145,15 @@ def build_css(colors: dict[str, str]) -> str:
     }}
 
     .viewerBadge_container__r5tak {{display: none;}}
-
-    {light_widget_overrides}
 </style>
 """
 
 
 def inject_global_css() -> None:
-    st.markdown(build_css(theme_colors()), unsafe_allow_html=True)
+    st.markdown(_CSS, unsafe_allow_html=True)
 
 
 def setup_page_theme() -> dict[str, str]:
-    """Selector + CSS + current color dict. Call once per page after set_page_config."""
-    ensure_theme_state()
-    render_theme_selector()
+    """Inject dark-mode CSS and return the color dict. Call after set_page_config."""
     inject_global_css()
     return theme_colors()
