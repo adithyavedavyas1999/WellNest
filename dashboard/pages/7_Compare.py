@@ -27,7 +27,7 @@ st.set_page_config(
 
 st.title("Compare")
 st.markdown(
-    '<p style="font-size:15px;color:#636E72;margin-top:-10px;margin-bottom:20px">'
+    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
     "Side-by-side comparison of schools or counties</p>",
     unsafe_allow_html=True,
 )
@@ -143,11 +143,11 @@ if compare_mode == "Schools":
             "radialaxis": {
                 "visible": True,
                 "range": [0, 100],
-                "gridcolor": "#E8ECF1",
-                "tickfont": {"size": 10, "color": "#636E72"},
+                "gridcolor": "#30363D",
+                "tickfont": {"size": 10, "color": "#9AA4B2"},
             },
             "angularaxis": {
-                "tickfont": {"size": 13, "color": "#2D3436", "family": "Inter, sans-serif"},
+                "tickfont": {"size": 13, "color": "#E6EDF3", "family": "Inter, sans-serif"},
             },
             "bgcolor": "rgba(0,0,0,0)",
         },
@@ -190,8 +190,8 @@ if compare_mode == "Schools":
         margin={"t": 20, "b": 60, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#2D3436"},
-        yaxis={"range": [0, 110], "gridcolor": "#E8ECF1", "title": "Score"},
+        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
+        yaxis={"range": [0, 110], "gridcolor": "#30363D", "title": "Score"},
         xaxis={"tickfont": {"size": 11}},
         showlegend=False,
     )
@@ -308,11 +308,11 @@ else:
             "radialaxis": {
                 "visible": True,
                 "range": [0, 100],
-                "gridcolor": "#E8ECF1",
-                "tickfont": {"size": 10, "color": "#636E72"},
+                "gridcolor": "#30363D",
+                "tickfont": {"size": 10, "color": "#9AA4B2"},
             },
             "angularaxis": {
-                "tickfont": {"size": 13, "color": "#2D3436", "family": "Inter, sans-serif"},
+                "tickfont": {"size": 13, "color": "#E6EDF3", "family": "Inter, sans-serif"},
             },
             "bgcolor": "rgba(0,0,0,0)",
         },
@@ -353,8 +353,8 @@ else:
         margin={"t": 20, "b": 60, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#2D3436"},
-        yaxis={"range": [0, 110], "gridcolor": "#E8ECF1", "title": "Score"},
+        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
+        yaxis={"range": [0, 110], "gridcolor": "#30363D", "title": "Score"},
         xaxis={"tickfont": {"size": 11}},
     )
     st.plotly_chart(fig_cbar, use_container_width=True, config={"displayModeBar": False})

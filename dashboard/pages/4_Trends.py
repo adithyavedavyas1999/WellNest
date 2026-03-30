@@ -27,7 +27,7 @@ st.set_page_config(
 
 st.title("Trend Analysis")
 st.markdown(
-    '<p style="font-size:15px;color:#636E72;margin-top:-10px;margin-bottom:20px">'
+    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
     "Year-over-year changes in child wellbeing scores</p>",
     unsafe_allow_html=True,
 )
@@ -90,7 +90,7 @@ if view_level == "State":
     st.subheader(f"{selected_pillar} Score Over Time")
 
     palette = ["#2E86AB", "#A23B72", "#F18F01", "#3BB273", "#C73E1D",
-               "#636E72", "#2D3436", "#6C5CE7", "#00B894", "#E17055"]
+               "#9AA4B2", "#E6EDF3", "#6C5CE7", "#00B894", "#E17055"]
 
     fig = go.Figure()
     for i, state in enumerate(selected_states):
@@ -113,9 +113,9 @@ if view_level == "State":
         margin={"t": 20, "b": 40, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#2D3436"},
-        xaxis={"title": "Year", "gridcolor": "#E8ECF1", "dtick": 1},
-        yaxis={"title": "Average Score", "range": [0, 100], "gridcolor": "#E8ECF1"},
+        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
+        xaxis={"title": "Year", "gridcolor": "#30363D", "dtick": 1},
+        yaxis={"title": "Average Score", "range": [0, 100], "gridcolor": "#30363D"},
         legend={"orientation": "h", "y": -0.15, "x": 0.5, "xanchor": "center"},
         hovermode="x unified",
     )
@@ -161,7 +161,7 @@ else:
 
     fig_county = go.Figure()
     palette = ["#2E86AB", "#A23B72", "#F18F01", "#3BB273", "#C73E1D",
-               "#636E72", "#6C5CE7", "#E17055"]
+               "#9AA4B2", "#6C5CE7", "#E17055"]
 
     for i, county in enumerate(top_counties):
         cdata = filtered[filtered["county_name"] == county]
@@ -181,9 +181,9 @@ else:
         margin={"t": 20, "b": 40, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#2D3436"},
-        xaxis={"title": "Year", "gridcolor": "#E8ECF1", "dtick": 1},
-        yaxis={"title": "Average Score", "range": [0, 100], "gridcolor": "#E8ECF1"},
+        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
+        xaxis={"title": "Year", "gridcolor": "#30363D", "dtick": 1},
+        yaxis={"title": "Average Score", "range": [0, 100], "gridcolor": "#30363D"},
         legend={"orientation": "h", "y": -0.15, "x": 0.5, "xanchor": "center"},
         hovermode="x unified",
     )
@@ -222,10 +222,10 @@ if not movers_df.empty:
             for _, row in improvers.iterrows():
                 change = row["score_change_1y"]
                 st.markdown(
-                    f'<div style="padding:6px 0;border-bottom:1px solid #E8ECF1;'
+                    f'<div style="padding:6px 0;border-bottom:1px solid #30363D;'
                     f'font-size:13px">'
                     f'<span style="font-weight:500">{row["school_name"]}</span> '
-                    f'<span style="color:#636E72">({row["state"]})</span> '
+                    f'<span style="color:#9AA4B2">({row["state"]})</span> '
                     f'<span style="color:#3BB273;font-weight:600;float:right">'
                     f"+{change:.1f}</span></div>",
                     unsafe_allow_html=True,
@@ -243,10 +243,10 @@ if not movers_df.empty:
             for _, row in decliners.iterrows():
                 change = row["score_change_1y"]
                 st.markdown(
-                    f'<div style="padding:6px 0;border-bottom:1px solid #E8ECF1;'
+                    f'<div style="padding:6px 0;border-bottom:1px solid #30363D;'
                     f'font-size:13px">'
                     f'<span style="font-weight:500">{row["school_name"]}</span> '
-                    f'<span style="color:#636E72">({row["state"]})</span> '
+                    f'<span style="color:#9AA4B2">({row["state"]})</span> '
                     f'<span style="color:#C73E1D;font-weight:600;float:right">'
                     f"{change:.1f}</span></div>",
                     unsafe_allow_html=True,
@@ -278,15 +278,15 @@ if not anomalies.empty:
         z = abs(anom["z_score"])
 
         st.markdown(
-            f'<div style="padding:12px 16px;margin-bottom:8px;background:#fff;'
+            f'<div style="padding:12px 16px;margin-bottom:8px;background:#161B22;'
             f'border-radius:8px;border-left:4px solid {icon_color};'
-            f'border:1px solid #E0E4EA">'
-            f'<div style="font-weight:600;color:#2D3436">'
+            f'border:1px solid #30363D">'
+            f'<div style="font-weight:600;color:#E6EDF3">'
             f'{anom["school_name"]} '
-            f'<span style="color:#636E72;font-weight:400">({anom["state"]})</span>'
+            f'<span style="color:#9AA4B2;font-weight:400">({anom["state"]})</span>'
             f'<span style="float:right;color:{icon_color};font-size:13px">'
             f'{direction} | z={z:.1f}</span></div>'
-            f'<div style="font-size:13px;color:#636E72;margin-top:4px">'
+            f'<div style="font-size:13px;color:#9AA4B2;margin-top:4px">'
             f'{anom.get("narrative", "")}</div></div>',
             unsafe_allow_html=True,
         )

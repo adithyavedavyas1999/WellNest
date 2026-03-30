@@ -28,7 +28,7 @@ st.set_page_config(
 
 st.title("Resource Gap Analysis")
 st.markdown(
-    '<p style="font-size:15px;color:#636E72;margin-top:-10px;margin-bottom:20px">'
+    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
     "Identifying communities where children face the widest gaps between needs and "
     "available resources</p>",
     unsafe_allow_html=True,
@@ -138,7 +138,7 @@ with tab_type:
             x=type_counts["Gap Type"],
             y=type_counts["Count"],
             marker_color=[
-                color_map.get(t, "#636E72") for t in type_counts["Gap Type"]
+                color_map.get(t, "#9AA4B2") for t in type_counts["Gap Type"]
             ],
             text=type_counts["Count"],
             textposition="outside",
@@ -150,9 +150,9 @@ with tab_type:
         margin={"t": 20, "b": 40, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#2D3436"},
+        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
         xaxis={"tickfont": {"size": 12}},
-        yaxis={"gridcolor": "#E8ECF1", "title": "Schools"},
+        yaxis={"gridcolor": "#30363D", "title": "Schools"},
         showlegend=False,
     )
     st.plotly_chart(fig_types, use_container_width=True, config={"displayModeBar": False})
@@ -184,9 +184,9 @@ with tab_state:
         margin={"t": 20, "b": 40, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#2D3436"},
+        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
         xaxis={"tickfont": {"size": 11}, "title": "State"},
-        yaxis={"gridcolor": "#E8ECF1", "title": "Schools Flagged"},
+        yaxis={"gridcolor": "#30363D", "title": "Schools Flagged"},
         showlegend=False,
     )
     st.plotly_chart(fig_states, use_container_width=True, config={"displayModeBar": False})
@@ -194,7 +194,7 @@ with tab_state:
 
 with tab_table:
     st.markdown(
-        '<div style="font-size:13px;color:#636E72;margin-bottom:8px">'
+        '<div style="font-size:13px;color:#9AA4B2;margin-bottom:8px">'
         "Schools ranked by gap severity (higher = more urgent)</div>",
         unsafe_allow_html=True,
     )
@@ -212,7 +212,7 @@ with tab_table:
             return "color: #C73E1D; font-weight: 600"
         elif val >= 50:
             return "color: #F18F01; font-weight: 600"
-        return "color: #2D3436"
+        return "color: #E6EDF3"
 
     styled = display.style.format(
         {"Severity": "{:.1f}", "Wellbeing Score": "{:.1f}"}
@@ -242,8 +242,8 @@ fig_hist.update_layout(
     margin={"t": 10, "b": 40, "l": 50, "r": 20},
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
-    font={"family": "Inter, sans-serif", "color": "#2D3436"},
-    xaxis={"title": "Severity Score", "gridcolor": "#E8ECF1"},
-    yaxis={"title": "Schools", "gridcolor": "#E8ECF1"},
+    font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
+    xaxis={"title": "Severity Score", "gridcolor": "#30363D"},
+    yaxis={"title": "Schools", "gridcolor": "#30363D"},
 )
 st.plotly_chart(fig_hist, use_container_width=True, config={"displayModeBar": False})

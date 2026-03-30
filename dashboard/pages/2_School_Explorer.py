@@ -27,7 +27,7 @@ st.set_page_config(
 
 st.title("School Explorer")
 st.markdown(
-    '<p style="font-size:15px;color:#636E72;margin-top:-10px;margin-bottom:20px">'
+    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
     "Search and explore child wellbeing scores for individual schools</p>",
     unsafe_allow_html=True,
 )
@@ -143,7 +143,7 @@ results = run_query(
 # ---------------------------------------------------------------------------
 
 st.markdown(
-    f'<div style="font-size:14px;color:#636E72;margin-bottom:12px">'
+    f'<div style="font-size:14px;color:#9AA4B2;margin-bottom:12px">'
     f"Showing {offset + 1}-{min(offset + per_page, total)} of "
     f"<b>{total:,}</b> schools</div>",
     unsafe_allow_html=True,
@@ -180,7 +180,7 @@ with nav_col3:
         st.rerun()
 with nav_col2:
     st.markdown(
-        f'<div style="text-align:center;font-size:13px;color:#636E72;padding-top:8px">'
+        f'<div style="text-align:center;font-size:13px;color:#9AA4B2;padding-top:8px">'
         f"Page {st.session_state.explorer_page + 1} of {max_pages}</div>",
         unsafe_allow_html=True,
     )
@@ -264,11 +264,11 @@ if school_options:
                 "radialaxis": {
                     "visible": True,
                     "range": [0, 100],
-                    "gridcolor": "#E8ECF1",
-                    "tickfont": {"size": 10, "color": "#636E72"},
+                    "gridcolor": "#30363D",
+                    "tickfont": {"size": 10, "color": "#9AA4B2"},
                 },
                 "angularaxis": {
-                    "tickfont": {"size": 12, "color": "#2D3436", "family": "Inter, sans-serif"},
+                    "tickfont": {"size": 12, "color": "#E6EDF3", "family": "Inter, sans-serif"},
                 },
                 "bgcolor": "rgba(0,0,0,0)",
             },
@@ -310,8 +310,8 @@ if school_options:
             margin={"t": 10, "b": 40, "l": 50, "r": 20},
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
-            xaxis={"title": "Year", "gridcolor": "#E8ECF1", "dtick": 1},
-            yaxis={"title": "Score", "range": [0, 100], "gridcolor": "#E8ECF1"},
-            font={"family": "Inter, sans-serif", "color": "#2D3436"},
+            xaxis={"title": "Year", "gridcolor": "#30363D", "dtick": 1},
+            yaxis={"title": "Score", "range": [0, 100], "gridcolor": "#30363D"},
+            font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
         )
         st.plotly_chart(fig_trend, use_container_width=True, config={"displayModeBar": False})

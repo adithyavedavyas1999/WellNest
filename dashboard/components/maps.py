@@ -60,7 +60,8 @@ def create_choropleth(
     m = folium.Map(
         location=center,
         zoom_start=zoom,
-        tiles="cartodbpositron",
+        tiles="CartoDB dark_matter",
+        attr="CartoDB",
         control_scale=True,
     )
 
@@ -81,7 +82,7 @@ def create_choropleth(
         line_opacity=0.2,
         line_weight=0.5,
         legend_name="Child Wellbeing Score",
-        nan_fill_color="#E8ECF1",
+        nan_fill_color="#21262D",
         threshold_scale=[0, 25, 50, 75, 100],
     )
     choropleth.add_to(m)
@@ -128,7 +129,7 @@ def _add_county_tooltips(
         return {
             "fillOpacity": 0.1,
             "weight": 2,
-            "color": "#2D3436",
+            "color": "#9AA4B2",
         }
 
     import json
@@ -168,11 +169,12 @@ def _add_legend(m: folium.Map) -> None:
     legend_html = """
     <div style="
         position:fixed;bottom:30px;right:30px;z-index:1000;
-        background:#fff;padding:12px 16px;border-radius:8px;
-        box-shadow:0 2px 8px rgba(0,0,0,0.12);font-family:Inter,sans-serif;
-        font-size:12px;line-height:1.6;
+        background:#161B22;padding:12px 16px;border-radius:8px;
+        border:1px solid #30363D;
+        box-shadow:0 2px 8px rgba(0,0,0,0.4);font-family:Inter,sans-serif;
+        font-size:12px;line-height:1.6;color:#E6EDF3;
     ">
-        <div style="font-weight:600;margin-bottom:6px;color:#2D3436">
+        <div style="font-weight:600;margin-bottom:6px;color:#E6EDF3">
             Wellbeing Score
         </div>
         <div><span style="background:#3BB273;width:12px;height:12px;
@@ -246,17 +248,17 @@ def _format_school_popup(row: pd.Series) -> str:
     _, label, color = _score_category_info(score)
 
     enrollment_line = (
-        f"<div style='font-size:12px;color:#636E72'>Enrollment: {enrollment:,.0f}</div>"
+        f"<div style='font-size:12px;color:#9AA4B2'>Enrollment: {enrollment:,.0f}</div>"
         if enrollment and not pd.isna(enrollment)
         else ""
     )
 
     return f"""
     <div style="font-family:Inter,sans-serif;min-width:200px">
-        <div style="font-size:14px;font-weight:600;color:#2D3436;margin-bottom:4px">
+        <div style="font-size:14px;font-weight:600;color:#E6EDF3;margin-bottom:4px">
             {name}
         </div>
-        <div style="font-size:12px;color:#636E72;margin-bottom:6px">
+        <div style="font-size:12px;color:#9AA4B2;margin-bottom:6px">
             {city}, {state}
         </div>
         <div style="

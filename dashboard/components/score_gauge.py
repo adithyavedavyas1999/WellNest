@@ -51,7 +51,7 @@ def render_gauge(
             mode="gauge+number",
             value=score,
             number={
-                "font": {"size": 36, "color": "#2D3436", "family": "Inter, sans-serif"},
+                "font": {"size": 36, "color": "#E6EDF3", "family": "Inter, sans-serif"},
                 "suffix": "",
             },
             gauge={
@@ -62,7 +62,7 @@ def render_gauge(
                     "tickfont": {"size": 1, "color": "rgba(0,0,0,0)"},
                 },
                 "bar": {"color": color, "thickness": 0.8},
-                "bgcolor": "#E8ECF1",
+                "bgcolor": "#30363D",
                 "borderwidth": 0,
                 "steps": [
                     {"range": [0, 25], "color": "rgba(199,62,29,0.08)"},
@@ -78,7 +78,7 @@ def render_gauge(
             },
             title={
                 "text": label,
-                "font": {"size": 13, "color": "#636E72", "family": "Inter, sans-serif"},
+                "font": {"size": 13, "color": "#9AA4B2", "family": "Inter, sans-serif"},
             },
         )
     )
@@ -113,11 +113,11 @@ def render_mini_gauge(score: float, size: int = 120) -> None:
         go.Indicator(
             mode="gauge+number",
             value=score,
-            number={"font": {"size": 22, "color": "#2D3436"}},
+            number={"font": {"size": 22, "color": "#E6EDF3"}},
             gauge={
                 "axis": {"range": [0, 100], "visible": False},
                 "bar": {"color": color, "thickness": 0.75},
-                "bgcolor": "#E8ECF1",
+                "bgcolor": "#30363D",
                 "borderwidth": 0,
             },
         )

@@ -28,7 +28,7 @@ st.set_page_config(
 
 st.title("Ask WellNest")
 st.markdown(
-    '<p style="font-size:15px;color:#636E72;margin-top:-10px;margin-bottom:20px">'
+    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
     "Ask questions about child wellbeing, education policy, and health resources. "
     "Answers are grounded in federal policy documents via RAG.</p>",
     unsafe_allow_html=True,
@@ -67,7 +67,7 @@ def _ask_api(question: str) -> Optional[dict]:
 with st.sidebar:
     st.subheader("Example Questions")
     st.markdown(
-        '<div style="font-size:13px;color:#636E72;margin-bottom:12px">'
+        '<div style="font-size:13px;color:#9AA4B2;margin-bottom:12px">'
         "Click any question to ask it:</div>",
         unsafe_allow_html=True,
     )
@@ -119,17 +119,17 @@ for entry in st.session_state.chat_history:
             )
             sources_html = (
                 f'<div style="margin-top:10px;padding-top:8px;'
-                f'border-top:1px solid #E0E4EA;font-size:12px;color:#636E72">'
+                f'border-top:1px solid #30363D;font-size:12px;color:#9AA4B2">'
                 f"<b>Sources:</b>"
                 f"<ul style='margin:4px 0 0 16px;padding:0'>{source_items}</ul>"
                 f"</div>"
             )
 
         st.markdown(
-            f'<div style="background:#FFFFFF;border:1px solid #E0E4EA;'
+            f'<div style="background:#161B22;border:1px solid #30363D;'
             f'padding:12px 16px;border-radius:12px 12px 12px 4px;'
             f'margin-bottom:10px;max-width:85%;font-size:14px;'
-            f'line-height:1.6;color:#2D3436">'
+            f'line-height:1.6;color:#E6EDF3">'
             f"{content}"
             f"{sources_html}"
             f"</div>",

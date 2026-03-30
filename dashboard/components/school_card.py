@@ -74,20 +74,20 @@ def render_school_card(
 
     card_html = f"""
     <div style="
-        border:1px solid #E0E4EA;
+        border:1px solid #30363D;
         border-left:4px solid {border_color};
         border-radius:8px;
         padding:16px 20px;
         margin-bottom:12px;
-        background:#FFFFFF;
+        background:#161B22;
         transition:box-shadow 0.2s ease;
     ">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
             <div>
-                <div style="font-size:16px;font-weight:600;color:#2D3436;margin-bottom:2px">
+                <div style="font-size:16px;font-weight:600;color:#E6EDF3;margin-bottom:2px">
                     {name}
                 </div>
-                <div style="font-size:13px;color:#636E72">
+                <div style="font-size:13px;color:#9AA4B2">
                     {city}, {state}
                 </div>
             </div>
@@ -96,10 +96,10 @@ def render_school_card(
             </div>
         </div>
         <div style="
-            display:flex;gap:20px;margin-top:10px;font-size:12px;color:#636E72
+            display:flex;gap:20px;margin-top:10px;font-size:12px;color:#9AA4B2
         ">
-            <span>Enrollment: <b style="color:#2D3436">{enrollment_text}</b></span>
-            <span>Title I: <b style="color:#2D3436">{title_i_text}</b></span>
+            <span>Enrollment: <b style="color:#E6EDF3">{enrollment_text}</b></span>
+            <span>Title I: <b style="color:#E6EDF3">{title_i_text}</b></span>
         </div>
         {pillar_html}
     </div>
