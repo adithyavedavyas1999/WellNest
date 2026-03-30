@@ -17,6 +17,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from dashboard.components.score_gauge import COLORS, score_to_category
+from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.db import get_states, run_query
 
 st.set_page_config(
@@ -25,9 +26,11 @@ st.set_page_config(
     layout="wide",
 )
 
+tc = setup_page_theme()
+
 st.title("Compare")
 st.markdown(
-    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
+    f'<p style="font-size:15px;color:{tc["text_muted"]};margin-top:-10px;margin-bottom:20px">'
     "Side-by-side comparison of schools or counties</p>",
     unsafe_allow_html=True,
 )
@@ -143,11 +146,11 @@ if compare_mode == "Schools":
             "radialaxis": {
                 "visible": True,
                 "range": [0, 100],
-                "gridcolor": "#30363D",
-                "tickfont": {"size": 10, "color": "#9AA4B2"},
+                "gridcolor": tc["grid"],
+                "tickfont": {"size": 10, "color": tc["text_muted"]},
             },
             "angularaxis": {
-                "tickfont": {"size": 13, "color": "#E6EDF3", "family": "Inter, sans-serif"},
+                "tickfont": {"size": 13, "color": tc["plot_font"], "family": "Inter, sans-serif"},
             },
             "bgcolor": "rgba(0,0,0,0)",
         },
@@ -190,8 +193,8 @@ if compare_mode == "Schools":
         margin={"t": 20, "b": 60, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
-        yaxis={"range": [0, 110], "gridcolor": "#30363D", "title": "Score"},
+        font={"family": "Inter, sans-serif", "color": tc["plot_font"]},
+        yaxis={"range": [0, 110], "gridcolor": tc["grid"], "title": "Score"},
         xaxis={"tickfont": {"size": 11}},
         showlegend=False,
     )
@@ -308,11 +311,11 @@ else:
             "radialaxis": {
                 "visible": True,
                 "range": [0, 100],
-                "gridcolor": "#30363D",
-                "tickfont": {"size": 10, "color": "#9AA4B2"},
+                "gridcolor": tc["grid"],
+                "tickfont": {"size": 10, "color": tc["text_muted"]},
             },
             "angularaxis": {
-                "tickfont": {"size": 13, "color": "#E6EDF3", "family": "Inter, sans-serif"},
+                "tickfont": {"size": 13, "color": tc["plot_font"], "family": "Inter, sans-serif"},
             },
             "bgcolor": "rgba(0,0,0,0)",
         },
@@ -353,8 +356,8 @@ else:
         margin={"t": 20, "b": 60, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
-        yaxis={"range": [0, 110], "gridcolor": "#30363D", "title": "Score"},
+        font={"family": "Inter, sans-serif", "color": tc["plot_font"]},
+        yaxis={"range": [0, 110], "gridcolor": tc["grid"], "title": "Score"},
         xaxis={"tickfont": {"size": 11}},
     )
     st.plotly_chart(fig_cbar, use_container_width=True, config={"displayModeBar": False})

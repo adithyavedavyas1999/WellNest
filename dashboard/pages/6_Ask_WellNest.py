@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 import requests
 import streamlit as st
 
+from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.cache import TTLCache
 
 st.set_page_config(
@@ -26,9 +27,11 @@ st.set_page_config(
     layout="wide",
 )
 
+tc = setup_page_theme()
+
 st.title("Ask WellNest")
 st.markdown(
-    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
+    f'<p style="font-size:15px;color:{tc["text_muted"]};margin-top:-10px;margin-bottom:20px">'
     "Ask questions about child wellbeing, education policy, and health resources. "
     "Answers are grounded in federal policy documents via RAG.</p>",
     unsafe_allow_html=True,
@@ -67,7 +70,7 @@ def _ask_api(question: str) -> Optional[dict]:
 with st.sidebar:
     st.subheader("Example Questions")
     st.markdown(
-        '<div style="font-size:13px;color:#9AA4B2;margin-bottom:12px">'
+        f'<div style="font-size:13px;color:{tc["text_muted"]};margin-bottom:12px">'
         "Click any question to ask it:</div>",
         unsafe_allow_html=True,
     )
@@ -119,17 +122,17 @@ for entry in st.session_state.chat_history:
             )
             sources_html = (
                 f'<div style="margin-top:10px;padding-top:8px;'
-                f'border-top:1px solid #30363D;font-size:12px;color:#9AA4B2">'
+                f'border-top:1px solid {tc["border"]};font-size:12px;color:{tc["text_muted"]}">'
                 f"<b>Sources:</b>"
                 f"<ul style='margin:4px 0 0 16px;padding:0'>{source_items}</ul>"
                 f"</div>"
             )
 
         st.markdown(
-            f'<div style="background:#161B22;border:1px solid #30363D;'
+            f'<div style="background:{tc["surface"]};border:1px solid {tc["border"]};'
             f'padding:12px 16px;border-radius:12px 12px 12px 4px;'
             f'margin-bottom:10px;max-width:85%;font-size:14px;'
-            f'line-height:1.6;color:#E6EDF3">'
+            f'line-height:1.6;color:{tc["text_primary"]}">'
             f"{content}"
             f"{sources_html}"
             f"</div>",
@@ -195,7 +198,7 @@ if st.session_state.chat_history:
 
 if not st.session_state.chat_history:
     st.markdown(
-        '<div style="text-align:center;padding:60px 0;color:#B2BEC3;font-size:15px">'
+        f'<div style="text-align:center;padding:60px 0;color:{tc["text_muted"]};font-size:15px">'
         "Ask a question to get started. Answers are grounded in federal "
         "education and health policy documents.</div>",
         unsafe_allow_html=True,

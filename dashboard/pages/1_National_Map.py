@@ -18,6 +18,7 @@ from streamlit_folium import st_folium
 
 from dashboard.components.maps import add_school_markers, create_choropleth
 from dashboard.components.score_gauge import score_to_category
+from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.db import get_states, run_query
 
 st.set_page_config(
@@ -26,9 +27,11 @@ st.set_page_config(
     layout="wide",
 )
 
+tc = setup_page_theme()
+
 st.title("National Map")
 st.markdown(
-    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
+    f'<p style="font-size:15px;color:{tc["text_muted"]};margin-top:-10px;margin-bottom:20px">'
     "County-level child wellbeing scores across the United States</p>",
     unsafe_allow_html=True,
 )
@@ -62,7 +65,7 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown(
-        '<div style="font-size:11px;color:#9AA4B2">'
+        f'<div style="font-size:11px;color:{tc["text_muted"]}">'
         "Tip: Click a county on the map for details. "
         "Toggle school markers to see individual schools.</div>",
         unsafe_allow_html=True,
@@ -204,27 +207,27 @@ if map_data and map_data.get("last_object_clicked"):
         )
 
         if not nearby.empty:
-            c = nearby.iloc[0]
-            _, cat_label, cat_color = score_to_category(float(c["composite_score"]))
+            row = nearby.iloc[0]
+            _, cat_label, cat_color = score_to_category(float(row["composite_score"]))
 
             col_name, col_score = st.columns([2, 1])
             with col_name:
                 st.markdown(
-                    f'<div style="font-size:20px;font-weight:600;color:#E6EDF3">'
-                    f'{c["name"]}, {c["state"]}</div>',
+                    f'<div style="font-size:20px;font-weight:600;color:{tc["text_primary"]}">'
+                    f'{row["name"]}, {row["state"]}</div>',
                     unsafe_allow_html=True,
                 )
                 st.markdown(
-                    f'<div style="font-size:13px;color:#9AA4B2">'
-                    f'FIPS: {c["fips"]} | '
-                    f'Schools: {int(c["school_count"]):,} | '
-                    f'Population: {int(c["population"]):,}</div>',
+                    f'<div style="font-size:13px;color:{tc["text_muted"]}">'
+                    f'FIPS: {row["fips"]} | '
+                    f'Schools: {int(row["school_count"]):,} | '
+                    f'Population: {int(row["population"]):,}</div>',
                     unsafe_allow_html=True,
                 )
             with col_score:
                 st.markdown(
                     f'<div style="text-align:right;font-size:32px;font-weight:700;'
-                    f'color:{cat_color}">{c["composite_score"]:.1f}</div>'
+                    f'color:{cat_color}">{row["composite_score"]:.1f}</div>'
                     f'<div style="text-align:right;font-size:13px;color:{cat_color}">'
                     f"{cat_label}</div>",
                     unsafe_allow_html=True,
@@ -232,18 +235,18 @@ if map_data and map_data.get("last_object_clicked"):
 
             pcol1, pcol2, pcol3, pcol4 = st.columns(4)
             pillars_display = [
-                ("Education", c.get("education_score"), "#2E86AB", pcol1),
-                ("Health", c.get("health_score"), "#A23B72", pcol2),
-                ("Environment", c.get("environment_score"), "#F18F01", pcol3),
-                ("Safety", c.get("safety_score"), "#3BB273", pcol4),
+                ("Education", row.get("education_score"), "#2E86AB", pcol1),
+                ("Health", row.get("health_score"), "#A23B72", pcol2),
+                ("Environment", row.get("environment_score"), "#F18F01", pcol3),
+                ("Safety", row.get("safety_score"), "#3BB273", pcol4),
             ]
             for pname, pval, pcolor, pcol in pillars_display:
                 with pcol:
                     val_str = f"{pval:.1f}" if pval is not None else "--"
                     st.markdown(
-                        f'<div style="text-align:center;padding:8px;background:#161B22;'
-                        f'border-radius:8px;border:1px solid #30363D">'
-                        f'<div style="font-size:11px;color:#9AA4B2;text-transform:uppercase;'
+                        f'<div style="text-align:center;padding:8px;background:{tc["surface"]};'
+                        f'border-radius:8px;border:1px solid {tc["border"]}">'
+                        f'<div style="font-size:11px;color:{tc["text_muted"]};text-transform:uppercase;'
                         f'letter-spacing:0.5px">{pname}</div>'
                         f'<div style="font-size:22px;font-weight:700;color:{pcolor}">'
                         f"{val_str}</div></div>",

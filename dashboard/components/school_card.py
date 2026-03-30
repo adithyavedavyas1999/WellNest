@@ -14,6 +14,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from dashboard.components.score_gauge import COLORS, score_to_category
+from dashboard.ui_theme import theme_colors
 
 
 def render_score_badge(score: float) -> str:
@@ -48,6 +49,7 @@ def render_school_card(
     """
     _, cat_label, color = score_to_category(composite_score)
     border_color = color
+    tc = theme_colors()
 
     enrollment_text = f"{enrollment:,}" if enrollment else "N/A"
     title_i_text = "Yes" if title_i else ("No" if title_i is False else "--")
@@ -74,20 +76,20 @@ def render_school_card(
 
     card_html = f"""
     <div style="
-        border:1px solid #30363D;
+        border:1px solid {tc["border"]};
         border-left:4px solid {border_color};
         border-radius:8px;
         padding:16px 20px;
         margin-bottom:12px;
-        background:#161B22;
+        background:{tc["surface"]};
         transition:box-shadow 0.2s ease;
     ">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
             <div>
-                <div style="font-size:16px;font-weight:600;color:#E6EDF3;margin-bottom:2px">
+                <div style="font-size:16px;font-weight:600;color:{tc["text_primary"]};margin-bottom:2px">
                     {name}
                 </div>
-                <div style="font-size:13px;color:#9AA4B2">
+                <div style="font-size:13px;color:{tc["text_muted"]}">
                     {city}, {state}
                 </div>
             </div>
@@ -96,10 +98,10 @@ def render_school_card(
             </div>
         </div>
         <div style="
-            display:flex;gap:20px;margin-top:10px;font-size:12px;color:#9AA4B2
+            display:flex;gap:20px;margin-top:10px;font-size:12px;color:{tc["text_muted"]}
         ">
-            <span>Enrollment: <b style="color:#E6EDF3">{enrollment_text}</b></span>
-            <span>Title I: <b style="color:#E6EDF3">{title_i_text}</b></span>
+            <span>Enrollment: <b style="color:{tc["text_primary"]}">{enrollment_text}</b></span>
+            <span>Title I: <b style="color:{tc["text_primary"]}">{title_i_text}</b></span>
         </div>
         {pillar_html}
     </div>

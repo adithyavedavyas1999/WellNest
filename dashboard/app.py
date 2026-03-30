@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import streamlit as st
 
 from dashboard.components.score_gauge import render_gauge, score_to_category
+from dashboard.ui_theme import ensure_theme_state, inject_global_css, render_theme_selector, theme_colors
 from dashboard.utils.cache import check_staleness, format_freshness
 from dashboard.utils.db import check_db_health, get_data_freshness, run_query
 
@@ -32,156 +33,11 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ---------------------------------------------------------------------------
-# Custom CSS — WellNest color palette
-# ---------------------------------------------------------------------------
+ensure_theme_state()
+render_theme_selector()
+inject_global_css()
 
-st.markdown("""
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-    /* global resets */
-    html, body, [class*="css"] {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        color: #E6EDF3;
-    }
-
-    /* background */
-    .stApp {
-        background-color: #0E1117;
-    }
-
-    /* main content area */
-    .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-        max-width: 1200px;
-    }
-
-    /* sidebar styling */
-    section[data-testid="stSidebar"] {
-        background-color: #161B22;
-        border-right: 1px solid #30363D;
-    }
-    section[data-testid="stSidebar"] .block-container {
-        padding-top: 1.5rem;
-    }
-
-    /* headers */
-    h1 {
-        color: #2E86AB !important;
-        font-weight: 700 !important;
-        letter-spacing: -0.5px !important;
-    }
-    h2, h3 {
-        color: #E6EDF3 !important;
-        font-weight: 600 !important;
-    }
-
-    /* metric cards */
-    [data-testid="stMetric"] {
-        background: #161B22;
-        border: 1px solid #30363D;
-        border-radius: 10px;
-        padding: 16px 20px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-    [data-testid="stMetricLabel"] {
-        font-size: 13px !important;
-        color: #9AA4B2 !important;
-        font-weight: 500 !important;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    [data-testid="stMetricValue"] {
-        font-size: 28px !important;
-        font-weight: 700 !important;
-        color: #E6EDF3 !important;
-    }
-
-    /* buttons */
-    .stButton > button {
-        background-color: #2E86AB;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 8px 20px;
-        font-weight: 600;
-        font-size: 14px;
-        transition: background-color 0.2s;
-    }
-    .stButton > button:hover {
-        background-color: #246D8C;
-        color: white;
-        border: none;
-    }
-
-    /* selectbox and multiselect */
-    .stSelectbox [data-baseweb="select"],
-    .stMultiSelect [data-baseweb="select"] {
-        border-radius: 8px;
-    }
-
-    /* tabs */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 8px 8px 0 0;
-        padding: 8px 20px;
-        font-weight: 500;
-    }
-    .stTabs [aria-selected="true"] {
-        background-color: #2E86AB;
-        color: white;
-    }
-
-    /* dataframe styling */
-    .stDataFrame {
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    /* custom divider */
-    hr {
-        border: none;
-        border-top: 1px solid #30363D;
-        margin: 1.5rem 0;
-    }
-
-    /* expander */
-    .streamlit-expanderHeader {
-        font-weight: 600;
-        color: #E6EDF3;
-    }
-
-    /* info/warning/error boxes */
-    .stAlert {
-        border-radius: 8px;
-    }
-
-    /* score badge helper classes */
-    .score-critical { color: #C73E1D; }
-    .score-at-risk { color: #F18F01; }
-    .score-moderate { color: #2E86AB; }
-    .score-thriving { color: #3BB273; }
-
-    /* footer */
-    footer {visibility: hidden;}
-
-    /* sidebar nav links */
-    section[data-testid="stSidebar"] a {
-        color: #E6EDF3 !important;
-        text-decoration: none;
-    }
-    section[data-testid="stSidebar"] a:hover {
-        color: #2E86AB !important;
-    }
-
-    /* hide the "made with streamlit" */
-    .viewerBadge_container__r5tak {display: none;}
-</style>
-""", unsafe_allow_html=True)
+c = theme_colors()
 
 
 # ---------------------------------------------------------------------------
@@ -195,7 +51,7 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     st.markdown(
-        '<div style="font-size:13px;color:#9AA4B2;margin-bottom:20px">'
+        f'<div style="font-size:13px;color:{c["text_muted"]};margin-bottom:20px">'
         "Child Wellbeing Intelligence Platform</div>",
         unsafe_allow_html=True,
     )
@@ -211,7 +67,7 @@ with st.sidebar:
         is_stale = check_staleness(freshness)
         dot_color = "#F18F01" if is_stale else "#3BB273"
         st.markdown(
-            f'<div style="font-size:12px;color:#9AA4B2;display:flex;'
+            f'<div style="font-size:12px;color:{c["text_muted"]};display:flex;'
             f'align-items:center;gap:6px">'
             f'<span style="width:8px;height:8px;border-radius:50%;'
             f'background:{dot_color};display:inline-block"></span>'
@@ -255,7 +111,7 @@ with st.sidebar:
 st.title("Child Wellbeing Dashboard")
 
 st.markdown(
-    '<p style="font-size:16px;color:#9AA4B2;margin-top:-10px;margin-bottom:24px">'
+    f'<p style="font-size:16px;color:{c["text_muted"]};margin-top:-10px;margin-bottom:24px">'
     "National overview of child wellbeing across 130,000+ public schools</p>",
     unsafe_allow_html=True,
 )
@@ -332,9 +188,9 @@ with col_chart:
         margin={"t": 20, "b": 40, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
+        font={"family": "Inter, sans-serif", "color": c["plot_font"]},
         xaxis={"tickfont": {"size": 12}},
-        yaxis={"gridcolor": "#30363D", "title": "Schools", "title_font": {"size": 12}},
+        yaxis={"gridcolor": c["grid"], "title": "Schools", "title_font": {"size": 12}},
         showlegend=False,
     )
     st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
@@ -430,10 +286,10 @@ if not pillar_avgs.empty:
         margin={"t": 20, "b": 40, "l": 50, "r": 20},
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
+        font={"family": "Inter, sans-serif", "color": c["plot_font"]},
         yaxis={
             "range": [0, 100],
-            "gridcolor": "#30363D",
+            "gridcolor": c["grid"],
             "title": "Score",
             "title_font": {"size": 12},
         },
@@ -449,7 +305,7 @@ if not pillar_avgs.empty:
 
 st.markdown("---")
 st.markdown(
-    '<div style="text-align:center;color:#9AA4B2;font-size:13px;padding:10px 0">'
+    f'<div style="text-align:center;color:{c["text_muted"]};font-size:13px;padding:10px 0">'
     "WellNest v0.1 | Built for ChiEAC | "
     '<a href="https://github.com/chieac/wellnest" style="color:#2E86AB">'
     "GitHub</a></div>",

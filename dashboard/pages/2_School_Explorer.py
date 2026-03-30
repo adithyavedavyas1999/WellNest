@@ -17,6 +17,7 @@ import streamlit as st
 
 from dashboard.components.school_card import render_school_card
 from dashboard.components.score_gauge import render_gauge, score_to_category
+from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.db import get_states, run_query
 
 st.set_page_config(
@@ -25,9 +26,11 @@ st.set_page_config(
     layout="wide",
 )
 
+tc = setup_page_theme()
+
 st.title("School Explorer")
 st.markdown(
-    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
+    f'<p style="font-size:15px;color:{tc["text_muted"]};margin-top:-10px;margin-bottom:20px">'
     "Search and explore child wellbeing scores for individual schools</p>",
     unsafe_allow_html=True,
 )
@@ -143,7 +146,7 @@ results = run_query(
 # ---------------------------------------------------------------------------
 
 st.markdown(
-    f'<div style="font-size:14px;color:#9AA4B2;margin-bottom:12px">'
+    f'<div style="font-size:14px;color:{tc["text_muted"]};margin-bottom:12px">'
     f"Showing {offset + 1}-{min(offset + per_page, total)} of "
     f"<b>{total:,}</b> schools</div>",
     unsafe_allow_html=True,
@@ -180,7 +183,7 @@ with nav_col3:
         st.rerun()
 with nav_col2:
     st.markdown(
-        f'<div style="text-align:center;font-size:13px;color:#9AA4B2;padding-top:8px">'
+        f'<div style="text-align:center;font-size:13px;color:{tc["text_muted"]};padding-top:8px">'
         f"Page {st.session_state.explorer_page + 1} of {max_pages}</div>",
         unsafe_allow_html=True,
     )
@@ -264,11 +267,11 @@ if school_options:
                 "radialaxis": {
                     "visible": True,
                     "range": [0, 100],
-                    "gridcolor": "#30363D",
-                    "tickfont": {"size": 10, "color": "#9AA4B2"},
+                    "gridcolor": tc["grid"],
+                    "tickfont": {"size": 10, "color": tc["text_muted"]},
                 },
                 "angularaxis": {
-                    "tickfont": {"size": 12, "color": "#E6EDF3", "family": "Inter, sans-serif"},
+                    "tickfont": {"size": 12, "color": tc["plot_font"], "family": "Inter, sans-serif"},
                 },
                 "bgcolor": "rgba(0,0,0,0)",
             },
@@ -310,8 +313,8 @@ if school_options:
             margin={"t": 10, "b": 40, "l": 50, "r": 20},
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
-            xaxis={"title": "Year", "gridcolor": "#30363D", "dtick": 1},
-            yaxis={"title": "Score", "range": [0, 100], "gridcolor": "#30363D"},
-            font={"family": "Inter, sans-serif", "color": "#E6EDF3"},
+            xaxis={"title": "Year", "gridcolor": tc["grid"], "dtick": 1},
+            yaxis={"title": "Score", "range": [0, 100], "gridcolor": tc["grid"]},
+            font={"family": "Inter, sans-serif", "color": tc["plot_font"]},
         )
         st.plotly_chart(fig_trend, use_container_width=True, config={"displayModeBar": False})

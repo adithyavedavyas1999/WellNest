@@ -1,0 +1,195 @@
+"""
+Theme selector + dynamic CSS for light/dark appearance.
+
+Session state key: wn_theme — "dark" | "light"
+"""
+
+from __future__ import annotations
+
+import streamlit as st
+
+from dashboard.theme import THEMES, ThemeMode
+
+SESSION_KEY = "wn_theme"
+
+
+def ensure_theme_state() -> None:
+    if SESSION_KEY not in st.session_state:
+        st.session_state[SESSION_KEY] = "dark"
+
+
+def current_mode() -> ThemeMode:
+    ensure_theme_state()
+    m = st.session_state[SESSION_KEY]
+    return m if m in ("dark", "light") else "dark"
+
+
+def theme_colors() -> dict[str, str]:
+    return THEMES[current_mode()]
+
+
+def render_theme_selector() -> None:
+    """Top-right appearance control (Dark / Light). Call after set_page_config."""
+    ensure_theme_state()
+    # Shared widget key so the choice persists across multi-page navigation.
+    if "wn_global_theme_radio" not in st.session_state:
+        st.session_state.wn_global_theme_radio = (
+            "Dark" if st.session_state[SESSION_KEY] == "dark" else "Light"
+        )
+
+    c1, c2 = st.columns([1, 280])
+    with c2:
+        choice = st.radio(
+            "Appearance",
+            ["Dark", "Light"],
+            horizontal=True,
+            key="wn_global_theme_radio",
+            label_visibility="collapsed",
+        )
+    st.session_state[SESSION_KEY] = "dark" if choice == "Dark" else "light"
+
+
+def build_css(colors: dict[str, str]) -> str:
+    """Global Streamlit chrome overrides for the active theme."""
+    t = colors
+    return f"""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    html, body, [class*="css"] {{
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: {t["text_primary"]};
+    }}
+
+    .stApp {{
+        background-color: {t["app_bg"]};
+    }}
+
+    .block-container {{
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        max-width: 1200px;
+    }}
+
+    section[data-testid="stSidebar"] {{
+        background-color: {t["sidebar_bg"]};
+        border-right: 1px solid {t["sidebar_border"]};
+    }}
+    section[data-testid="stSidebar"] .block-container {{
+        padding-top: 1.5rem;
+    }}
+
+    h1 {{
+        color: #2E86AB !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.5px !important;
+    }}
+    h2, h3 {{
+        color: {t["text_primary"]} !important;
+        font-weight: 600 !important;
+    }}
+
+    [data-testid="stMetric"] {{
+        background: {t["metric_bg"]};
+        border: 1px solid {t["metric_border"]};
+        border-radius: 10px;
+        padding: 16px 20px;
+        box-shadow: 0 1px 3px {t["metric_shadow"]};
+    }}
+    [data-testid="stMetricLabel"] {{
+        font-size: 13px !important;
+        color: {t["text_muted"]} !important;
+        font-weight: 500 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }}
+    [data-testid="stMetricValue"] {{
+        font-size: 28px !important;
+        font-weight: 700 !important;
+        color: {t["text_primary"]} !important;
+    }}
+
+    .stButton > button {{
+        background-color: #2E86AB;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 20px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: background-color 0.2s;
+    }}
+    .stButton > button:hover {{
+        background-color: #246D8C;
+        color: white;
+        border: none;
+    }}
+
+    .stSelectbox [data-baseweb="select"],
+    .stMultiSelect [data-baseweb="select"] {{
+        border-radius: 8px;
+    }}
+
+    .stTabs [data-baseweb="tab-list"] {{
+        gap: 8px;
+    }}
+    .stTabs [data-baseweb="tab"] {{
+        border-radius: 8px 8px 0 0;
+        padding: 8px 20px;
+        font-weight: 500;
+    }}
+    .stTabs [aria-selected="true"] {{
+        background-color: #2E86AB;
+        color: white;
+    }}
+
+    .stDataFrame {{
+        border-radius: 8px;
+        overflow: hidden;
+    }}
+
+    hr {{
+        border: none;
+        border-top: 1px solid {t["hr"]};
+        margin: 1.5rem 0;
+    }}
+
+    .streamlit-expanderHeader {{
+        font-weight: 600;
+        color: {t["text_primary"]};
+    }}
+
+    .stAlert {{
+        border-radius: 8px;
+    }}
+
+    .score-critical {{ color: #C73E1D; }}
+    .score-at-risk {{ color: #F18F01; }}
+    .score-moderate {{ color: #2E86AB; }}
+    .score-thriving {{ color: #3BB273; }}
+
+    footer {{visibility: hidden;}}
+
+    section[data-testid="stSidebar"] a {{
+        color: {t["text_primary"]} !important;
+        text-decoration: none;
+    }}
+    section[data-testid="stSidebar"] a:hover {{
+        color: #2E86AB !important;
+    }}
+
+    .viewerBadge_container__r5tak {{display: none;}}
+</style>
+"""
+
+
+def inject_global_css() -> None:
+    st.markdown(build_css(theme_colors()), unsafe_allow_html=True)
+
+
+def setup_page_theme() -> dict[str, str]:
+    """Selector + CSS + current color dict. Call once per page after set_page_config."""
+    ensure_theme_state()
+    render_theme_selector()
+    inject_global_css()
+    return theme_colors()

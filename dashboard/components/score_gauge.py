@@ -11,6 +11,8 @@ from __future__ import annotations
 import plotly.graph_objects as go
 import streamlit as st
 
+from dashboard.ui_theme import theme_colors
+
 COLORS = {
     "critical": "#C73E1D",
     "at_risk": "#F18F01",
@@ -45,13 +47,14 @@ def render_gauge(
     lifting; we just massage the colors and layout to match our palette.
     """
     cat_key, cat_label, color = score_to_category(score)
+    tc = theme_colors()
 
     fig = go.Figure(
         go.Indicator(
             mode="gauge+number",
             value=score,
             number={
-                "font": {"size": 36, "color": "#E6EDF3", "family": "Inter, sans-serif"},
+                "font": {"size": 36, "color": tc["plot_font"], "family": "Inter, sans-serif"},
                 "suffix": "",
             },
             gauge={
@@ -62,7 +65,7 @@ def render_gauge(
                     "tickfont": {"size": 1, "color": "rgba(0,0,0,0)"},
                 },
                 "bar": {"color": color, "thickness": 0.8},
-                "bgcolor": "#30363D",
+                "bgcolor": tc["grid"],
                 "borderwidth": 0,
                 "steps": [
                     {"range": [0, 25], "color": "rgba(199,62,29,0.08)"},
@@ -78,7 +81,7 @@ def render_gauge(
             },
             title={
                 "text": label,
-                "font": {"size": 13, "color": "#9AA4B2", "family": "Inter, sans-serif"},
+                "font": {"size": 13, "color": tc["text_muted"], "family": "Inter, sans-serif"},
             },
         )
     )
@@ -108,16 +111,17 @@ def render_gauge(
 def render_mini_gauge(score: float, size: int = 120) -> None:
     """Compact version for cards and tables — no labels, just the ring and number."""
     _, _, color = score_to_category(score)
+    tc = theme_colors()
 
     fig = go.Figure(
         go.Indicator(
             mode="gauge+number",
             value=score,
-            number={"font": {"size": 22, "color": "#E6EDF3"}},
+            number={"font": {"size": 22, "color": tc["plot_font"]}},
             gauge={
                 "axis": {"range": [0, 100], "visible": False},
                 "bar": {"color": color, "thickness": 0.75},
-                "bgcolor": "#30363D",
+                "bgcolor": tc["grid"],
                 "borderwidth": 0,
             },
         )

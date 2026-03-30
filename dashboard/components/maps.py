@@ -16,6 +16,8 @@ import folium
 import pandas as pd
 from folium.plugins import MarkerCluster
 
+from dashboard.ui_theme import theme_colors
+
 COUNTY_GEOJSON_URL = (
     "https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json"
 )
@@ -57,10 +59,11 @@ def create_choropleth(
     The DataFrame needs at minimum: fips, name, state, and whatever value_column
     you're coloring by. We add popups for each county automatically.
     """
+    tc = theme_colors()
     m = folium.Map(
         location=center,
         zoom_start=zoom,
-        tiles="CartoDB dark_matter",
+        tiles=tc["map_tile"],
         attr="CartoDB",
         control_scale=True,
     )
@@ -82,7 +85,7 @@ def create_choropleth(
         line_opacity=0.2,
         line_weight=0.5,
         legend_name="Child Wellbeing Score",
-        nan_fill_color="#21262D",
+        nan_fill_color=tc["map_nan_fill"],
         threshold_scale=[0, 25, 50, 75, 100],
     )
     choropleth.add_to(m)
@@ -129,7 +132,7 @@ def _add_county_tooltips(
         return {
             "fillOpacity": 0.1,
             "weight": 2,
-            "color": "#9AA4B2",
+            "color": theme_colors()["map_highlight"],
         }
 
     import json
@@ -166,15 +169,16 @@ def _add_county_tooltips(
 
 def _add_legend(m: folium.Map) -> None:
     """Custom HTML legend that matches our color palette."""
-    legend_html = """
+    tc = theme_colors()
+    legend_html = f"""
     <div style="
         position:fixed;bottom:30px;right:30px;z-index:1000;
-        background:#161B22;padding:12px 16px;border-radius:8px;
-        border:1px solid #30363D;
+        background:{tc["legend_bg"]};padding:12px 16px;border-radius:8px;
+        border:1px solid {tc["legend_border"]};
         box-shadow:0 2px 8px rgba(0,0,0,0.4);font-family:Inter,sans-serif;
-        font-size:12px;line-height:1.6;color:#E6EDF3;
+        font-size:12px;line-height:1.6;color:{tc["legend_text"]};
     ">
-        <div style="font-weight:600;margin-bottom:6px;color:#E6EDF3">
+        <div style="font-weight:600;margin-bottom:6px;color:{tc["legend_text"]}">
             Wellbeing Score
         </div>
         <div><span style="background:#3BB273;width:12px;height:12px;
@@ -240,6 +244,7 @@ def add_school_markers(
 
 def _format_school_popup(row: pd.Series) -> str:
     """HTML for the map popup when you click a school marker."""
+    tc = theme_colors()
     name = row.get("name", "Unknown")
     city = row.get("city", "")
     state = row.get("state", "")
@@ -247,18 +252,20 @@ def _format_school_popup(row: pd.Series) -> str:
     enrollment = row.get("enrollment")
     _, label, color = _score_category_info(score)
 
+    tm = tc["text_muted"]
+    tp = tc["text_primary"]
     enrollment_line = (
-        f"<div style='font-size:12px;color:#9AA4B2'>Enrollment: {enrollment:,.0f}</div>"
+        f"<div style='font-size:12px;color:{tm}'>Enrollment: {enrollment:,.0f}</div>"
         if enrollment and not pd.isna(enrollment)
         else ""
     )
 
     return f"""
     <div style="font-family:Inter,sans-serif;min-width:200px">
-        <div style="font-size:14px;font-weight:600;color:#E6EDF3;margin-bottom:4px">
+        <div style="font-size:14px;font-weight:600;color:{tp};margin-bottom:4px">
             {name}
         </div>
-        <div style="font-size:12px;color:#9AA4B2;margin-bottom:6px">
+        <div style="font-size:12px;color:{tm};margin-bottom:6px">
             {city}, {state}
         </div>
         <div style="

@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 import streamlit as st
 
 from dashboard.components.score_gauge import score_to_category
+from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.cache import TTLCache
 from dashboard.utils.db import get_states, run_query
 
@@ -26,9 +27,11 @@ st.set_page_config(
     layout="wide",
 )
 
+tc = setup_page_theme()
+
 st.title("AI Insights")
 st.markdown(
-    '<p style="font-size:15px;color:#9AA4B2;margin-top:-10px;margin-bottom:20px">'
+    f'<p style="font-size:15px;color:{tc["text_muted"]};margin-top:-10px;margin-bottom:20px">'
     "GPT-generated community briefs, anomaly narratives, and data quality flags</p>",
     unsafe_allow_html=True,
 )
@@ -99,7 +102,7 @@ with tab_briefs:
         st.info("No AI briefs available. Run the brief generation pipeline first.")
     else:
         st.markdown(
-            f'<div style="font-size:13px;color:#9AA4B2;margin-bottom:16px">'
+            f'<div style="font-size:13px;color:{tc["text_muted"]};margin-bottom:16px">'
             f"Showing {len(briefs)} county briefs (sorted by score, lowest first)</div>",
             unsafe_allow_html=True,
         )
@@ -116,7 +119,7 @@ with tab_briefs:
                     f'<div style="display:flex;justify-content:space-between;'
                     f'align-items:center;margin-bottom:12px">'
                     f'<div>'
-                    f'<span style="font-size:13px;color:#9AA4B2">'
+                    f'<span style="font-size:13px;color:{tc["text_muted"]}">'
                     f'FIPS: {row["fips"]}</span>'
                     f'</div>'
                     f'<div>'
@@ -131,7 +134,7 @@ with tab_briefs:
                 st.markdown(row["brief"])
 
                 st.markdown(
-                    f'<div style="font-size:11px;color:#B2BEC3;margin-top:12px;'
+                    f'<div style="font-size:11px;color:{tc["text_muted"]};margin-top:12px;'
                     f'text-align:right">Generated: {generated}</div>',
                     unsafe_allow_html=True,
                 )
@@ -161,7 +164,7 @@ with tab_anomalies:
         st.info("No anomaly narratives generated yet.")
     else:
         st.markdown(
-            f'<div style="font-size:13px;color:#9AA4B2;margin-bottom:16px">'
+            f'<div style="font-size:13px;color:{tc["text_muted"]};margin-bottom:16px">'
             f"{len(anomalies)} anomalies with AI-generated explanations</div>",
             unsafe_allow_html=True,
         )
@@ -173,24 +176,24 @@ with tab_anomalies:
             change_str = f"+{anom['score_change_1y']:.1f}" if is_improvement else f"{anom['score_change_1y']:.1f}"
 
             st.markdown(
-                f'<div style="background:#161B22;border:1px solid #30363D;'
+                f'<div style="background:{tc["surface"]};border:1px solid {tc["border"]};'
                 f'border-left:4px solid {border_color};border-radius:8px;'
                 f'padding:14px 18px;margin-bottom:10px">'
                 f'<div style="display:flex;justify-content:space-between;'
                 f'align-items:flex-start;margin-bottom:8px">'
                 f'<div>'
-                f'<span style="font-weight:600;color:#E6EDF3;font-size:15px">'
+                f'<span style="font-weight:600;color:{tc["text_primary"]};font-size:15px">'
                 f'{anom["school_name"]}</span> '
-                f'<span style="color:#9AA4B2;font-size:13px">({anom["state"]})</span>'
+                f'<span style="color:{tc["text_muted"]};font-size:13px">({anom["state"]})</span>'
                 f'</div>'
                 f'<div style="text-align:right">'
                 f'<span style="font-size:12px;color:{border_color};'
                 f'font-weight:600">{direction_label}</span><br>'
-                f'<span style="font-size:11px;color:#9AA4B2">'
+                f'<span style="font-size:11px;color:{tc["text_muted"]}">'
                 f'Change: {change_str} | z: {abs(anom["z_score"]):.1f}</span>'
                 f'</div>'
                 f'</div>'
-                f'<div style="font-size:13px;color:#E6EDF3;line-height:1.6">'
+                f'<div style="font-size:13px;color:{tc["text_primary"]};line-height:1.6">'
                 f'{anom["narrative"]}'
                 f'</div>'
                 f'</div>',
@@ -204,7 +207,7 @@ with tab_anomalies:
 
 with tab_quality:
     st.markdown(
-        '<div style="font-size:13px;color:#9AA4B2;margin-bottom:16px">'
+        f'<div style="font-size:13px;color:{tc["text_muted"]};margin-bottom:16px">'
         "Records flagged by the LLM-based data quality validator. Most of these "
         "are legitimate data artifacts (school mergers, enrollment spikes after "
         "redistricting) rather than actual data errors.</div>",
