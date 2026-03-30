@@ -1,5 +1,13 @@
 # WellNest
 
+<div align="center">
+
+### [Launch the live dashboard (Streamlit)](https://wellnest.streamlit.app)
+
+</div>
+
+---
+
 **National Child Wellbeing Intelligence Platform**
 
 WellNest maps child wellbeing for every public school and community in the United States. It fuses 12+ federal data sources -- education, health, environment, safety, and resource access -- into a composite Child Wellbeing Score for 130,000+ schools, with predictive analytics, semantic search over policy documents, and automated insights for grant proposals.
