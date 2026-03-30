@@ -124,8 +124,7 @@ def generate_single_report(
     except Exception as exc:
         result["status"] = "error"
         result["error"] = str(exc)
-        log.error("Failed to generate report for %s (%s, %s): %s",
-                  fips, county_name, state, exc)
+        log.error("Failed to generate report for %s (%s, %s): %s", fips, county_name, state, exc)
 
     result["elapsed_ms"] = int((time.monotonic() - start) * 1000)
     return result
@@ -179,30 +178,19 @@ def run_batch(
 
 def print_summary(results: list[dict[str, Any]], elapsed_total: float) -> None:
     """Print a nice summary of the batch run."""
-    ok_count = sum(1 for r in results if r["status"] == "ok")
+    sum(1 for r in results if r["status"] == "ok")
     err_count = sum(1 for r in results if r["status"] == "error")
     total_ms = sum(r["elapsed_ms"] for r in results)
-    avg_ms = total_ms // len(results) if results else 0
-
-    print("\n" + "=" * 60)
-    print("  Batch Report Summary")
-    print("=" * 60)
-    print(f"  Total counties:      {len(results)}")
-    print(f"  Successful:          {ok_count}")
-    print(f"  Failed:              {err_count}")
-    print(f"  Avg time per report: {avg_ms}ms")
-    print(f"  Total wall time:     {elapsed_total:.1f}s")
+    total_ms // len(results) if results else 0
 
     if err_count > 0:
-        print(f"\n  Failed counties:")
         for r in results:
             if r["status"] == "error":
-                print(f"    {r['fips']} ({r['county']}, {r['state']}): {r['error']}")
-
-    print("=" * 60)
+                pass
 
 
 # ── CLI ──────────────────────────────────────────────────────────────────────
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -217,27 +205,42 @@ examples:
         """,
     )
     parser.add_argument(
-        "--state", action="append", dest="states", metavar="ST",
+        "--state",
+        action="append",
+        dest="states",
+        metavar="ST",
         help="Filter to specific state(s), e.g. --state IL --state CA",
     )
     parser.add_argument(
-        "--fips", action="append", dest="fips_codes", metavar="FIPS",
+        "--fips",
+        action="append",
+        dest="fips_codes",
+        metavar="FIPS",
         help="Filter to specific county FIPS code(s)",
     )
     parser.add_argument(
-        "--output-dir", type=str, default="./reports/output",
+        "--output-dir",
+        type=str,
+        default="./reports/output",
         help="Directory for generated reports (default: ./reports/output)",
     )
     parser.add_argument(
-        "--format", dest="report_format", choices=["pdf"], default="pdf",
+        "--format",
+        dest="report_format",
+        choices=["pdf"],
+        default="pdf",
         help="Report format (default: pdf)",
     )
     parser.add_argument(
-        "--parallel", type=int, default=1,
+        "--parallel",
+        type=int,
+        default=1,
         help="Number of parallel workers (default: 1, sequential)",
     )
     parser.add_argument(
-        "--db-url", type=str, default=None,
+        "--db-url",
+        type=str,
+        default=None,
         help="PostgreSQL connection URL (default: from DATABASE_URL env or .env)",
     )
     return parser.parse_args()
@@ -252,13 +255,17 @@ def main() -> None:
     counties = fetch_county_list(db_url, states=args.states, fips_codes=args.fips_codes)
 
     if not counties:
-        log.warning("No counties found matching filters. Is the gold.county_summary table populated?")
+        log.warning(
+            "No counties found matching filters. Is the gold.county_summary table populated?"
+        )
         log.info("Hint: run 'python scripts/seed_sample_data.py' first to load sample data")
         sys.exit(1)
 
     log.info(
         "Generating %d reports → %s (parallel=%d)",
-        len(counties), output_dir, args.parallel,
+        len(counties),
+        output_dir,
+        args.parallel,
     )
 
     t0 = time.monotonic()

@@ -14,7 +14,7 @@ and keeps us from needing an ORM model layer for read-only views.
 from __future__ import annotations
 
 import logging
-from typing import Annotated, Optional
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import text
@@ -23,7 +23,7 @@ from sqlalchemy.orm import Session
 from api.dependencies import PaginationParams, SchoolFilters, get_db
 from api.models.common import GeoPoint, PaginatedResponse, ScoreCategory
 from api.models.school import SchoolDetail, SchoolMetrics, SchoolPrediction, SchoolSummary
-from api.models.score import Anomaly, RankingEntry, ResourceGap
+from api.models.score import Anomaly, RankingEntry
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["schools"])
@@ -66,6 +66,7 @@ def _build_school_where(filters: SchoolFilters) -> tuple[str, dict]:
 # ---------------------------------------------------------------------------
 # GET /schools
 # ---------------------------------------------------------------------------
+
 
 @router.get("/schools", response_model=PaginatedResponse[SchoolSummary])
 def list_schools(
@@ -123,6 +124,7 @@ def list_schools(
 # GET /schools/{nces_id}
 # ---------------------------------------------------------------------------
 
+
 @router.get("/schools/{nces_id}", response_model=SchoolDetail)
 def get_school(nces_id: str, db: Session = Depends(get_db)) -> SchoolDetail:
     query = text("""
@@ -168,10 +170,12 @@ def get_school(nces_id: str, db: Session = Depends(get_db)) -> SchoolDetail:
 
     row = db.execute(query, {"nces_id": nces_id}).mappings().first()
     if not row:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"School {nces_id} not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"School {nces_id} not found"
+        )
 
-    from api.models.school import PillarScore as SchoolPillarScore
     from api.models.common import Pillar
+    from api.models.school import PillarScore as SchoolPillarScore
 
     pillar_scores = []
     for pillar_name, col in [
@@ -182,11 +186,13 @@ def get_school(nces_id: str, db: Session = Depends(get_db)) -> SchoolDetail:
     ]:
         val = row.get(col)
         if val is not None:
-            pillar_scores.append(SchoolPillarScore(
-                pillar=pillar_name,
-                score=val,
-                category=_score_to_category(val),
-            ))
+            pillar_scores.append(
+                SchoolPillarScore(
+                    pillar=pillar_name,
+                    score=val,
+                    category=_score_to_category(val),
+                )
+            )
 
     metrics = SchoolMetrics(
         math_proficiency=row.get("math_proficiency"),
@@ -235,6 +241,7 @@ def get_school(nces_id: str, db: Session = Depends(get_db)) -> SchoolDetail:
 # GET /schools/{nces_id}/predictions
 # ---------------------------------------------------------------------------
 
+
 @router.get("/schools/{nces_id}/predictions", response_model=SchoolPrediction)
 def get_school_predictions(nces_id: str, db: Session = Depends(get_db)) -> SchoolPrediction:
     query = text("""
@@ -281,11 +288,12 @@ def get_school_predictions(nces_id: str, db: Session = Depends(get_db)) -> Schoo
 # GET /rankings
 # ---------------------------------------------------------------------------
 
+
 @router.get("/rankings", response_model=PaginatedResponse[RankingEntry])
 def get_rankings(
     db: Session = Depends(get_db),
     pagination: PaginationParams = Depends(),
-    state: Annotated[Optional[str], Query(max_length=2, description="Filter by state")] = None,
+    state: Annotated[str | None, Query(max_length=2, description="Filter by state")] = None,
 ) -> PaginatedResponse[RankingEntry]:
     """National or state-level school rankings by composite score."""
     rank_col = "r.state_rank" if state else "r.national_rank"
@@ -344,12 +352,13 @@ def get_rankings(
 # GET /anomalies
 # ---------------------------------------------------------------------------
 
+
 @router.get("/anomalies", response_model=PaginatedResponse[Anomaly])
 def list_anomalies(
     db: Session = Depends(get_db),
     pagination: PaginationParams = Depends(),
-    state: Annotated[Optional[str], Query(max_length=2)] = None,
-    anomaly_type: Annotated[Optional[str], Query(description="'improvement' or 'decline'")] = None,
+    state: Annotated[str | None, Query(max_length=2)] = None,
+    anomaly_type: Annotated[str | None, Query(description="'improvement' or 'decline'")] = None,
 ) -> PaginatedResponse[Anomaly]:
     """Schools flagged by isolation forest / z-score anomaly detection."""
     clauses: list[str] = []
@@ -364,9 +373,7 @@ def list_anomalies(
 
     where = ("WHERE " + " AND ".join(clauses)) if clauses else ""
 
-    total = db.execute(
-        text(f"SELECT count(*) FROM gold.anomalies a {where}"), params
-    ).scalar() or 0
+    total = db.execute(text(f"SELECT count(*) FROM gold.anomalies a {where}"), params).scalar() or 0
 
     query = f"""
         SELECT

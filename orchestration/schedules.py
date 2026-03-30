@@ -27,7 +27,6 @@ from dagster import (
     define_asset_job,
 )
 
-
 # ---------------------------------------------------------------------------
 # Jobs (named collections of assets that schedules trigger)
 # ---------------------------------------------------------------------------

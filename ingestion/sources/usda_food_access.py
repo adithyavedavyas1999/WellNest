@@ -39,8 +39,7 @@ logger = structlog.get_logger(__name__)
 
 # the USDA publishes the atlas as an Excel file
 FOOD_ACCESS_URL = (
-    "https://www.ers.usda.gov/webdocs/DataFiles/80591/"
-    "FoodAccessResearchAtlasData2019.xlsx"
+    "https://www.ers.usda.gov/webdocs/DataFiles/80591/FoodAccessResearchAtlasData2019.xlsx"
 )
 
 # TODO: check if the 2022 update is published yet -- as of mid-2024 the
@@ -49,16 +48,17 @@ FOOD_ACCESS_URL = (
 
 class FoodAccessRecord(BaseModel):
     """One census tract from the food access atlas."""
+
     census_tract: str = Field(..., min_length=11, max_length=11)
     state: str | None = None
     county: str | None = None
     urban: bool | None = None
     poverty_rate: float | None = None
     median_family_income: float | None = None
-    low_access_1: bool = False     # low access at 1 mile (urban) / 10 mile (rural)
+    low_access_1: bool = False  # low access at 1 mile (urban) / 10 mile (rural)
     low_access_half: bool = False  # low access at 0.5 mile (urban) / 10 mile (rural)
     low_income: bool = False
-    lila_1_and_10: bool = False    # low income AND low access (1/10)
+    lila_1_and_10: bool = False  # low income AND low access (1/10)
     lila_half_and_10: bool = False
     total_pop: int | None = None
     kids_pop: int | None = None
@@ -108,7 +108,8 @@ class USDAFoodAccessConnector:
         # if it looks like 1.7031e+10, convert properly
         if "CensusTract" in df.columns:
             df = df.with_columns(
-                pl.col("CensusTract").cast(pl.Float64, strict=False)
+                pl.col("CensusTract")
+                .cast(pl.Float64, strict=False)
                 .cast(pl.Int64, strict=False)
                 .cast(pl.Utf8)
                 .str.zfill(11)
@@ -144,12 +145,26 @@ class USDAFoodAccessConnector:
             df = df.rename(existing_renames)
 
         # select columns we need
-        keep = [c for c in [
-            "census_tract", "state", "county", "urban_raw", "poverty_rate",
-            "median_family_income", "low_access_1", "low_access_half",
-            "low_income", "lila_1_and_10", "lila_half_and_10",
-            "total_pop", "kids_pop", "seniors_pop",
-        ] if c in df.columns]
+        keep = [
+            c
+            for c in [
+                "census_tract",
+                "state",
+                "county",
+                "urban_raw",
+                "poverty_rate",
+                "median_family_income",
+                "low_access_1",
+                "low_access_half",
+                "low_income",
+                "lila_1_and_10",
+                "lila_half_and_10",
+                "total_pop",
+                "kids_pop",
+                "seniors_pop",
+            ]
+            if c in df.columns
+        ]
         df = df.select(keep)
 
         # convert urban flag (stored as 1.0/0.0 float in some releases)
@@ -159,13 +174,16 @@ class USDAFoodAccessConnector:
             ).drop("urban_raw")
 
         # convert flag columns to boolean
-        flag_cols = ["low_access_1", "low_access_half", "low_income",
-                     "lila_1_and_10", "lila_half_and_10"]
+        flag_cols = [
+            "low_access_1",
+            "low_access_half",
+            "low_income",
+            "lila_1_and_10",
+            "lila_half_and_10",
+        ]
         for col in flag_cols:
             if col in df.columns:
-                df = df.with_columns(
-                    pl.col(col).cast(pl.Float64, strict=False).eq(1.0).alias(col)
-                )
+                df = df.with_columns(pl.col(col).cast(pl.Float64, strict=False).eq(1.0).alias(col))
 
         # cast numeric columns
         if "poverty_rate" in df.columns:

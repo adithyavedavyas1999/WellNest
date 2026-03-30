@@ -13,13 +13,12 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-
 # ---------------------------------------------------------------------------
 # Prompt template rendering
 # ---------------------------------------------------------------------------
 
-class TestPromptTemplates:
 
+class TestPromptTemplates:
     def test_county_brief_template_renders(self) -> None:
         from ai.briefs.prompts import COUNTY_BRIEF_USER
 
@@ -97,8 +96,8 @@ class TestPromptTemplates:
 # BriefGenerator with mocked OpenAI
 # ---------------------------------------------------------------------------
 
-class TestBriefGenerator:
 
+class TestBriefGenerator:
     def _make_county_row(self) -> dict[str, Any]:
         return {
             "county_fips": "17031",
@@ -149,9 +148,11 @@ class TestBriefGenerator:
     def test_missing_api_key_raises(self) -> None:
         from ai.briefs.generator import BriefGenerator
 
-        with patch.dict("os.environ", {}, clear=True):
-            with pytest.raises(ValueError, match="No OpenAI API key"):
-                BriefGenerator(pg_url="postgresql://fake:fake@localhost/fake", api_key="")
+        with (
+            patch.dict("os.environ", {}, clear=True),
+            pytest.raises(ValueError, match="No OpenAI API key"),
+        ):
+            BriefGenerator(pg_url="postgresql://fake:fake@localhost/fake", api_key="")
 
     def test_build_prompt_handles_missing_fields(self, mock_openai: MagicMock) -> None:
         from ai.briefs.generator import BriefGenerator
@@ -170,8 +171,8 @@ class TestBriefGenerator:
 # Rate limiting behavior
 # ---------------------------------------------------------------------------
 
-class TestBriefRateLimiting:
 
+class TestBriefRateLimiting:
     def test_batch_sleep_is_configurable(self, mock_openai: MagicMock) -> None:
         from ai.briefs.generator import BriefGenerator
 
@@ -189,9 +190,9 @@ class TestBriefRateLimiting:
 # Live test (skipped by default)
 # ---------------------------------------------------------------------------
 
+
 @pytest.mark.skip(reason="flaky -- depends on OpenAI API availability")
 class TestBriefGeneratorLive:
-
     def test_real_api_call(self) -> None:
         import os
 
@@ -205,13 +206,15 @@ class TestBriefGeneratorLive:
             pg_url="postgresql://fake:fake@localhost/fake",
             api_key=api_key,
         )
-        brief = gen.generate_for_county({
-            "county_fips": "17031",
-            "county_name": "Cook County",
-            "state_name": "Illinois",
-            "school_count": 1847,
-            "avg_wellbeing_score": 52.7,
-            "total_population": 5275541,
-        })
+        brief = gen.generate_for_county(
+            {
+                "county_fips": "17031",
+                "county_name": "Cook County",
+                "state_name": "Illinois",
+                "school_count": 1847,
+                "avg_wellbeing_score": 52.7,
+                "total_population": 5275541,
+            }
+        )
         assert len(brief) > 100
         assert "Cook" in brief

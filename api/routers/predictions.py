@@ -9,7 +9,7 @@ which schools the model thinks are headed for trouble.
 from __future__ import annotations
 
 import logging
-from typing import Annotated, Optional
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy import text
@@ -27,7 +27,7 @@ router = APIRouter(tags=["predictions"])
 def list_predictions(
     db: Session = Depends(get_db),
     pagination: PaginationParams = Depends(),
-    state: Annotated[Optional[str], Query(max_length=2)] = None,
+    state: Annotated[str | None, Query(max_length=2)] = None,
     risk_only: Annotated[bool, Query(description="Only show schools flagged as at-risk")] = False,
 ) -> PaginatedResponse[SchoolPrediction]:
     clauses: list[str] = []
@@ -41,9 +41,10 @@ def list_predictions(
 
     where = ("WHERE " + " AND ".join(clauses)) if clauses else ""
 
-    total = db.execute(
-        text(f"SELECT count(*) FROM gold.school_predictions p {where}"), params
-    ).scalar() or 0
+    total = (
+        db.execute(text(f"SELECT count(*) FROM gold.school_predictions p {where}"), params).scalar()
+        or 0
+    )
 
     query = f"""
         SELECT
@@ -71,15 +72,17 @@ def list_predictions(
         if isinstance(factors, str):
             factors = [f.strip() for f in factors.split(",")]
 
-        items.append(SchoolPrediction(
-            nces_id=r["nces_id"],
-            predicted_score_change=r["predicted_score_change"],
-            confidence_interval_low=r["confidence_interval_low"],
-            confidence_interval_high=r["confidence_interval_high"],
-            risk_flag=r["risk_flag"],
-            top_contributing_factors=factors,
-            model_version=r.get("model_version"),
-            predicted_at=r.get("predicted_at"),
-        ))
+        items.append(
+            SchoolPrediction(
+                nces_id=r["nces_id"],
+                predicted_score_change=r["predicted_score_change"],
+                confidence_interval_low=r["confidence_interval_low"],
+                confidence_interval_high=r["confidence_interval_high"],
+                risk_flag=r["risk_flag"],
+                top_contributing_factors=factors,
+                model_version=r.get("model_version"),
+                predicted_at=r.get("predicted_at"),
+            )
+        )
 
     return PaginatedResponse.build(items, total, pagination.page, pagination.per_page)

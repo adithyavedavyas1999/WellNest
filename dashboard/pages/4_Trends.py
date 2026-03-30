@@ -16,7 +16,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 import plotly.graph_objects as go
 import streamlit as st
 
-from dashboard.components.score_gauge import COLORS, score_to_category
 from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.db import get_states, run_query
 
@@ -92,8 +91,18 @@ if view_level == "State":
 
     st.subheader(f"{selected_pillar} Score Over Time")
 
-    palette = ["#2E86AB", "#A23B72", "#F18F01", "#3BB273", "#C73E1D",
-               tc["palette_line_1"], tc["palette_line_2"], "#6C5CE7", "#00B894", "#E17055"]
+    palette = [
+        "#2E86AB",
+        "#A23B72",
+        "#F18F01",
+        "#3BB273",
+        "#C73E1D",
+        tc["palette_line_1"],
+        tc["palette_line_2"],
+        "#6C5CE7",
+        "#00B894",
+        "#E17055",
+    ]
 
     fig = go.Figure()
     for i, state in enumerate(selected_states):
@@ -153,18 +162,23 @@ else:
         st.stop()
 
     top_counties = (
-        county_trends.groupby("county_name")["avg_score"]
-        .mean()
-        .nlargest(8)
-        .index.tolist()
+        county_trends.groupby("county_name")["avg_score"].mean().nlargest(8).index.tolist()
     )
     filtered = county_trends[county_trends["county_name"].isin(top_counties)]
 
     st.subheader(f"County Trends in {focus_state}")
 
     fig_county = go.Figure()
-    palette = ["#2E86AB", "#A23B72", "#F18F01", "#3BB273", "#C73E1D",
-               tc["palette_line_1"], "#6C5CE7", "#E17055"]
+    palette = [
+        "#2E86AB",
+        "#A23B72",
+        "#F18F01",
+        "#3BB273",
+        "#C73E1D",
+        tc["palette_line_1"],
+        "#6C5CE7",
+        "#E17055",
+    ]
 
     for i, county in enumerate(top_counties):
         cdata = filtered[filtered["county_name"] == county]
@@ -282,15 +296,15 @@ if not anomalies.empty:
 
         st.markdown(
             f'<div style="padding:12px 16px;margin-bottom:8px;background:{tc["surface"]};'
-            f'border-radius:8px;border-left:4px solid {icon_color};'
+            f"border-radius:8px;border-left:4px solid {icon_color};"
             f'border:1px solid {tc["border"]}">'
             f'<div style="font-weight:600;color:{tc["text_primary"]}">'
-            f'{anom["school_name"]} '
+            f"{anom['school_name']} "
             f'<span style="color:{tc["text_muted"]};font-weight:400">({anom["state"]})</span>'
             f'<span style="float:right;color:{icon_color};font-size:13px">'
-            f'{direction} | z={z:.1f}</span></div>'
+            f"{direction} | z={z:.1f}</span></div>"
             f'<div style="font-size:13px;color:{tc["text_muted"]};margin-top:4px">'
-            f'{anom.get("narrative", "")}</div></div>',
+            f"{anom.get('narrative', '')}</div></div>",
             unsafe_allow_html=True,
         )
 else:

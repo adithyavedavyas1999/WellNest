@@ -11,18 +11,16 @@ responses and check that our connectors handle them correctly.
 
 from __future__ import annotations
 
-from typing import Any
 from unittest.mock import MagicMock, patch
 
 import pytest
-
 
 # ---------------------------------------------------------------------------
 # Bronze asset materialization (mocked HTTP)
 # ---------------------------------------------------------------------------
 
-class TestBronzeAssets:
 
+class TestBronzeAssets:
     def _mock_context(self, partition_key: str | None = None) -> MagicMock:
         ctx = MagicMock()
         ctx.log = MagicMock()
@@ -82,6 +80,7 @@ class TestBronzeAssets:
 # Silver model dependency checks
 # ---------------------------------------------------------------------------
 
+
 class TestSilverDependencies:
     """Verify that the dbt model dependency graph makes sense.
 
@@ -124,8 +123,8 @@ class TestSilverDependencies:
 # Gold score computation (end-to-end with mocked DB)
 # ---------------------------------------------------------------------------
 
-class TestGoldScoring:
 
+class TestGoldScoring:
     def test_scoring_sql_references_all_pillars(self) -> None:
         from pathlib import Path
 
@@ -161,9 +160,9 @@ class TestGoldScoring:
 # Full pipeline tests (require running PostgreSQL)
 # ---------------------------------------------------------------------------
 
+
 @pytest.mark.skip(reason="requires running PostgreSQL")
 class TestFullPipeline:
-
     def test_bronze_to_gold_pipeline(self) -> None:
         """Full materialization from bronze ingestion through gold scoring.
 

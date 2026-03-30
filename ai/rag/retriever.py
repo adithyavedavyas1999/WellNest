@@ -121,9 +121,7 @@ class PolicyRetriever:
         n_candidates: int = min(k * CANDIDATE_MULTIPLIER, len(self._chunks))
 
         if self._use_faiss and self._index is not None:
-            scores, indices = self._index.search(
-                query_embedding.reshape(1, -1), n_candidates
-            )
+            scores, indices = self._index.search(query_embedding.reshape(1, -1), n_candidates)
             scores = scores[0]
             indices = indices[0]
         else:
@@ -131,23 +129,23 @@ class PolicyRetriever:
             scores, indices = self._numpy_search(query_embedding, n_candidates)
 
         results: list[RetrievalResult] = []
-        for score, idx in zip(scores, indices):
+        for score, idx in zip(scores, indices, strict=False):
             if idx < 0 or idx >= len(self._chunks):
                 continue
             if float(score) < threshold:
                 continue
 
-            meta: dict[str, Any] = (
-                self._metadata[idx] if idx < len(self._metadata) else {}
-            )
+            meta: dict[str, Any] = self._metadata[idx] if idx < len(self._metadata) else {}
 
-            results.append(RetrievalResult(
-                text=self._chunks[idx],
-                score=float(score),
-                source=meta.get("source", "unknown"),
-                chunk_index=meta.get("chunk_index", 0),
-                metadata=meta,
-            ))
+            results.append(
+                RetrievalResult(
+                    text=self._chunks[idx],
+                    score=float(score),
+                    source=meta.get("source", "unknown"),
+                    chunk_index=meta.get("chunk_index", 0),
+                    metadata=meta,
+                )
+            )
 
         results = self._rerank(results)
         return results[:k]
@@ -233,7 +231,8 @@ class PolicyRetriever:
 
         Slower than FAISS but works everywhere.  Fine for <10K chunks.
         """
-        embeddings: np.ndarray = self._index  # numpy array
+        assert self._index is not None
+        embeddings: np.ndarray = np.asarray(self._index)
 
         # normalize the stored embeddings (should already be done but just in case)
         norms: np.ndarray = np.linalg.norm(embeddings, axis=1, keepdims=True)

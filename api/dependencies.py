@@ -9,7 +9,8 @@ no real throughput gain at our scale (~100 req/s max).
 from __future__ import annotations
 
 import logging
-from typing import Annotated, Generator, Optional
+from collections.abc import Generator
+from typing import Annotated
 
 from fastapi import Depends, Header, HTTPException, Query, status
 from sqlalchemy import create_engine
@@ -66,10 +67,11 @@ def close_db_pool() -> None:
 # Authentication
 # ---------------------------------------------------------------------------
 
+
 def verify_api_key(
     settings: Annotated[Settings, Depends(get_settings)],
-    x_api_key: Annotated[Optional[str], Header(alias="X-API-Key")] = None,
-) -> Optional[str]:
+    x_api_key: Annotated[str | None, Header(alias="X-API-Key")] = None,
+) -> str | None:
     """
     If API_KEY is configured in settings, require it on every request.
     If it's not set (dev mode), skip auth entirely.
@@ -88,6 +90,7 @@ def verify_api_key(
 # ---------------------------------------------------------------------------
 # Pagination
 # ---------------------------------------------------------------------------
+
 
 class PaginationParams:
     """Parsed pagination params with sane defaults and upper bounds."""
@@ -109,16 +112,24 @@ class PaginationParams:
 # Common query filters
 # ---------------------------------------------------------------------------
 
+
 class SchoolFilters:
     """Query params shared across several school-related endpoints."""
 
     def __init__(
         self,
-        state: Annotated[Optional[str], Query(max_length=2, description="2-letter state code")] = None,
-        score_below: Annotated[Optional[float], Query(ge=0, le=100, description="Max composite score")] = None,
-        score_above: Annotated[Optional[float], Query(ge=0, le=100, description="Min composite score")] = None,
-        pillar: Annotated[Optional[str], Query(description="Filter by pillar: education, health, environment, safety")] = None,
-        title_i: Annotated[Optional[bool], Query(description="Title I eligible schools only")] = None,
+        state: Annotated[str | None, Query(max_length=2, description="2-letter state code")] = None,
+        score_below: Annotated[
+            float | None, Query(ge=0, le=100, description="Max composite score")
+        ] = None,
+        score_above: Annotated[
+            float | None, Query(ge=0, le=100, description="Min composite score")
+        ] = None,
+        pillar: Annotated[
+            str | None,
+            Query(description="Filter by pillar: education, health, environment, safety"),
+        ] = None,
+        title_i: Annotated[bool | None, Query(description="Title I eligible schools only")] = None,
     ):
         self.state = state.upper() if state else None
         self.score_below = score_below
@@ -140,10 +151,12 @@ class CountyFilters:
 
     def __init__(
         self,
-        state: Annotated[Optional[str], Query(max_length=2, description="2-letter state code")] = None,
-        score_below: Annotated[Optional[float], Query(ge=0, le=100)] = None,
-        score_above: Annotated[Optional[float], Query(ge=0, le=100)] = None,
-        min_schools: Annotated[Optional[int], Query(ge=1, description="Minimum school count in county")] = None,
+        state: Annotated[str | None, Query(max_length=2, description="2-letter state code")] = None,
+        score_below: Annotated[float | None, Query(ge=0, le=100)] = None,
+        score_above: Annotated[float | None, Query(ge=0, le=100)] = None,
+        min_schools: Annotated[
+            int | None, Query(ge=1, description="Minimum school count in county")
+        ] = None,
     ):
         self.state = state.upper() if state else None
         self.score_below = score_below

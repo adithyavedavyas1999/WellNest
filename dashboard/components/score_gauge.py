@@ -46,7 +46,7 @@ def render_gauge(
     Render an inline circular gauge. Plotly's indicator trace does the heavy
     lifting; we just massage the colors and layout to match our palette.
     """
-    cat_key, cat_label, color = score_to_category(score)
+    _cat_key, cat_label, color = score_to_category(score)
     tc = theme_colors()
 
     fig = go.Figure(
@@ -102,7 +102,9 @@ def render_gauge(
                 "showarrow": False,
                 "font": {"size": 12, "color": color},
             }
-        ] if show_category else [],
+        ]
+        if show_category
+        else [],
     )
 
     st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})

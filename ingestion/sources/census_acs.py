@@ -36,7 +36,6 @@ from pydantic import BaseModel, Field, field_validator
 from ingestion.utils import (
     WellNestHTTPClient,
     ensure_schema,
-    format_fips,
     get_pg_url,
     retry_on_http_error,
 )
@@ -79,17 +78,64 @@ ACS_VARIABLES = {
 
 # all 50 states + DC + PR (we skip island territories -- tiny sample sizes)
 ALL_STATE_FIPS = [
-    "01", "02", "04", "05", "06", "08", "09", "10", "11", "12",
-    "13", "15", "16", "17", "18", "19", "20", "21", "22", "23",
-    "24", "25", "26", "27", "28", "29", "30", "31", "32", "33",
-    "34", "35", "36", "37", "38", "39", "40", "41", "42", "44",
-    "45", "46", "47", "48", "49", "50", "51", "53", "54", "55",
-    "56", "72",
+    "01",
+    "02",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50",
+    "51",
+    "53",
+    "54",
+    "55",
+    "56",
+    "72",
 ]
 
 
 class ACSRecord(BaseModel):
     """Validated ACS tract-level record."""
+
     state_fips: str = Field(..., min_length=2, max_length=2)
     county_fips: str = Field(..., min_length=3, max_length=3)
     tract_fips: str = Field(..., min_length=6, max_length=6)
@@ -166,7 +212,7 @@ class CensusACSConnector:
         header: list[str] | None = None
 
         for i, st in enumerate(self.states):
-            logger.info("census_fetching_state", state=st, progress=f"{i+1}/{len(self.states)}")
+            logger.info("census_fetching_state", state=st, progress=f"{i + 1}/{len(self.states)}")
 
             try:
                 result = self._fetch_state_tracts(st)
@@ -181,7 +227,7 @@ class CensusACSConnector:
                 header = result[0]
 
             for row in result[1:]:
-                record = dict(zip(header, row))
+                record = dict(zip(header, row, strict=False))
                 all_rows.append(record)
 
             # brief pause between states to be a good API citizen
@@ -221,13 +267,17 @@ class CensusACSConnector:
 
         # build FIPS columns
         if "state" in df.columns and "county" in df.columns and "tract" in df.columns:
-            df = df.with_columns([
-                pl.col("state").cast(pl.Utf8).str.zfill(2).alias("state_fips"),
-                pl.col("county").cast(pl.Utf8).str.zfill(3).alias("county_fips"),
-                pl.col("tract").cast(pl.Utf8).str.zfill(6).alias("tract_fips"),
-            ])
             df = df.with_columns(
-                (pl.col("state_fips") + pl.col("county_fips") + pl.col("tract_fips")).alias("full_fips")
+                [
+                    pl.col("state").cast(pl.Utf8).str.zfill(2).alias("state_fips"),
+                    pl.col("county").cast(pl.Utf8).str.zfill(3).alias("county_fips"),
+                    pl.col("tract").cast(pl.Utf8).str.zfill(6).alias("tract_fips"),
+                ]
+            )
+            df = df.with_columns(
+                (pl.col("state_fips") + pl.col("county_fips") + pl.col("tract_fips")).alias(
+                    "full_fips"
+                )
             )
 
         # compute derived measures
@@ -239,19 +289,32 @@ class CensusACSConnector:
             )
 
         # uninsured children = sum of all the under-19 uninsured buckets
-        uninsr_cols = [c for c in [
-            "uninsured_male_under6", "uninsured_male_6to18",
-            "uninsured_female_under6", "uninsured_female_6to18",
-        ] if c in df.columns]
+        uninsr_cols = [
+            c
+            for c in [
+                "uninsured_male_under6",
+                "uninsured_male_6to18",
+                "uninsured_female_under6",
+                "uninsured_female_6to18",
+            ]
+            if c in df.columns
+        ]
         if uninsr_cols:
             df = df.with_columns(
                 pl.sum_horizontal(uninsr_cols).cast(pl.Int64).alias("uninsured_children")
             )
 
         # pct with bachelor's or higher
-        edu_higher = [c for c in [
-            "edu_bachelors", "edu_masters", "edu_professional", "edu_doctorate",
-        ] if c in df.columns]
+        edu_higher = [
+            c
+            for c in [
+                "edu_bachelors",
+                "edu_masters",
+                "edu_professional",
+                "edu_doctorate",
+            ]
+            if c in df.columns
+        ]
         if edu_higher and "edu_universe" in df.columns:
             df = df.with_columns(
                 (pl.sum_horizontal(edu_higher) / pl.col("edu_universe") * 100)

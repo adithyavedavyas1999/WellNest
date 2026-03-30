@@ -19,7 +19,6 @@ from __future__ import annotations
 
 import structlog
 from dagster import (
-    AssetExecutionContext,
     MaterializeResult,
     MetadataValue,
     asset,
@@ -36,6 +35,7 @@ GOLD_TAGS = {"layer": "gold", "pipeline": "transformation"}
 # ---------------------------------------------------------------------------
 # Pillar scores
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=GOLD_GROUP,
@@ -176,6 +176,7 @@ def gold_economic_pillar(
 # Composite wellbeing score
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=GOLD_GROUP,
     tags={**GOLD_TAGS, "critical": "true"},
@@ -220,6 +221,7 @@ def gold_child_wellbeing_score(
 # ---------------------------------------------------------------------------
 # Summary / ranking tables
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=GOLD_GROUP,
@@ -305,6 +307,7 @@ def gold_tract_summary(
 # ---------------------------------------------------------------------------
 # helpers
 # ---------------------------------------------------------------------------
+
 
 def _try_count(pg: PostgresResource, table: str) -> int:
     try:

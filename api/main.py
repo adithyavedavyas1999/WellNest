@@ -13,7 +13,7 @@ from __future__ import annotations
 import logging
 import time
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,7 +21,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from api.config import Settings, get_settings
+from api.config import get_settings
 from api.dependencies import close_db_pool, get_db, verify_api_key
 from api.middleware.rate_limiter import RateLimitMiddleware
 from api.routers import (
@@ -40,6 +40,7 @@ logger = logging.getLogger("wellnest.api")
 # ---------------------------------------------------------------------------
 # Lifespan — startup/shutdown hooks
 # ---------------------------------------------------------------------------
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -125,6 +126,7 @@ async def log_requests(request: Request, call_next):
 # Global exception handlers
 # ---------------------------------------------------------------------------
 
+
 @app.exception_handler(404)
 async def not_found_handler(request: Request, exc):
     return JSONResponse(
@@ -132,7 +134,7 @@ async def not_found_handler(request: Request, exc):
         content={
             "detail": "Not found",
             "path": str(request.url.path),
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         },
     )
 
@@ -144,7 +146,7 @@ async def internal_error_handler(request: Request, exc):
         status_code=500,
         content={
             "detail": "Internal server error",
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         },
     )
 
@@ -173,13 +175,16 @@ for router in protected:
 # Stats endpoint — quick aggregate numbers for the dashboard header
 # ---------------------------------------------------------------------------
 
+
 @app.get("/api/stats", tags=["meta"])
 def get_stats(db: Session = Depends(get_db)) -> dict:
     """
     Quick stats for the dashboard hero section: total schools, counties,
     and the national average composite score.
     """
-    row = db.execute(text("""
+    row = (
+        db.execute(
+            text("""
         SELECT
             count(*) AS total_schools,
             count(DISTINCT county_fips) AS total_counties,
@@ -187,7 +192,11 @@ def get_stats(db: Session = Depends(get_db)) -> dict:
             round(min(composite_score)::numeric, 1) AS min_score,
             round(max(composite_score)::numeric, 1) AS max_score
         FROM gold.child_wellbeing_score
-    """)).mappings().first()
+    """)
+        )
+        .mappings()
+        .first()
+    )
 
     if not row or row["total_schools"] == 0:
         return {
@@ -210,6 +219,7 @@ def get_stats(db: Session = Depends(get_db)) -> dict:
 # ---------------------------------------------------------------------------
 # CLI runner (used by wellnest-api console_script)
 # ---------------------------------------------------------------------------
+
 
 def run() -> None:
     """Entry point for `wellnest-api` CLI command."""

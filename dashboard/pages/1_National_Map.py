@@ -46,7 +46,7 @@ with st.sidebar:
     states = get_states()
     selected_state = st.selectbox(
         "State",
-        options=["All States"] + states,
+        options=["All States", *states],
         index=0,
     )
 
@@ -214,14 +214,14 @@ if map_data and map_data.get("last_object_clicked"):
             with col_name:
                 st.markdown(
                     f'<div style="font-size:20px;font-weight:600;color:{tc["text_primary"]}">'
-                    f'{row["name"]}, {row["state"]}</div>',
+                    f"{row['name']}, {row['state']}</div>",
                     unsafe_allow_html=True,
                 )
                 st.markdown(
                     f'<div style="font-size:13px;color:{tc["text_muted"]}">'
-                    f'FIPS: {row["fips"]} | '
-                    f'Schools: {int(row["school_count"]):,} | '
-                    f'Population: {int(row["population"]):,}</div>',
+                    f"FIPS: {row['fips']} | "
+                    f"Schools: {int(row['school_count']):,} | "
+                    f"Population: {int(row['population']):,}</div>",
                     unsafe_allow_html=True,
                 )
             with col_score:

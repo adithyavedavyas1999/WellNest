@@ -8,16 +8,14 @@ values come from transformation/dbt_project/macros/scoring.sql.
 
 from __future__ import annotations
 
-import math
-
 import pytest
-
 
 # ---------------------------------------------------------------------------
 # Python equivalents of the dbt scoring macros
 # ---------------------------------------------------------------------------
 # These mirror the SQL in macros/scoring.sql exactly.  If the dbt macros
 # change, update these and the tests will catch any drift.
+
 
 def normalize_metric(
     value: float | None,
@@ -99,8 +97,8 @@ def score_category(score: float | None) -> str:
 # normalize_metric tests
 # ---------------------------------------------------------------------------
 
-class TestNormalizeMetric:
 
+class TestNormalizeMetric:
     def test_null_input_returns_none(self) -> None:
         assert normalize_metric(None, 10.0, 90.0) is None
 
@@ -132,10 +130,13 @@ class TestNormalizeMetric:
         result = normalize_metric(50.0, 10.0, 90.0, invert=True)
         assert result == 50.0
 
-    @pytest.mark.parametrize("value,expected", [
-        (25.0, 18.75),
-        (75.0, 81.25),
-    ])
+    @pytest.mark.parametrize(
+        "value,expected",
+        [
+            (25.0, 18.75),
+            (75.0, 81.25),
+        ],
+    )
     def test_intermediate_values(self, value: float, expected: float) -> None:
         result = normalize_metric(value, 10.0, 90.0)
         assert result is not None
@@ -150,8 +151,8 @@ class TestNormalizeMetric:
 # pillar score tests
 # ---------------------------------------------------------------------------
 
-class TestPillarScore:
 
+class TestPillarScore:
     def test_all_metrics_present(self) -> None:
         metrics = [(80.0, 0.3), (60.0, 0.3), (70.0, 0.2), (90.0, 0.2)]
         result = compute_pillar_score(metrics)
@@ -183,8 +184,8 @@ class TestPillarScore:
 # composite score tests
 # ---------------------------------------------------------------------------
 
-class TestCompositeScore:
 
+class TestCompositeScore:
     def test_all_pillars_present(self) -> None:
         result = compute_composite_score(70.0, 60.0, 80.0, 50.0)
         assert result is not None
@@ -206,7 +207,10 @@ class TestCompositeScore:
 
     def test_custom_weights(self) -> None:
         result = compute_composite_score(
-            80.0, 60.0, 70.0, 90.0,
+            80.0,
+            60.0,
+            70.0,
+            90.0,
             weights=(0.4, 0.2, 0.2, 0.2),
         )
         assert result is not None
@@ -218,20 +222,23 @@ class TestCompositeScore:
 # score category tests
 # ---------------------------------------------------------------------------
 
-class TestScoreCategory:
 
-    @pytest.mark.parametrize("score,expected", [
-        (0.0, "Critical"),
-        (15.0, "Critical"),
-        (25.0, "Critical"),
-        (25.5, "At Risk"),
-        (26.0, "At Risk"),
-        (50.0, "At Risk"),
-        (51.0, "Moderate"),
-        (75.0, "Moderate"),
-        (76.0, "Thriving"),
-        (100.0, "Thriving"),
-    ])
+class TestScoreCategory:
+    @pytest.mark.parametrize(
+        "score,expected",
+        [
+            (0.0, "Critical"),
+            (15.0, "Critical"),
+            (25.0, "Critical"),
+            (25.5, "At Risk"),
+            (26.0, "At Risk"),
+            (50.0, "At Risk"),
+            (51.0, "Moderate"),
+            (75.0, "Moderate"),
+            (76.0, "Thriving"),
+            (100.0, "Thriving"),
+        ],
+    )
     def test_category_boundaries(self, score: float, expected: str) -> None:
         assert score_category(score) == expected
 
@@ -243,8 +250,8 @@ class TestScoreCategory:
 # edge cases
 # ---------------------------------------------------------------------------
 
-class TestScoringEdgeCases:
 
+class TestScoringEdgeCases:
     def test_extreme_high_value(self) -> None:
         result = normalize_metric(999.0, 0.0, 100.0)
         assert result == 100.0

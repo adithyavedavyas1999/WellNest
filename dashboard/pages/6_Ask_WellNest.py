@@ -11,7 +11,6 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
-from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
@@ -42,7 +41,7 @@ API_KEY = os.getenv("WELLNEST_API_KEY", "")
 answer_cache = TTLCache(namespace="ask_wellnest", ttl_seconds=300)
 
 
-def _ask_api(question: str) -> Optional[dict]:
+def _ask_api(question: str) -> dict | None:
     """Post a question to the RAG endpoint and return the response."""
     try:
         headers = {"Content-Type": "application/json"}
@@ -108,7 +107,7 @@ for entry in st.session_state.chat_history:
     if role == "user":
         st.markdown(
             f'<div style="background:#2E86AB;color:#fff;padding:10px 16px;'
-            f'border-radius:12px 12px 4px 12px;margin-bottom:10px;'
+            f"border-radius:12px 12px 4px 12px;margin-bottom:10px;"
             f'max-width:80%;margin-left:auto;font-size:14px">'
             f"{content}</div>",
             unsafe_allow_html=True,
@@ -117,8 +116,7 @@ for entry in st.session_state.chat_history:
         sources_html = ""
         if entry.get("sources"):
             source_items = "".join(
-                f'<li style="margin-bottom:2px">{s}</li>'
-                for s in entry["sources"]
+                f'<li style="margin-bottom:2px">{s}</li>' for s in entry["sources"]
             )
             sources_html = (
                 f'<div style="margin-top:10px;padding-top:8px;'
@@ -130,8 +128,8 @@ for entry in st.session_state.chat_history:
 
         st.markdown(
             f'<div style="background:{tc["surface"]};border:1px solid {tc["border"]};'
-            f'padding:12px 16px;border-radius:12px 12px 12px 4px;'
-            f'margin-bottom:10px;max-width:85%;font-size:14px;'
+            f"padding:12px 16px;border-radius:12px 12px 12px 4px;"
+            f"margin-bottom:10px;max-width:85%;font-size:14px;"
             f'line-height:1.6;color:{tc["text_primary"]}">'
             f"{content}"
             f"{sources_html}"
@@ -166,22 +164,28 @@ if active_question:
         answer_text = result.get("answer", "No answer returned.")
         sources = result.get("sources", [])
 
-        st.session_state.chat_history.append({
-            "role": "assistant",
-            "content": answer_text,
-            "sources": sources,
-        })
+        st.session_state.chat_history.append(
+            {
+                "role": "assistant",
+                "content": answer_text,
+                "sources": sources,
+            }
+        )
     elif result:
         error_msg = result.get("error", "Unknown error")
-        st.session_state.chat_history.append({
-            "role": "assistant",
-            "content": f"Sorry, I couldn't process that question. {error_msg}",
-        })
+        st.session_state.chat_history.append(
+            {
+                "role": "assistant",
+                "content": f"Sorry, I couldn't process that question. {error_msg}",
+            }
+        )
     else:
-        st.session_state.chat_history.append({
-            "role": "assistant",
-            "content": "No response from the API. Is the backend running?",
-        })
+        st.session_state.chat_history.append(
+            {
+                "role": "assistant",
+                "content": "No response from the API. Is the backend running?",
+            }
+        )
 
     st.rerun()
 

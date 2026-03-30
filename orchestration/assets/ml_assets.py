@@ -15,23 +15,21 @@ a proper CI/CD gate for model quality.
 
 from __future__ import annotations
 
-import json
 import os
 import pickle
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 import polars as pl
 import structlog
 from dagster import (
-    AssetExecutionContext,
     MaterializeResult,
     MetadataValue,
     asset,
 )
 
-from orchestration.resources import PostgresResource, WellNestConfig
+from orchestration.resources import PostgresResource
 
 logger = structlog.get_logger(__name__)
 
@@ -47,6 +45,7 @@ MODEL_DIR = Path(__file__).resolve().parent.parent.parent / "ml" / "artifacts"
 # ---------------------------------------------------------------------------
 # Feature engineering
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=ML_GROUP,
@@ -138,6 +137,7 @@ def ml_feature_matrix(
 # Proficiency predictor
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=ML_GROUP,
     tags=ML_TAGS,
@@ -152,7 +152,6 @@ def ml_proficiency_model(
     context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
-    import numpy as np
 
     engine = postgres.get_engine()
 
@@ -164,13 +163,19 @@ def ml_proficiency_model(
 
     target_col = "education_score"
     feature_cols = [
-        "frl_rate", "poverty_rate", "median_hh_income", "pct_bachelors_plus",
-        "health_score", "environment_score", "safety_score", "economic_score",
+        "frl_rate",
+        "poverty_rate",
+        "median_hh_income",
+        "pct_bachelors_plus",
+        "health_score",
+        "environment_score",
+        "safety_score",
+        "economic_score",
         "enrollment",
     ]
     feature_cols = [c for c in feature_cols if c in df.columns]
 
-    df_train = df.select(feature_cols + [target_col]).drop_nulls()
+    df_train = df.select([*feature_cols, target_col]).drop_nulls()
 
     if len(df_train) < 50:
         context.log.warning("Too many nulls — not enough complete rows to train")
@@ -182,13 +187,17 @@ def ml_proficiency_model(
     from sklearn.model_selection import train_test_split
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42,
+        X,
+        y,
+        test_size=0.2,
+        random_state=42,
     )
 
     try:
         from xgboost import XGBRegressor
     except ImportError:
         from sklearn.ensemble import GradientBoostingRegressor as XGBRegressor
+
         context.log.info("xgboost not available, falling back to sklearn GBR")
 
     model = XGBRegressor(
@@ -218,7 +227,9 @@ def ml_proficiency_model(
         artifact_path=str(model_path),
     )
 
-    feature_importance = dict(zip(feature_cols, [round(float(v), 4) for v in model.feature_importances_]))
+    feature_importance = dict(
+        zip(feature_cols, [round(float(v), 4) for v in model.feature_importances_], strict=False)
+    )
 
     context.log.info(f"Proficiency model: R²={r2:.3f}, MAE={mae:.2f}")
 
@@ -238,6 +249,7 @@ def ml_proficiency_model(
 # Anomaly detector
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=ML_GROUP,
     tags=ML_TAGS,
@@ -252,7 +264,6 @@ def ml_anomaly_detector(
     context,
     postgres: PostgresResource,
 ) -> MaterializeResult:
-    import numpy as np
 
     engine = postgres.get_engine()
 
@@ -262,12 +273,16 @@ def ml_anomaly_detector(
         return MaterializeResult(metadata={"status": "skipped", "reason": "insufficient data"})
 
     score_cols = [
-        "wellbeing_score", "education_score", "health_score",
-        "environment_score", "safety_score", "economic_score",
+        "wellbeing_score",
+        "education_score",
+        "health_score",
+        "environment_score",
+        "safety_score",
+        "economic_score",
     ]
     score_cols = [c for c in score_cols if c in df.columns]
 
-    df_scores = df.select(["ncessch"] + score_cols).drop_nulls()
+    df_scores = df.select(["ncessch", *score_cols]).drop_nulls()
 
     if len(df_scores) < 50:
         return MaterializeResult(metadata={"status": "skipped", "reason": "too many nulls"})
@@ -293,7 +308,7 @@ def ml_anomaly_detector(
 
     anomaly_df = df_scores.filter(pl.Series(anomaly_mask)).with_columns(
         pl.Series("anomaly_score", anomaly_scores[anomaly_mask].tolist()),
-        pl.lit(datetime.now(timezone.utc).isoformat()).alias("detected_at"),
+        pl.lit(datetime.now(UTC).isoformat()).alias("detected_at"),
     )
 
     if not anomaly_df.is_empty():
@@ -323,6 +338,7 @@ def ml_anomaly_detector(
 # ---------------------------------------------------------------------------
 # Predictions
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=ML_GROUP,
@@ -355,14 +371,20 @@ def ml_predictions(
         return MaterializeResult(metadata={"status": "skipped", "reason": "empty feature matrix"})
 
     feature_cols = [
-        "frl_rate", "poverty_rate", "median_hh_income", "pct_bachelors_plus",
-        "health_score", "environment_score", "safety_score", "economic_score",
+        "frl_rate",
+        "poverty_rate",
+        "median_hh_income",
+        "pct_bachelors_plus",
+        "health_score",
+        "environment_score",
+        "safety_score",
+        "economic_score",
         "enrollment",
     ]
     feature_cols = [c for c in feature_cols if c in df.columns]
 
     # only predict for rows that have all features populated
-    df_predict = df.select(["ncessch", "school_name", "state_fips"] + feature_cols).drop_nulls()
+    df_predict = df.select(["ncessch", "school_name", "state_fips", *feature_cols]).drop_nulls()
 
     if df_predict.is_empty():
         return MaterializeResult(metadata={"status": "skipped", "reason": "no complete rows"})
@@ -375,7 +397,7 @@ def ml_predictions(
 
     result_df = df_predict.select(["ncessch", "school_name", "state_fips"]).with_columns(
         pl.Series("predicted_education_score", preds.round(2).tolist()),
-        pl.lit(datetime.now(timezone.utc).isoformat()).alias("predicted_at"),
+        pl.lit(datetime.now(UTC).isoformat()).alias("predicted_at"),
         pl.lit("proficiency_v1").alias("model_version"),
     )
 
@@ -401,6 +423,7 @@ def ml_predictions(
 # ---------------------------------------------------------------------------
 # MLflow helper
 # ---------------------------------------------------------------------------
+
 
 def _log_to_mlflow(
     run_name: str,

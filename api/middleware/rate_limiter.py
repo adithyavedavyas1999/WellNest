@@ -20,7 +20,6 @@ import asyncio
 import logging
 import time
 from collections import defaultdict
-from typing import Optional
 
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
@@ -30,7 +29,7 @@ logger = logging.getLogger(__name__)
 
 
 class TokenBucket:
-    __slots__ = ("capacity", "tokens", "refill_rate", "last_refill")
+    __slots__ = ("capacity", "last_refill", "refill_rate", "tokens")
 
     def __init__(self, capacity: int, refill_rate: float):
         self.capacity = capacity
@@ -66,7 +65,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         max_requests: int = 100,
         window_seconds: int = 60,
         cleanup_interval: int = 300,
-        exempt_paths: Optional[set[str]] = None,
+        exempt_paths: set[str] | None = None,
     ):
         super().__init__(app)
         self.max_requests = max_requests
@@ -76,11 +75,9 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         )
         self.cleanup_interval = cleanup_interval
         self.exempt_paths = exempt_paths or {"/api/health", "/docs", "/openapi.json"}
-        self._cleanup_task: Optional[asyncio.Task] = None
+        self._cleanup_task: asyncio.Task | None = None
 
-    async def dispatch(
-        self, request: Request, call_next: RequestResponseEndpoint
-    ) -> Response:
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         # don't rate-limit health checks or docs
         if request.url.path in self.exempt_paths:
             return await call_next(request)
@@ -120,8 +117,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
             stale_cutoff = now - (self.cleanup_interval * 2)
 
             stale_ips = [
-                ip for ip, bucket in self.buckets.items()
-                if bucket.last_refill < stale_cutoff
+                ip for ip, bucket in self.buckets.items() if bucket.last_refill < stale_cutoff
             ]
             for ip in stale_ips:
                 del self.buckets[ip]

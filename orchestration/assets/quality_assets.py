@@ -15,15 +15,13 @@ are just written to a Postgres table and the dagster metadata pane.
 from __future__ import annotations
 
 import json
-import subprocess
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 import polars as pl
 import structlog
 from dagster import (
-    AssetExecutionContext,
     MaterializeResult,
     MetadataValue,
     asset,
@@ -44,6 +42,7 @@ QUALITY_TABLE = "quality.check_results"
 # ---------------------------------------------------------------------------
 # Silver layer quality checks
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=QA_GROUP,
@@ -112,6 +111,7 @@ def quality_silver_checks(
 # ---------------------------------------------------------------------------
 # Gold layer quality checks
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=QA_GROUP,
@@ -185,6 +185,7 @@ def quality_gold_checks(
 # Freshness checks
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=QA_GROUP,
     tags=QA_TAGS,
@@ -224,9 +225,7 @@ def quality_freshness_checks(
     fresh = [r for r in results if r.get("status") == "fresh"]
     missing = [r for r in results if r.get("status") == "missing"]
 
-    context.log.info(
-        f"Freshness: {len(fresh)} fresh, {len(stale)} stale, {len(missing)} missing"
-    )
+    context.log.info(f"Freshness: {len(fresh)} fresh, {len(stale)} stale, {len(missing)} missing")
 
     return MaterializeResult(
         metadata={
@@ -241,6 +240,7 @@ def quality_freshness_checks(
 # ---------------------------------------------------------------------------
 # Quality report
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=QA_GROUP,
@@ -267,7 +267,7 @@ def quality_report(
         context.log.warning("No quality check results found — probably first run")
         df = pl.DataFrame()
 
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
 
     if df.is_empty():
         report = {
@@ -296,11 +296,15 @@ def quality_report(
 
     try:
         postgres.ensure_schema("quality")
-        summary_df = pl.DataFrame([{
-            "generated_at": now,
-            "report_json": json.dumps(report),
-            "status": report["status"],
-        }])
+        summary_df = pl.DataFrame(
+            [
+                {
+                    "generated_at": now,
+                    "report_json": json.dumps(report),
+                    "status": report["status"],
+                }
+            ]
+        )
         summary_df.write_database(
             table_name="quality.summary",
             connection=postgres.connection_url,
@@ -325,6 +329,7 @@ def quality_report(
 # ---------------------------------------------------------------------------
 # check helpers
 # ---------------------------------------------------------------------------
+
 
 def _run_table_checks(
     engine: Any,
@@ -496,7 +501,8 @@ def _check_freshness(
 
     # look for timestamp columns
     ts_cols = [
-        c for c in df.columns
+        c
+        for c in df.columns
         if any(hint in c.lower() for hint in ["date", "time", "created", "updated", "ingested"])
     ]
 
@@ -517,11 +523,15 @@ def _check_freshness(
         if isinstance(max_ts_val, str):
             max_ts = datetime.fromisoformat(max_ts_val.replace("Z", "+00:00"))
         elif isinstance(max_ts_val, datetime):
-            max_ts = max_ts_val if max_ts_val.tzinfo else max_ts_val.replace(tzinfo=timezone.utc)
+            max_ts = max_ts_val if max_ts_val.tzinfo else max_ts_val.replace(tzinfo=UTC)
         else:
-            return {"table": table, "status": "unknown", "reason": f"unexpected type: {type(max_ts_val)}"}
+            return {
+                "table": table,
+                "status": "unknown",
+                "reason": f"unexpected type: {type(max_ts_val)}",
+            }
 
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         age_days = (now - max_ts).total_seconds() / 86400
 
         status = "fresh" if age_days <= max_age_days else "stale"
@@ -545,19 +555,21 @@ def _store_check_results(
     """Persist check results to the quality schema."""
     try:
         pg.ensure_schema("quality")
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
 
         records = []
         for check in checks:
-            records.append({
-                "checked_at": now,
-                "layer": layer,
-                "table_or_check": check.get("table", check.get("check", "unknown")),
-                "passed": check.get("passed", 0),
-                "failed": check.get("failed", 0),
-                "warnings": check.get("warnings", 0),
-                "details_json": json.dumps(check.get("details", [])),
-            })
+            records.append(
+                {
+                    "checked_at": now,
+                    "layer": layer,
+                    "table_or_check": check.get("table", check.get("check", "unknown")),
+                    "passed": check.get("passed", 0),
+                    "failed": check.get("failed", 0),
+                    "warnings": check.get("warnings", 0),
+                    "details_json": json.dumps(check.get("details", [])),
+                }
+            )
 
         df = pl.DataFrame(records)
         df.write_database(

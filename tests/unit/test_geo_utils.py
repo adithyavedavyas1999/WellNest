@@ -9,12 +9,9 @@ Known distances used for validation:
 
 from __future__ import annotations
 
-import math
-
 import pytest
 
 from ingestion.utils.geo_utils import (
-    EARTH_RADIUS_KM,
     format_fips,
     get_h3_resolution_for_area,
     h3_ring,
@@ -27,13 +24,12 @@ from ingestion.utils.geo_utils import (
     parse_fips,
 )
 
-
 # ---------------------------------------------------------------------------
 # Haversine
 # ---------------------------------------------------------------------------
 
-class TestHaversine:
 
+class TestHaversine:
     def test_same_point_returns_zero(self) -> None:
         dist = haversine(41.8781, -87.6298, 41.8781, -87.6298)
         assert dist == 0.0
@@ -47,11 +43,14 @@ class TestHaversine:
         dist = haversine(41.8781, -87.6298, 41.8820, -87.6150)
         assert 1.0 < dist < 2.5
 
-    @pytest.mark.parametrize("lat1,lon1,lat2,lon2,expected_range", [
-        (0.0, 0.0, 0.0, 1.0, (110.0, 112.0)),
-        (51.5074, -0.1278, 48.8566, 2.3522, (340.0, 350.0)),  # London to Paris
-        (90.0, 0.0, -90.0, 0.0, (20000.0, 20100.0)),  # pole to pole
-    ])
+    @pytest.mark.parametrize(
+        "lat1,lon1,lat2,lon2,expected_range",
+        [
+            (0.0, 0.0, 0.0, 1.0, (110.0, 112.0)),
+            (51.5074, -0.1278, 48.8566, 2.3522, (340.0, 350.0)),  # London to Paris
+            (90.0, 0.0, -90.0, 0.0, (20000.0, 20100.0)),  # pole to pole
+        ],
+    )
     def test_known_distances(
         self,
         lat1: float,
@@ -74,8 +73,8 @@ class TestHaversine:
 # FIPS parsing and formatting
 # ---------------------------------------------------------------------------
 
-class TestFIPSParsing:
 
+class TestFIPSParsing:
     def test_parse_county_fips(self) -> None:
         result = parse_fips("17031")
         assert result == {"state": "17", "county": "031"}
@@ -100,7 +99,6 @@ class TestFIPSParsing:
 
 
 class TestFIPSFormatting:
-
     def test_format_county(self) -> None:
         assert format_fips("17", "031") == "17031"
 
@@ -113,27 +111,32 @@ class TestFIPSFormatting:
     def test_format_preserves_existing_padding(self) -> None:
         assert format_fips("09", "001") == "09001"
 
-    @pytest.mark.parametrize("state,county,expected", [
-        ("06", "037", "06037"),     # LA County
-        ("36", "061", "36061"),     # Manhattan
-        ("48", "201", "48201"),     # Harris County, TX
-        (1, 1, "01001"),            # Autauga County, AL
-    ])
+    @pytest.mark.parametrize(
+        "state,county,expected",
+        [
+            ("06", "037", "06037"),  # LA County
+            ("36", "061", "36061"),  # Manhattan
+            ("48", "201", "48201"),  # Harris County, TX
+            (1, 1, "01001"),  # Autauga County, AL
+        ],
+    )
     def test_various_counties(self, state: str | int, county: str | int, expected: str) -> None:
         assert format_fips(state, county) == expected
 
 
 class TestFIPSValidation:
-
-    @pytest.mark.parametrize("code,valid", [
-        ("17", True),
-        ("17031", True),
-        ("17031842100", True),
-        ("", False),
-        ("1", False),
-        ("abcde", False),
-        ("123456789012", False),
-    ])
+    @pytest.mark.parametrize(
+        "code,valid",
+        [
+            ("17", True),
+            ("17031", True),
+            ("17031842100", True),
+            ("", False),
+            ("1", False),
+            ("abcde", False),
+            ("123456789012", False),
+        ],
+    )
     def test_fips_validation(self, code: str, valid: bool) -> None:
         assert is_valid_fips(code) == valid
 
@@ -142,8 +145,8 @@ class TestFIPSValidation:
 # H3 hex operations
 # ---------------------------------------------------------------------------
 
-class TestH3Operations:
 
+class TestH3Operations:
     def test_latlng_to_h3_returns_string(self) -> None:
         h3_id = latlng_to_h3(41.8781, -87.6298)
         assert isinstance(h3_id, str)
@@ -188,8 +191,8 @@ class TestH3Operations:
 # Coordinate validation
 # ---------------------------------------------------------------------------
 
-class TestCoordinateValidation:
 
+class TestCoordinateValidation:
     def test_valid_us_coordinates(self) -> None:
         assert is_valid_latlon(41.8781, -87.6298) is True
 
@@ -209,12 +212,15 @@ class TestCoordinateValidation:
     def test_non_numeric_string_invalid(self) -> None:
         assert is_valid_latlon("not_a_number", "-87.6") is False
 
-    @pytest.mark.parametrize("lat,lon,expected", [
-        (18.4655, -66.1057, True),   # San Juan, PR
-        (21.3069, -157.8583, True),  # Honolulu, HI
-        (64.2008, -152.4937, True),  # interior Alaska
-        (71.2906, -156.7886, True),  # Utqiagvik (Barrow), AK
-        (15.0, -87.0, False),          # too far south
-    ])
+    @pytest.mark.parametrize(
+        "lat,lon,expected",
+        [
+            (18.4655, -66.1057, True),  # San Juan, PR
+            (21.3069, -157.8583, True),  # Honolulu, HI
+            (64.2008, -152.4937, True),  # interior Alaska
+            (71.2906, -156.7886, True),  # Utqiagvik (Barrow), AK
+            (15.0, -87.0, False),  # too far south
+        ],
+    )
     def test_us_territory_boundaries(self, lat: float, lon: float, expected: bool) -> None:
         assert is_valid_latlon(lat, lon) == expected

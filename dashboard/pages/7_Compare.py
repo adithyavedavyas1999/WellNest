@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 import plotly.graph_objects as go
 import streamlit as st
 
-from dashboard.components.score_gauge import COLORS, score_to_category
+from dashboard.components.score_gauge import score_to_category
 from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.db import get_states, run_query
 
@@ -43,6 +43,7 @@ def _hex_rgb(hex_color: str) -> str:
     h = hex_color.lstrip("#")
     return ",".join(str(int(h[i : i + 2], 16)) for i in (0, 2, 4))
 
+
 compare_mode = st.radio(
     "Compare",
     ["Schools", "Counties"],
@@ -59,7 +60,7 @@ if compare_mode == "Schools":
         st.subheader("Select Schools")
 
         states = get_states()
-        cmp_state = st.selectbox("Filter by state", ["All States"] + states, index=0, key="cmp_st")
+        cmp_state = st.selectbox("Filter by state", ["All States", *states], index=0, key="cmp_st")
 
         where = ""
         params: dict = {}
@@ -125,8 +126,8 @@ if compare_mode == "Schools":
     fig_radar = go.Figure()
     for i, (_, row) in enumerate(compare_df.iterrows()):
         vals = [float(row[k]) if row[k] is not None else 0 for k in pillar_keys]
-        vals_closed = vals + [vals[0]]
-        labels_closed = pillar_labels + [pillar_labels[0]]
+        vals_closed = [*vals, vals[0]]
+        labels_closed = [*pillar_labels, pillar_labels[0]]
         color = PALETTE[i % len(PALETTE)]
 
         fig_radar.add_trace(
@@ -137,7 +138,7 @@ if compare_mode == "Schools":
                 fillcolor=f"rgba({_hex_rgb(color)},0.1)",
                 line={"color": color, "width": 2},
                 marker={"size": 5, "color": color},
-                name=f'{row["name"]} ({row["state"]})',
+                name=f"{row['name']} ({row['state']})",
             )
         )
 
@@ -177,10 +178,10 @@ if compare_mode == "Schools":
         _, cat_label, _ = score_to_category(float(row["composite_score"]))
         fig_bar.add_trace(
             go.Bar(
-                x=[f'{row["name"]}\n({row["state"]})'],
+                x=[f"{row['name']}\n({row['state']})"],
                 y=[row["composite_score"]],
                 marker_color=color,
-                text=[f'{row["composite_score"]:.1f}'],
+                text=[f"{row['composite_score']:.1f}"],
                 textposition="outside",
                 textfont={"size": 13},
                 name=row["name"],
@@ -204,28 +205,44 @@ if compare_mode == "Schools":
     st.subheader("Detailed Metrics")
 
     detail_cols = [
-        "name", "state", "enrollment", "composite_score",
-        "education_score", "health_score", "environment_score",
-        "safety_score", "national_rank", "score_change_1y",
+        "name",
+        "state",
+        "enrollment",
+        "composite_score",
+        "education_score",
+        "health_score",
+        "environment_score",
+        "safety_score",
+        "national_rank",
+        "score_change_1y",
     ]
     display = compare_df[detail_cols].copy()
     display.columns = [
-        "School", "State", "Enrollment", "Composite",
-        "Education", "Health", "Environment",
-        "Safety", "National Rank", "YoY Change",
+        "School",
+        "State",
+        "Enrollment",
+        "Composite",
+        "Education",
+        "Health",
+        "Environment",
+        "Safety",
+        "National Rank",
+        "YoY Change",
     ]
     display = display.reset_index(drop=True)
 
     st.dataframe(
-        display.style.format({
-            "Composite": "{:.1f}",
-            "Education": "{:.1f}",
-            "Health": "{:.1f}",
-            "Environment": "{:.1f}",
-            "Safety": "{:.1f}",
-            "Enrollment": "{:,.0f}",
-            "YoY Change": "{:+.1f}",
-        }),
+        display.style.format(
+            {
+                "Composite": "{:.1f}",
+                "Education": "{:.1f}",
+                "Health": "{:.1f}",
+                "Environment": "{:.1f}",
+                "Safety": "{:.1f}",
+                "Enrollment": "{:,.0f}",
+                "YoY Change": "{:+.1f}",
+            }
+        ),
         use_container_width=True,
         hide_index=True,
     )
@@ -251,8 +268,7 @@ else:
             st.stop()
 
         county_options = {
-            f'{r["name"]}, {r["state"]} ({r["fips"]})': r["fips"]
-            for _, r in county_list.iterrows()
+            f"{r['name']}, {r['state']} ({r['fips']})": r["fips"] for _, r in county_list.iterrows()
         }
 
         selected_county_labels = st.multiselect(
@@ -290,8 +306,8 @@ else:
     fig_county_radar = go.Figure()
     for i, (_, row) in enumerate(county_compare.iterrows()):
         vals = [float(row[k]) if row[k] is not None else 0 for k in pillar_keys]
-        vals_closed = vals + [vals[0]]
-        labels_closed = pillar_labels + [pillar_labels[0]]
+        vals_closed = [*vals, vals[0]]
+        labels_closed = [*pillar_labels, pillar_labels[0]]
         color = PALETTE[i % len(PALETTE)]
 
         fig_county_radar.add_trace(
@@ -302,7 +318,7 @@ else:
                 fillcolor=f"rgba({_hex_rgb(color)},0.1)",
                 line={"color": color, "width": 2},
                 marker={"size": 5, "color": color},
-                name=f'{row["name"]}, {row["state"]}',
+                name=f"{row['name']}, {row['state']}",
             )
         )
 
@@ -341,10 +357,10 @@ else:
         color = PALETTE[i % len(PALETTE)]
         fig_cbar.add_trace(
             go.Bar(
-                x=[f'{row["name"]}\n({row["state"]})'],
+                x=[f"{row['name']}\n({row['state']})"],
                 y=[row["composite_score"]],
                 marker_color=color,
-                text=[f'{row["composite_score"]:.1f}'],
+                text=[f"{row['composite_score']:.1f}"],
                 textposition="outside",
                 textfont={"size": 13},
                 showlegend=False,
@@ -366,25 +382,44 @@ else:
     st.subheader("Detailed Metrics")
 
     display_counties = county_compare[
-        ["name", "state", "population", "school_count", "composite_score",
-         "education_score", "health_score", "environment_score",
-         "safety_score", "score_change_1y"]
+        [
+            "name",
+            "state",
+            "population",
+            "school_count",
+            "composite_score",
+            "education_score",
+            "health_score",
+            "environment_score",
+            "safety_score",
+            "score_change_1y",
+        ]
     ].copy()
     display_counties.columns = [
-        "County", "State", "Population", "Schools", "Composite",
-        "Education", "Health", "Environment", "Safety", "YoY Change",
+        "County",
+        "State",
+        "Population",
+        "Schools",
+        "Composite",
+        "Education",
+        "Health",
+        "Environment",
+        "Safety",
+        "YoY Change",
     ]
 
     st.dataframe(
-        display_counties.style.format({
-            "Composite": "{:.1f}",
-            "Education": "{:.1f}",
-            "Health": "{:.1f}",
-            "Environment": "{:.1f}",
-            "Safety": "{:.1f}",
-            "Population": "{:,.0f}",
-            "YoY Change": "{:+.1f}",
-        }),
+        display_counties.style.format(
+            {
+                "Composite": "{:.1f}",
+                "Education": "{:.1f}",
+                "Health": "{:.1f}",
+                "Environment": "{:.1f}",
+                "Safety": "{:.1f}",
+                "Population": "{:,.0f}",
+                "YoY Change": "{:+.1f}",
+            }
+        ),
         use_container_width=True,
         hide_index=True,
     )

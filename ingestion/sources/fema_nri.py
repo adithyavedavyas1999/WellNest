@@ -47,14 +47,15 @@ NRI_DOWNLOAD_URL = (
 
 class NRIRecord(BaseModel):
     """One county from the FEMA National Risk Index."""
+
     state_fips: str = Field(..., min_length=2, max_length=2)
     county_fips: str = Field(..., min_length=5, max_length=5)
     county_name: str
     state_name: str
     risk_score: float | None = None
     risk_rating: str | None = None
-    eal_score: float | None = None   # expected annual loss (score, 0-100)
-    eal_value: float | None = None   # expected annual loss (dollars)
+    eal_score: float | None = None  # expected annual loss (score, 0-100)
+    eal_value: float | None = None  # expected annual loss (dollars)
     sovi_score: float | None = None  # social vulnerability (0-100)
     sovi_rating: str | None = None
     resl_score: float | None = None  # community resilience (0-100)
@@ -92,6 +93,7 @@ class FEMANRIConnector:
         self.http.download_file(NRI_DOWNLOAD_URL, zip_path)
 
         import zipfile
+
         with zipfile.ZipFile(zip_path, "r") as zf:
             csv_names = [n for n in zf.namelist() if n.lower().endswith(".csv")]
             if not csv_names:
@@ -169,7 +171,8 @@ class FEMANRIConnector:
         for col in score_cols:
             if col in df.columns:
                 df = df.with_columns(
-                    pl.col(col).cast(pl.Utf8)
+                    pl.col(col)
+                    .cast(pl.Utf8)
                     .str.replace_all(r"\*", "")
                     .str.strip_chars()
                     .cast(pl.Float64, strict=False)

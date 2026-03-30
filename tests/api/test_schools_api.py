@@ -81,13 +81,12 @@ def _make_detail_row(nces_id: str = "170993000943", **overrides: Any) -> dict[st
 # GET /api/schools — list endpoint
 # ---------------------------------------------------------------------------
 
-class TestListSchools:
 
+class TestListSchools:
     def test_returns_paginated_response(
         self, api_client: TestClient, mock_db_session: MagicMock
     ) -> None:
-        rows = [_make_school_row(nces_id=f"1709930009{i}", score=30.0 + i * 10)
-                for i in range(3)]
+        rows = [_make_school_row(nces_id=f"1709930009{i}", score=30.0 + i * 10) for i in range(3)]
         mock_db_session.execute.return_value.scalar.return_value = 3
         mock_db_session.execute.return_value.mappings.return_value.all.return_value = rows
 
@@ -101,9 +100,7 @@ class TestListSchools:
         assert "per_page" in body
         assert body["total"] == 3
 
-    def test_pagination_params(
-        self, api_client: TestClient, mock_db_session: MagicMock
-    ) -> None:
+    def test_pagination_params(self, api_client: TestClient, mock_db_session: MagicMock) -> None:
         mock_db_session.execute.return_value.scalar.return_value = 100
         mock_db_session.execute.return_value.mappings.return_value.all.return_value = []
 
@@ -113,9 +110,7 @@ class TestListSchools:
         assert body["page"] == 2
         assert body["per_page"] == 10
 
-    def test_empty_result_set(
-        self, api_client: TestClient, mock_db_session: MagicMock
-    ) -> None:
+    def test_empty_result_set(self, api_client: TestClient, mock_db_session: MagicMock) -> None:
         mock_db_session.execute.return_value.scalar.return_value = 0
         mock_db_session.execute.return_value.mappings.return_value.all.return_value = []
 
@@ -123,9 +118,7 @@ class TestListSchools:
         assert resp.status_code == 200
         assert resp.json()["items"] == []
 
-    def test_filter_by_state(
-        self, api_client: TestClient, mock_db_session: MagicMock
-    ) -> None:
+    def test_filter_by_state(self, api_client: TestClient, mock_db_session: MagicMock) -> None:
         mock_db_session.execute.return_value.scalar.return_value = 0
         mock_db_session.execute.return_value.mappings.return_value.all.return_value = []
 
@@ -146,8 +139,8 @@ class TestListSchools:
 # GET /api/schools/{nces_id} — detail endpoint
 # ---------------------------------------------------------------------------
 
-class TestGetSchool:
 
+class TestGetSchool:
     def test_returns_school_detail(
         self, api_client: TestClient, mock_db_session: MagicMock
     ) -> None:

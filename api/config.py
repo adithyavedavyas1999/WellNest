@@ -8,7 +8,6 @@ FastAPI pulls from this at startup; individual routers just import `get_settings
 from __future__ import annotations
 
 from functools import lru_cache
-from typing import Optional
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -37,7 +36,7 @@ class Settings(BaseSettings):
 
     # -- auth --
     # simple header-based key for now; we can swap to JWT later
-    api_key: Optional[str] = None
+    api_key: str | None = None
     api_key_header: str = "X-API-Key"
 
     # -- rate limiting (per IP) --
@@ -56,7 +55,7 @@ class Settings(BaseSettings):
     max_page_size: int = 200
 
     # -- openai --
-    openai_api_key: Optional[str] = None
+    openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"
     openai_embedding_model: str = "text-embedding-3-small"
 

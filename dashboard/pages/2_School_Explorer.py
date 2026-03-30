@@ -16,7 +16,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from dashboard.components.school_card import render_school_card
-from dashboard.components.score_gauge import render_gauge, score_to_category
+from dashboard.components.score_gauge import render_gauge
 from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.db import get_states, run_query
 
@@ -47,7 +47,7 @@ with st.sidebar:
     search_city = st.text_input("City", placeholder="e.g. Chicago")
 
     states = get_states()
-    search_state = st.selectbox("State", ["All States"] + states, index=0)
+    search_state = st.selectbox("State", ["All States", *states], index=0)
 
     score_filter = st.slider("Minimum score", 0, 100, 0, step=5)
 
@@ -158,9 +158,7 @@ if results.empty:
 
 
 # sortable results table
-display_df = results[
-    ["name", "city", "state", "composite_score", "enrollment", "category"]
-].copy()
+display_df = results[["name", "city", "state", "composite_score", "enrollment", "category"]].copy()
 display_df.columns = ["School", "City", "State", "Score", "Enrollment", "Category"]
 display_df["Category"] = display_df["Category"].str.replace("_", " ").str.title()
 
@@ -231,7 +229,7 @@ if school_options:
             arrow = "+" if change >= 0 else ""
             st.markdown(
                 f'<div style="font-size:14px;margin-top:8px">'
-                f'Year-over-Year Change: '
+                f"Year-over-Year Change: "
                 f'<span style="color:{change_color};font-weight:600">'
                 f"{arrow}{change:.1f}</span></div>",
                 unsafe_allow_html=True,
@@ -254,8 +252,8 @@ if school_options:
         fig_radar = go.Figure()
         fig_radar.add_trace(
             go.Scatterpolar(
-                r=pillar_vals + [pillar_vals[0]],
-                theta=pillar_labels + [pillar_labels[0]],
+                r=[*pillar_vals, pillar_vals[0]],
+                theta=[*pillar_labels, pillar_labels[0]],
                 fill="toself",
                 fillcolor="rgba(46,134,171,0.15)",
                 line={"color": "#2E86AB", "width": 2},
@@ -271,7 +269,11 @@ if school_options:
                     "tickfont": {"size": 10, "color": tc["text_muted"]},
                 },
                 "angularaxis": {
-                    "tickfont": {"size": 12, "color": tc["plot_font"], "family": "Inter, sans-serif"},
+                    "tickfont": {
+                        "size": 12,
+                        "color": tc["plot_font"],
+                        "family": "Inter, sans-serif",
+                    },
                 },
                 "bgcolor": "rgba(0,0,0,0)",
             },

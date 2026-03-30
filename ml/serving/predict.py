@@ -22,6 +22,7 @@ honest here but XGBoost quantile support is still a bit janky.
 
 from __future__ import annotations
 
+import contextlib
 import json
 import pickle
 from pathlib import Path
@@ -83,9 +84,7 @@ class PredictionServer:
                 f"{self._model_dir / self._model_name}.pkl"
             )
 
-        available_features: list[str] = [
-            f for f in self._feature_names if f in feature_df.columns
-        ]
+        available_features: list[str] = [f for f in self._feature_names if f in feature_df.columns]
         missing_features: list[str] = [
             f for f in self._feature_names if f not in feature_df.columns
         ]
@@ -102,7 +101,7 @@ class PredictionServer:
 
         # separate schools that have all features vs those with gaps
         scoreable: pl.DataFrame = feature_df.select(
-            ["nces_school_id"] + available_features
+            ["nces_school_id", *available_features]
         ).drop_nulls()
 
         n_dropped: int = len(feature_df) - len(scoreable)
@@ -129,13 +128,15 @@ class PredictionServer:
 
         ci_lower, ci_upper = self._compute_confidence_intervals(X)
 
-        result: pl.DataFrame = pl.DataFrame({
-            "nces_school_id": scoreable["nces_school_id"],
-            "predicted_change": predictions.tolist(),
-            "ci_lower": ci_lower.tolist(),
-            "ci_upper": ci_upper.tolist(),
-            "model_version": [self._model_name] * len(predictions),
-        })
+        result: pl.DataFrame = pl.DataFrame(
+            {
+                "nces_school_id": scoreable["nces_school_id"],
+                "predicted_change": predictions.tolist(),
+                "ci_lower": ci_lower.tolist(),
+                "ci_upper": ci_upper.tolist(),
+                "model_version": [self._model_name] * len(predictions),
+            }
+        )
 
         # flag anomalous predictions — anything > 2 std devs from the mean
         # prediction is suspicious and worth review
@@ -220,7 +221,7 @@ class PredictionServer:
             return
 
         with open(model_path, "rb") as f:
-            self._model = pickle.load(f)  # noqa: S301
+            self._model = pickle.load(f)
 
         if meta_path.exists():
             raw: str = meta_path.read_text()
@@ -236,10 +237,8 @@ class PredictionServer:
             # model exists but no metadata — try to get feature names from the model
             # xgboost stores them, sklearn doesn't always
             if hasattr(self._model, "get_booster"):
-                try:
+                with contextlib.suppress(Exception):
                     self._feature_names = self._model.get_booster().feature_names or []
-                except Exception:
-                    pass
             logger.warning(
                 "model_metadata_missing",
                 path=str(meta_path),

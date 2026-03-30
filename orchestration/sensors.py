@@ -18,18 +18,15 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 import structlog
 from dagster import (
-    AssetKey,
     AssetSelection,
     DefaultSensorStatus,
-    RunConfig,
     RunRequest,
-    SensorDefinition,
     SensorEvaluationContext,
     SkipReason,
     define_asset_job,
@@ -94,10 +91,9 @@ def file_arrival_sensor(context: SensorEvaluationContext) -> Any:
         return SkipReason("Created data drop directory, no files yet")
 
     new_files = [
-        f for f in DATA_DROP_DIR.iterdir()
-        if f.is_file()
-        and f.suffix.lower() in SUPPORTED_EXTENSIONS
-        and not f.name.startswith(".")
+        f
+        for f in DATA_DROP_DIR.iterdir()
+        if f.is_file() and f.suffix.lower() in SUPPORTED_EXTENSIONS and not f.name.startswith(".")
     ]
 
     if not new_files:
@@ -192,9 +188,7 @@ def quality_failure_sensor(context: SensorEvaluationContext) -> Any:
 
         context.update_cursor(latest)
 
-        context.log.warning(
-            f"Quality alert: {fail_count} new check failures since {last_checked}"
-        )
+        context.log.warning(f"Quality alert: {fail_count} new check failures since {last_checked}")
 
         # TODO: hook up actual alerting (Slack webhook, PagerDuty, email)
         # for now we just log and trigger a quality re-run
@@ -303,9 +297,7 @@ def stale_data_sensor(context: SensorEvaluationContext) -> Any:
 
                     if age_result is not None and age_result > sla_days:
                         stale_tables.append(table)
-                        context.log.info(
-                            f"{table} is {age_result:.1f} days old (SLA: {sla_days}d)"
-                        )
+                        context.log.info(f"{table} is {age_result:.1f} days old (SLA: {sla_days}d)")
 
             except Exception as e:
                 context.log.debug(f"Could not check {table}: {e}")
@@ -319,7 +311,7 @@ def stale_data_sensor(context: SensorEvaluationContext) -> Any:
         context.log.warning(f"Stale tables detected: {stale_tables}")
 
         return RunRequest(
-            run_key=f"stale_refresh_{datetime.now(timezone.utc).strftime('%Y%m%d%H')}",
+            run_key=f"stale_refresh_{datetime.now(UTC).strftime('%Y%m%d%H')}",
             tags={
                 "triggered_by": "stale_data_sensor",
                 "stale_tables": json.dumps(stale_tables),
@@ -334,6 +326,7 @@ def stale_data_sensor(context: SensorEvaluationContext) -> Any:
 # ---------------------------------------------------------------------------
 # helpers
 # ---------------------------------------------------------------------------
+
 
 def _match_file_to_asset(filename: str) -> str | None:
     """Match a dropped filename to a bronze asset name.
@@ -357,7 +350,7 @@ def _move_to_processed(filepath: Path) -> None:
     processed_dir = filepath.parent / "processed"
     processed_dir.mkdir(exist_ok=True)
 
-    timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+    timestamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
     dest = processed_dir / f"{timestamp}_{filepath.name}"
 
     try:

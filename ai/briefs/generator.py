@@ -32,7 +32,7 @@ from __future__ import annotations
 import json
 import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import openai
@@ -295,7 +295,7 @@ class BriefGenerator:
             "state_name": county_row.get("state_name", county_row.get("state_abbr", "")),
             "brief_text": brief_text,
             "model": self._model,
-            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "generated_at": datetime.now(UTC).isoformat(),
             "prompt_version": "v1",  # bump this when you change the prompt template
         }
 
@@ -321,12 +321,11 @@ class BriefGenerator:
         run would cost ~$3 and take 45 minutes for no reason if the underlying
         data hasn't changed.
         """
-        month_start: str = datetime.now(timezone.utc).replace(day=1).strftime("%Y-%m-%d")
+        month_start: str = datetime.now(UTC).replace(day=1).strftime("%Y-%m-%d")
 
         try:
             df: pl.DataFrame = pl.read_database(
-                f"SELECT county_fips FROM {BRIEFS_TABLE} "
-                f"WHERE generated_at >= '{month_start}'",
+                f"SELECT county_fips FROM {BRIEFS_TABLE} WHERE generated_at >= '{month_start}'",
                 connection=self._pg_url,
             )
             return set(df["county_fips"].to_list())

@@ -16,12 +16,8 @@ stabilize the dbt project structure.
 
 from __future__ import annotations
 
-from typing import Any
-
 import structlog
 from dagster import (
-    AssetExecutionContext,
-    AssetIn,
     MaterializeResult,
     MetadataValue,
     asset,
@@ -38,6 +34,7 @@ SILVER_TAGS = {"layer": "silver", "pipeline": "transformation"}
 # ---------------------------------------------------------------------------
 # Staging models — 1:1 renames of raw tables
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=SILVER_GROUP,
@@ -225,6 +222,7 @@ def stg_crime(
 # Silver models — joined + enriched entities
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=SILVER_GROUP,
     tags=SILVER_TAGS,
@@ -316,6 +314,7 @@ def silver_county_safety(
 # ---------------------------------------------------------------------------
 # helpers
 # ---------------------------------------------------------------------------
+
 
 def _try_count(pg: PostgresResource, table: str) -> int:
     """Try to get a row count; return -1 if the table doesn't exist yet.

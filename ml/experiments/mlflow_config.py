@@ -97,7 +97,6 @@ def log_training_run(
         experiment_id=experiment_id,
         run_name=run_name,
     ) as run:
-
         safe_params: dict[str, str] = {k: str(v) for k, v in params.items()}
         mlflow.log_params(safe_params)
 
@@ -187,22 +186,24 @@ def list_runs(
 
     results: list[dict[str, Any]] = []
     for _, row in runs.iterrows():
-        results.append({
-            "run_id": row.get("run_id"),
-            "run_name": row.get("tags.mlflow.runName"),
-            "status": row.get("status"),
-            "start_time": str(row.get("start_time")),
-            "metrics": {
-                k.replace("metrics.", ""): v
-                for k, v in row.items()
-                if str(k).startswith("metrics.") and v is not None
-            },
-            "params": {
-                k.replace("params.", ""): v
-                for k, v in row.items()
-                if str(k).startswith("params.") and v is not None
-            },
-        })
+        results.append(
+            {
+                "run_id": row.get("run_id"),
+                "run_name": row.get("tags.mlflow.runName"),
+                "status": row.get("status"),
+                "start_time": str(row.get("start_time")),
+                "metrics": {
+                    k.replace("metrics.", ""): v
+                    for k, v in row.items()
+                    if str(k).startswith("metrics.") and v is not None
+                },
+                "params": {
+                    k.replace("params.", ""): v
+                    for k, v in row.items()
+                    if str(k).startswith("params.") and v is not None
+                },
+            }
+        )
 
     return results
 
@@ -221,14 +222,16 @@ def get_best_run(
     if not runs:
         return None
 
-    valid_runs: list[dict[str, Any]] = [
-        r for r in runs if metric in r.get("metrics", {})
-    ]
+    valid_runs: list[dict[str, Any]] = [r for r in runs if metric in r.get("metrics", {})]
     if not valid_runs:
         return None
 
-    key_fn = lambda r: r["metrics"][metric]
-    best: dict[str, Any] = min(valid_runs, key=key_fn) if lower_is_better else max(valid_runs, key=key_fn)
+    def key_fn(r):
+        return r["metrics"][metric]
+
+    best: dict[str, Any] = (
+        min(valid_runs, key=key_fn) if lower_is_better else max(valid_runs, key=key_fn)
+    )
 
     logger.info(
         "best_run_found",

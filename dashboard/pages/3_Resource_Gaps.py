@@ -13,11 +13,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
-import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from dashboard.components.score_gauge import score_to_category
 from dashboard.ui_theme import setup_page_theme, theme_colors
 from dashboard.utils.db import get_states, run_query
 
@@ -46,7 +44,7 @@ with st.sidebar:
     st.subheader("Filters")
 
     states = get_states()
-    filter_state = st.selectbox("State", ["All States"] + states, index=0)
+    filter_state = st.selectbox("State", ["All States", *states], index=0)
 
     gap_types = ["All Types", "healthcare", "food_access", "mental_health", "dental"]
     filter_gap = st.selectbox(
@@ -120,9 +118,7 @@ else:
 
 st.subheader("Gap Distribution")
 
-tab_type, tab_state, tab_table = st.tabs(
-    ["By Gap Type", "By State", "Priority Table"]
-)
+tab_type, tab_state, tab_table = st.tabs(["By Gap Type", "By State", "Priority Table"])
 
 with tab_type:
     type_counts = gaps_df["gap_type"].value_counts().reset_index()
@@ -140,9 +136,7 @@ with tab_type:
         go.Bar(
             x=type_counts["Gap Type"],
             y=type_counts["Count"],
-            marker_color=[
-                color_map.get(t, tc["text_muted"]) for t in type_counts["Gap Type"]
-            ],
+            marker_color=[color_map.get(t, tc["text_muted"]) for t in type_counts["Gap Type"]],
             text=type_counts["Count"],
             textposition="outside",
             textfont={"size": 13, "family": "Inter, sans-serif"},
@@ -202,9 +196,7 @@ with tab_table:
         unsafe_allow_html=True,
     )
 
-    display = gaps_df[
-        ["school_name", "state", "gap_type", "severity", "composite_score"]
-    ].copy()
+    display = gaps_df[["school_name", "state", "gap_type", "severity", "composite_score"]].copy()
     display.columns = ["School", "State", "Gap Type", "Severity", "Wellbeing Score"]
     display["Gap Type"] = display["Gap Type"].str.replace("_", " ").str.title()
     display = display.reset_index(drop=True)
@@ -217,9 +209,9 @@ with tab_table:
             return "color: #F18F01; font-weight: 600"
         return f"color: {theme_colors()['text_primary']}"
 
-    styled = display.style.format(
-        {"Severity": "{:.1f}", "Wellbeing Score": "{:.1f}"}
-    ).map(_severity_color, subset=["Severity"])
+    styled = display.style.format({"Severity": "{:.1f}", "Wellbeing Score": "{:.1f}"}).map(
+        _severity_color, subset=["Severity"]
+    )
 
     st.dataframe(styled, use_container_width=True, height=500)
 

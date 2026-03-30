@@ -37,7 +37,6 @@ def _make_county_row() -> dict[str, Any]:
 
 
 class TestPDFGeneration:
-
     def test_returns_pdf_content_type(
         self,
         api_client: TestClient,
@@ -96,7 +95,6 @@ class TestPDFGeneration:
 
 
 class TestReportFilename:
-
     def test_content_disposition_has_fips(
         self,
         api_client: TestClient,
@@ -123,7 +121,6 @@ class TestReportFilename:
 
 @pytest.mark.skip(reason="requires running PostgreSQL")
 class TestReportGenerationLive:
-
     def test_real_county_report_generation(self) -> None:
         """Generate an actual PDF for Cook County against a test database.
 

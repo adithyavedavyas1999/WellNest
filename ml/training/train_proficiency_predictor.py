@@ -121,9 +121,9 @@ class ProficiencyTrainer:
         Set tune_hyperparams=False for quick dev iterations — uses
         reasonable defaults instead of running GridSearchCV.
         """
-        df_clean: pl.DataFrame = (
-            self._feature_df.select(self._feature_cols + [TARGET_COL]).drop_nulls()
-        )
+        df_clean: pl.DataFrame = self._feature_df.select(
+            [*self._feature_cols, TARGET_COL]
+        ).drop_nulls()
 
         if len(df_clean) < 100:
             raise ValueError(
@@ -307,11 +307,13 @@ class ProficiencyTrainer:
                 if tune:
                     base_params = self._tune_lightgbm(X_train, y_train)
                 else:
-                    base_params.update({
-                        "subsample": 0.8,
-                        "colsample_bytree": 0.8,
-                        "verbose": -1,
-                    })
+                    base_params.update(
+                        {
+                            "subsample": 0.8,
+                            "colsample_bytree": 0.8,
+                            "verbose": -1,
+                        }
+                    )
 
                 return LGBMRegressor(**base_params), "lightgbm", base_params
 
@@ -365,9 +367,7 @@ class ProficiencyTrainer:
 
         best: dict[str, Any] = grid.best_params_
         best["random_state"] = self._random_state
-        logger.info(
-            "xgboost_tuning_done", best_params=best, best_score=round(-grid.best_score_, 3)
-        )
+        logger.info("xgboost_tuning_done", best_params=best, best_score=round(-grid.best_score_, 3))
         return best
 
     def _tune_lightgbm(
@@ -438,7 +438,7 @@ class ProficiencyTrainer:
             return {
                 name: round(float(imp), 6)
                 for name, imp in sorted(
-                    zip(self._feature_cols, raw), key=lambda x: x[1], reverse=True
+                    zip(self._feature_cols, raw, strict=False), key=lambda x: x[1], reverse=True
                 )
             }
         return {}

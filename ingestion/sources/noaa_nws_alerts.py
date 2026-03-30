@@ -29,7 +29,7 @@ Quirks:
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import polars as pl
 import structlog
@@ -52,6 +52,7 @@ SEVERITY_ORDER = {
 
 class WeatherAlert(BaseModel):
     """A single NWS weather alert."""
+
     alert_id: str
     event: str
     severity: str
@@ -117,7 +118,7 @@ class NOAANWSAlertsConnector:
     def _parse_feature(self, feature: dict) -> dict:
         """Extract fields from a GeoJSON feature."""
         props = feature.get("properties", {})
-        now_iso = datetime.now(timezone.utc).isoformat()
+        now_iso = datetime.now(UTC).isoformat()
 
         zones = props.get("affectedZones", [])
         # zones come as full URLs like "https://api.weather.gov/zones/county/ILC031"
@@ -133,7 +134,9 @@ class NOAANWSAlertsConnector:
             "certainty": props.get("certainty"),
             "urgency": props.get("urgency"),
             "headline": props.get("headline"),
-            "description": (props.get("description", "") or "")[:2000],  # truncate long descriptions
+            "description": (props.get("description", "") or "")[
+                :2000
+            ],  # truncate long descriptions
             "area_desc": props.get("areaDesc"),
             "affected_zones": zone_ids,
             "state": self._extract_state(props),

@@ -279,9 +279,7 @@ class FeatureBuilder:
                     pl.col(col).median().alias("_state_median")
                 )
                 df = df.join(state_medians, on="state_abbr", how="left")
-                df = df.with_columns(
-                    pl.col(col).fill_null(pl.col("_state_median")).alias(col)
-                )
+                df = df.with_columns(pl.col(col).fill_null(pl.col("_state_median")).alias(col))
                 df = df.drop("_state_median")
 
         # global median for anything still null after state-level fill
@@ -314,7 +312,9 @@ class FeatureBuilder:
         tricky to update individual rows without recomputing everything.
         """
         if self._connection_url is None:
-            raise ValueError("connection_url is required to write to DB — pass it in the constructor")
+            raise ValueError(
+                "connection_url is required to write to DB — pass it in the constructor"
+            )
 
         if df.is_empty():
             logger.warning("feature_matrix_save_skipped", reason="empty dataframe")
@@ -358,9 +358,7 @@ class FeatureBuilder:
 
         dropped: list[str] = [col for col, imp in importances.items() if imp < threshold]
         if dropped:
-            logger.info(
-                "features_dropped_by_importance", count=len(dropped), threshold=threshold
-            )
+            logger.info("features_dropped_by_importance", count=len(dropped), threshold=threshold)
 
         return keep
 

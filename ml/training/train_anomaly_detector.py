@@ -28,7 +28,7 @@ from __future__ import annotations
 
 import pickle
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -111,24 +111,18 @@ class AnomalyDetector:
         self._z_threshold: float = z_threshold
         self._random_state: int = random_state
 
-        self._available_pillars: list[str] = [
-            c for c in PILLAR_COLS if c in feature_df.columns
-        ]
-        self._available_changes: list[str] = [
-            c for c in CHANGE_COLS if c in feature_df.columns
-        ]
+        self._available_pillars: list[str] = [c for c in PILLAR_COLS if c in feature_df.columns]
+        self._available_changes: list[str] = [c for c in CHANGE_COLS if c in feature_df.columns]
 
     def run(self) -> AnomalyResult:
         """Run both anomaly detection methods and merge results."""
         if not self._available_pillars:
-            logger.warning(
-                "anomaly_detection_skipped", reason="no pillar score columns found"
-            )
+            logger.warning("anomaly_detection_skipped", reason="no pillar score columns found")
             return self._empty_result()
 
         # need at least school ID and pillar scores with no nulls for IForest
         iforest_df: pl.DataFrame = self._feature_df.select(
-            ["nces_school_id"] + self._available_pillars
+            ["nces_school_id", *self._available_pillars]
         ).drop_nulls()
 
         if len(iforest_df) < 50:
@@ -144,7 +138,7 @@ class AnomalyDetector:
         zscore_flags: pl.DataFrame = pl.DataFrame()
         if self._available_changes:
             change_df: pl.DataFrame = self._feature_df.select(
-                ["nces_school_id"] + self._available_changes
+                ["nces_school_id", *self._available_changes]
             ).drop_nulls()
             if len(change_df) >= 30:
                 zscore_flags = self.compute_zscore_flags(change_df)
@@ -166,16 +160,12 @@ class AnomalyDetector:
             for c in ["nces_school_id", "school_name", "state_abbr", "county_name"]
             if c in self._feature_df.columns
         ]
-        meta: pl.DataFrame = self._feature_df.select(meta_cols).unique(
-            subset=["nces_school_id"]
-        )
+        meta: pl.DataFrame = self._feature_df.select(meta_cols).unique(subset=["nces_school_id"])
         combined = combined.join(meta, on="nces_school_id", how="left")
 
         combined = self.explain_anomalies(combined)
 
-        combined = combined.with_columns(
-            pl.lit(datetime.now(timezone.utc).isoformat()).alias("detected_at")
-        )
+        combined = combined.with_columns(pl.lit(datetime.now(UTC).isoformat()).alias("detected_at"))
 
         logger.info(
             "anomaly_detection_complete",
@@ -265,21 +255,20 @@ class AnomalyDetector:
         if not np.any(flagged_mask):
             return pl.DataFrame()
 
-        worst_col_idx: np.ndarray = np.nanargmax(
-            np.abs(z_scores[flagged_mask]), axis=1
-        )
+        worst_col_idx: np.ndarray = np.nanargmax(np.abs(z_scores[flagged_mask]), axis=1)
         worst_col_names: list[str] = [self._available_changes[i] for i in worst_col_idx]
         worst_z_values: list[float] = [
-            float(z_scores[flagged_mask][i, worst_col_idx[i]])
-            for i in range(len(worst_col_idx))
+            float(z_scores[flagged_mask][i, worst_col_idx[i]]) for i in range(len(worst_col_idx))
         ]
 
-        return pl.DataFrame({
-            "nces_school_id": school_ids.filter(pl.Series(flagged_mask)).to_list(),
-            "zscore_worst": worst_z_values,
-            "zscore_trigger_col": worst_col_names,
-            "detection_method": ["zscore"] * int(flagged_mask.sum()),
-        })
+        return pl.DataFrame(
+            {
+                "nces_school_id": school_ids.filter(pl.Series(flagged_mask)).to_list(),
+                "zscore_worst": worst_z_values,
+                "zscore_trigger_col": worst_col_names,
+                "detection_method": ["zscore"] * int(flagged_mask.sum()),
+            }
+        )
 
     # ------------------------------------------------------------------
     # narrative generation
@@ -301,9 +290,7 @@ class AnomalyDetector:
             + [c for c in self._available_changes if c in self._feature_df.columns]
         )
         join_cols = [c for c in join_cols if c in self._feature_df.columns]
-        scores: pl.DataFrame = self._feature_df.select(join_cols).unique(
-            subset=["nces_school_id"]
-        )
+        scores: pl.DataFrame = self._feature_df.select(join_cols).unique(subset=["nces_school_id"])
 
         merged: pl.DataFrame = anomaly_df.join(scores, on="nces_school_id", how="left")
 
@@ -312,9 +299,7 @@ class AnomalyDetector:
             narratives.append(self._build_narrative(row))
 
         drop_cols: list[str] = [
-            c
-            for c in self._available_pillars + self._available_changes
-            if c in merged.columns
+            c for c in self._available_pillars + self._available_changes if c in merged.columns
         ]
         merged = merged.drop(drop_cols)
         merged = merged.with_columns(pl.Series("narrative", narratives))
@@ -386,14 +371,16 @@ class AnomalyDetector:
             how="inner",
         )
 
-        combined: pl.DataFrame = pl.concat([
-            iforest_flags.select("nces_school_id", "iforest_score", "detection_method"),
-            zscore_flags.select(
-                "nces_school_id",
-                pl.col("zscore_worst").alias("iforest_score"),
-                "detection_method",
-            ),
-        ]).unique(subset=["nces_school_id"], keep="first")
+        combined: pl.DataFrame = pl.concat(
+            [
+                iforest_flags.select("nces_school_id", "iforest_score", "detection_method"),
+                zscore_flags.select(
+                    "nces_school_id",
+                    pl.col("zscore_worst").alias("iforest_score"),
+                    "detection_method",
+                ),
+            ]
+        ).unique(subset=["nces_school_id"], keep="first")
 
         both_ids: set[str] = set(both["nces_school_id"].to_list())
         combined = combined.with_columns(
@@ -416,9 +403,7 @@ class AnomalyDetector:
         parts: list[str] = [f"{school}:"]
 
         pillar_scores: dict[str, float] = {
-            c: row[c]
-            for c in self._available_pillars
-            if row.get(c) is not None
+            c: row[c] for c in self._available_pillars if row.get(c) is not None
         }
         if pillar_scores:
             worst: str = min(pillar_scores, key=pillar_scores.get)  # type: ignore[arg-type]
@@ -436,9 +421,7 @@ class AnomalyDetector:
                 )
 
         changes: dict[str, float] = {
-            c: row[c]
-            for c in self._available_changes
-            if row.get(c) is not None
+            c: row[c] for c in self._available_changes if row.get(c) is not None
         }
         if changes:
             biggest: str = max(changes, key=lambda k: abs(changes[k]))
@@ -454,9 +437,7 @@ class AnomalyDetector:
 
         severity: str = str(row.get("severity", "unknown"))
         if severity == "both_methods":
-            parts.append(
-                "Flagged by both Isolation Forest and z-score — high confidence anomaly."
-            )
+            parts.append("Flagged by both Isolation Forest and z-score — high confidence anomaly.")
 
         if len(parts) <= 1:
             return f"{school}: Unusual score profile detected."

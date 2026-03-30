@@ -151,13 +151,15 @@ class DocumentIndexer:
 
                 doc_hash: str = hashlib.md5(full_text.encode()).hexdigest()[:12]
 
-                documents.append({
-                    "filename": pdf_path.name,
-                    "path": str(pdf_path),
-                    "text": full_text,
-                    "page_count": len(pages),
-                    "hash": doc_hash,
-                })
+                documents.append(
+                    {
+                        "filename": pdf_path.name,
+                        "path": str(pdf_path),
+                        "text": full_text,
+                        "page_count": len(pages),
+                        "hash": doc_hash,
+                    }
+                )
 
                 logger.info("pdf_loaded", file=pdf_path.name, pages=len(pages))
 
@@ -221,12 +223,14 @@ class DocumentIndexer:
                 continue
 
             chunks.append(chunk_text)
-            metadata.append({
-                "source": doc["filename"],
-                "chunk_index": i,
-                "doc_hash": doc["hash"],
-                "page_count": doc["page_count"],
-            })
+            metadata.append(
+                {
+                    "source": doc["filename"],
+                    "chunk_index": i,
+                    "doc_hash": doc["hash"],
+                    "page_count": doc["page_count"],
+                }
+            )
 
         return chunks, metadata
 
@@ -251,9 +255,7 @@ class DocumentIndexer:
                 input=batch,
             )
 
-            batch_embeddings: list[list[float]] = [
-                item.embedding for item in response.data
-            ]
+            batch_embeddings: list[list[float]] = [item.embedding for item in response.data]
             all_embeddings.extend(batch_embeddings)
 
             if response.usage:

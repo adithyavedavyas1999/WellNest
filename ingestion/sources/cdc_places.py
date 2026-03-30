@@ -55,6 +55,7 @@ MEASURES_OF_INTEREST = [
 
 class PlacesRecord(BaseModel):
     """One CDC PLACES row (either county or tract level)."""
+
     year: int | None = None
     stateabbr: str = Field(..., min_length=2, max_length=2)
     statedesc: str | None = None
@@ -192,7 +193,11 @@ class CDCPlacesConnector:
                 dropped += 1
 
         if dropped > 0:
-            logger.warning("places_validation_dropped", count=dropped, pct=round(dropped / max(len(df), 1) * 100, 1))
+            logger.warning(
+                "places_validation_dropped",
+                count=dropped,
+                pct=round(dropped / max(len(df), 1) * 100, 1),
+            )
 
         return pl.DataFrame(good_rows, schema=df.schema) if good_rows else df.clear()
 

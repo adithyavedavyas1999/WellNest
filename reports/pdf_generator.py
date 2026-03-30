@@ -16,7 +16,7 @@ Color palette matches the dashboard:
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -28,12 +28,12 @@ logger = logging.getLogger("wellnest.reports.pdf")
 
 # WellNest brand palette
 COLORS: dict[str, tuple[int, int, int]] = {
-    "primary": (30, 58, 95),       # dark navy for headings
-    "accent": (46, 134, 171),      # #2E86AB
-    "critical": (199, 62, 29),     # #C73E1D
-    "at_risk": (241, 143, 1),      # #F18F01
-    "moderate": (46, 134, 171),    # #2E86AB
-    "thriving": (59, 178, 115),    # #3BB273
+    "primary": (30, 58, 95),  # dark navy for headings
+    "accent": (46, 134, 171),  # #2E86AB
+    "critical": (199, 62, 29),  # #C73E1D
+    "at_risk": (241, 143, 1),  # #F18F01
+    "moderate": (46, 134, 171),  # #2E86AB
+    "thriving": (59, 178, 115),  # #3BB273
     "white": (255, 255, 255),
     "light_gray": (240, 240, 240),
     "dark_text": (33, 37, 41),
@@ -137,8 +137,9 @@ class CountyReportGenerator:
             session.close()
 
     def _fetch_county(self, db: Session, fips: str) -> dict[str, Any]:
-        row = db.execute(
-            text("""
+        row = (
+            db.execute(
+                text("""
                 SELECT
                     c.county_fips AS fips,
                     c.county_name,
@@ -162,16 +163,20 @@ class CountyReportGenerator:
                 FROM gold.county_summary c
                 WHERE c.county_fips = :fips
             """),
-            {"fips": fips},
-        ).mappings().first()
+                {"fips": fips},
+            )
+            .mappings()
+            .first()
+        )
 
         if not row:
             raise ValueError(f"County {fips} not found in gold.county_summary")
         return dict(row)
 
     def _fetch_schools(self, db: Session, fips: str) -> list[dict[str, Any]]:
-        rows = db.execute(
-            text("""
+        rows = (
+            db.execute(
+                text("""
                 SELECT
                     s.nces_school_id AS nces_id,
                     s.school_name,
@@ -187,13 +192,17 @@ class CountyReportGenerator:
                 ORDER BY s.wellbeing_score ASC
                 LIMIT 50
             """),
-            {"fips": fips},
-        ).mappings().all()
+                {"fips": fips},
+            )
+            .mappings()
+            .all()
+        )
         return [dict(r) for r in rows]
 
     def _fetch_resource_gaps(self, db: Session, fips: str) -> list[dict[str, Any]]:
-        rows = db.execute(
-            text("""
+        rows = (
+            db.execute(
+                text("""
                 SELECT
                     g.school_name,
                     g.weakest_pillar,
@@ -206,21 +215,28 @@ class CountyReportGenerator:
                 ORDER BY g.gap_count DESC, g.pillar_spread DESC
                 LIMIT 20
             """),
-            {"fips": fips},
-        ).mappings().all()
+                {"fips": fips},
+            )
+            .mappings()
+            .all()
+        )
         return [dict(r) for r in rows]
 
     def _fetch_ai_brief(self, db: Session, fips: str) -> str | None:
-        row = db.execute(
-            text("""
+        row = (
+            db.execute(
+                text("""
                 SELECT brief_text
                 FROM gold.county_ai_briefs
                 WHERE county_fips = :fips
                 ORDER BY generated_at DESC
                 LIMIT 1
             """),
-            {"fips": fips},
-        ).mappings().first()
+                {"fips": fips},
+            )
+            .mappings()
+            .first()
+        )
         return row["brief_text"] if row else None
 
     # ------------------------------------------------------------------
@@ -278,8 +294,12 @@ class CountyReportGenerator:
         stats = [
             ("Schools", str(c.get("school_count", "N/A"))),
             ("Population", f"{c['population']:,}" if c.get("population") else "N/A"),
-            ("National Rank", f"#{c['national_rank']} of {c['total_counties']}"
-             if c.get("national_rank") else "N/A"),
+            (
+                "National Rank",
+                f"#{c['national_rank']} of {c['total_counties']}"
+                if c.get("national_rank")
+                else "N/A",
+            ),
         ]
         for stat_label, stat_val in stats:
             pdf.cell(60, 7, f"{stat_label}: {stat_val}")
@@ -338,8 +358,9 @@ class CountyReportGenerator:
             f"At Risk: {c.get('at_risk_count', 0)}",
             f"Critical: {c.get('critical_count', 0)}",
         ]
-        pdf.cell(0, 6, "School distribution:  " + "  |  ".join(dist_parts),
-                 new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(
+            0, 6, "School distribution:  " + "  |  ".join(dist_parts), new_x="LMARGIN", new_y="NEXT"
+        )
         pdf.ln(6)
 
     def _add_schools_table(self) -> None:
@@ -359,7 +380,7 @@ class CountyReportGenerator:
         pdf.set_text_color(*COLORS["white"])
         col_widths = [60, 22, 22, 22, 22, 22, 20]
         headers = ["School", "Score", "Edu", "Health", "Env", "Safety", "Enroll"]
-        for w, h in zip(col_widths, headers):
+        for w, h in zip(col_widths, headers, strict=False):
             pdf.cell(w, 7, h, border=1, fill=True, align="C")
         pdf.ln()
 
@@ -384,20 +405,35 @@ class CountyReportGenerator:
             pdf.cell(col_widths[1], 6, _fmt(score_val), border=1, fill=fill, align="C")
             pdf.set_text_color(*COLORS["dark_text"])
 
-            for idx, key in enumerate(["education_score", "health_score",
-                                        "environment_score", "safety_score"]):
-                pdf.cell(col_widths[idx + 2], 6, _fmt(school.get(key)),
-                         border=1, fill=fill, align="C")
+            for idx, key in enumerate(
+                ["education_score", "health_score", "environment_score", "safety_score"]
+            ):
+                pdf.cell(
+                    col_widths[idx + 2], 6, _fmt(school.get(key)), border=1, fill=fill, align="C"
+                )
 
             enroll = school.get("enrollment")
             enroll_str = f"{enroll:,}" if enroll else "N/A"
-            pdf.cell(col_widths[6], 6, enroll_str, border=1, fill=fill,
-                     align="C", new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(
+                col_widths[6],
+                6,
+                enroll_str,
+                border=1,
+                fill=fill,
+                align="C",
+                new_x="LMARGIN",
+                new_y="NEXT",
+            )
 
         if len(self._schools) > 15:
             pdf.set_font("Helvetica", "I", 8)
-            pdf.cell(0, 6, f"... and {len(self._schools) - 15} more schools",
-                     new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(
+                0,
+                6,
+                f"... and {len(self._schools) - 15} more schools",
+                new_x="LMARGIN",
+                new_y="NEXT",
+            )
         pdf.ln(6)
 
     def _add_resource_gaps(self) -> None:
@@ -412,9 +448,13 @@ class CountyReportGenerator:
         pdf.ln(2)
 
         pdf.set_font("Helvetica", "", 9)
-        pdf.cell(0, 6,
-                 f"{self._county.get('schools_with_gaps', 0)} schools with identified resource gaps",
-                 new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(
+            0,
+            6,
+            f"{self._county.get('schools_with_gaps', 0)} schools with identified resource gaps",
+            new_x="LMARGIN",
+            new_y="NEXT",
+        )
         pdf.ln(2)
 
         # table header
@@ -423,7 +463,7 @@ class CountyReportGenerator:
         pdf.set_text_color(*COLORS["white"])
         gap_widths = [55, 30, 20, 25, 30]
         gap_headers = ["School", "Weakest Pillar", "Gaps", "Spread", "Priority"]
-        for w, h in zip(gap_widths, gap_headers):
+        for w, h in zip(gap_widths, gap_headers, strict=False):
             pdf.cell(w, 7, h, border=1, fill=True, align="C")
         pdf.ln()
 
@@ -439,12 +479,15 @@ class CountyReportGenerator:
 
             name = str(gap.get("school_name", ""))[:30]
             pdf.cell(gap_widths[0], 6, name, border=1, fill=fill)
-            pdf.cell(gap_widths[1], 6, str(gap.get("weakest_pillar", "")),
-                     border=1, fill=fill, align="C")
-            pdf.cell(gap_widths[2], 6, str(gap.get("gap_count", "")),
-                     border=1, fill=fill, align="C")
-            pdf.cell(gap_widths[3], 6, _fmt(gap.get("pillar_spread")),
-                     border=1, fill=fill, align="C")
+            pdf.cell(
+                gap_widths[1], 6, str(gap.get("weakest_pillar", "")), border=1, fill=fill, align="C"
+            )
+            pdf.cell(
+                gap_widths[2], 6, str(gap.get("gap_count", "")), border=1, fill=fill, align="C"
+            )
+            pdf.cell(
+                gap_widths[3], 6, _fmt(gap.get("pillar_spread")), border=1, fill=fill, align="C"
+            )
 
             priority = str(gap.get("intervention_priority", ""))
             if priority == "High Priority":
@@ -453,8 +496,16 @@ class CountyReportGenerator:
                 pdf.set_text_color(*COLORS["critical"])
             else:
                 pdf.set_text_color(*COLORS["dark_text"])
-            pdf.cell(gap_widths[4], 6, priority, border=1, fill=fill,
-                     align="C", new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(
+                gap_widths[4],
+                6,
+                priority,
+                border=1,
+                fill=fill,
+                align="C",
+                new_x="LMARGIN",
+                new_y="NEXT",
+            )
             pdf.set_text_color(*COLORS["dark_text"])
 
         pdf.ln(6)
@@ -472,7 +523,7 @@ class CountyReportGenerator:
 
         # light background box for the brief
         pdf.set_fill_color(248, 249, 250)
-        y_before = pdf.get_y()
+        pdf.get_y()
         pdf.set_font("Helvetica", "", 9)
 
         brief_clean = self._brief.replace("**", "").replace("##", "").strip()
@@ -490,13 +541,19 @@ class CountyReportGenerator:
 
         pdf.set_font("Helvetica", "I", 7)
         pdf.set_text_color(*COLORS["muted_text"])
-        timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-        pdf.cell(0, 5, f"Generated by WellNest on {timestamp}", new_x="LMARGIN", new_y="NEXT",
-                 align="L")
-        pdf.cell(0, 5,
-                 "Data sources: NCES CCD/EDGE, CDC PLACES, Census ACS, EPA AQS, "
-                 "HRSA HPSA/MUA, USDA Food Access, FEMA NRI, FBI UCR",
-                 new_x="LMARGIN", new_y="NEXT", align="L")
+        timestamp = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
+        pdf.cell(
+            0, 5, f"Generated by WellNest on {timestamp}", new_x="LMARGIN", new_y="NEXT", align="L"
+        )
+        pdf.cell(
+            0,
+            5,
+            "Data sources: NCES CCD/EDGE, CDC PLACES, Census ACS, EPA AQS, "
+            "HRSA HPSA/MUA, USDA Food Access, FEMA NRI, FBI UCR",
+            new_x="LMARGIN",
+            new_y="NEXT",
+            align="L",
+        )
         pdf.set_text_color(*COLORS["dark_text"])
 
     # ------------------------------------------------------------------

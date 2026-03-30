@@ -17,7 +17,6 @@ Quirks we've hit:
 
 from __future__ import annotations
 
-import os
 import tempfile
 import zipfile
 from pathlib import Path
@@ -58,8 +57,10 @@ KEEP_SCHOOL_TYPES = {1, 2, 3, 4}  # regular, special-ed, vocational, alternative
 # Pydantic models
 # ------------------------------------------------------------------
 
+
 class CCDSchoolRecord(BaseModel):
     """Validated representation of a single CCD school row."""
+
     ncessch: str = Field(..., min_length=12, max_length=12)
     school_name: str
     lea_name: str | None = None
@@ -191,11 +192,25 @@ class NCESCCDConnector:
         df = self._normalize_columns(df)
 
         # keep only the columns we care about
-        keep = [c for c in [
-            "ncessch", "school_name", "lea_name", "state_abbr", "state_fips",
-            "county_fips", "latitude", "longitude", "school_type", "enrollment",
-            "free_reduced_lunch", "title_i_status", "school_level",
-        ] if c in df.columns]
+        keep = [
+            c
+            for c in [
+                "ncessch",
+                "school_name",
+                "lea_name",
+                "state_abbr",
+                "state_fips",
+                "county_fips",
+                "latitude",
+                "longitude",
+                "school_type",
+                "enrollment",
+                "free_reduced_lunch",
+                "title_i_status",
+                "school_level",
+            ]
+            if c in df.columns
+        ]
         df = df.select(keep)
 
         # cast types -- CCD loves mixing int/string in the same column

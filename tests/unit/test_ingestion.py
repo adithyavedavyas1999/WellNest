@@ -11,17 +11,15 @@ import time
 from unittest.mock import MagicMock, patch
 
 import pytest
-import requests
 
 from ingestion.utils.http_client import RateLimiter, WellNestHTTPClient
-
 
 # ---------------------------------------------------------------------------
 # RateLimiter
 # ---------------------------------------------------------------------------
 
-class TestRateLimiter:
 
+class TestRateLimiter:
     def test_first_call_doesnt_wait(self) -> None:
         limiter = RateLimiter(calls_per_second=2.0)
         start = time.monotonic()
@@ -42,8 +40,8 @@ class TestRateLimiter:
 # WellNestHTTPClient
 # ---------------------------------------------------------------------------
 
-class TestHTTPClient:
 
+class TestHTTPClient:
     def test_get_json_returns_parsed(self) -> None:
         with patch("requests.Session.get") as mock_get:
             mock_resp = MagicMock()
@@ -94,8 +92,8 @@ class TestHTTPClient:
 # CDC PLACES cleaning
 # ---------------------------------------------------------------------------
 
-class TestCDCPlacesCleaning:
 
+class TestCDCPlacesCleaning:
     def test_trailing_whitespace_stripped(self) -> None:
         """CDC PLACES has trailing whitespace in ~15% of county names."""
         from ingestion.sources.cdc_places import PlacesRecord
@@ -149,8 +147,8 @@ class TestCDCPlacesCleaning:
 # Census ACS sentinel handling
 # ---------------------------------------------------------------------------
 
-class TestCensusACSCleaning:
 
+class TestCensusACSCleaning:
     def test_sentinel_value_replaced(self) -> None:
         """The Census API returns -666666666 for missing/suppressed values.
         This is documented nowhere obvious — found it on a forum post."""
@@ -160,14 +158,16 @@ class TestCensusACSCleaning:
 
         connector = CensusACSConnector(api_key="fake", year=2022)
 
-        df = pl.DataFrame({
-            "state": ["17"],
-            "county": ["031"],
-            "tract": ["842100"],
-            "B17001_001E": [str(CENSUS_MISSING_VALUE)],
-            "B17001_002E": ["1500"],
-            "B01003_001E": ["50000"],
-        })
+        df = pl.DataFrame(
+            {
+                "state": ["17"],
+                "county": ["031"],
+                "tract": ["842100"],
+                "B17001_001E": [str(CENSUS_MISSING_VALUE)],
+                "B17001_002E": ["1500"],
+                "B01003_001E": ["50000"],
+            }
+        )
 
         result = connector.transform(df)
         if "poverty_universe" in result.columns:
@@ -181,12 +181,14 @@ class TestCensusACSCleaning:
 
         connector = CensusACSConnector(api_key="fake", year=2022)
 
-        df = pl.DataFrame({
-            "state": ["17"],
-            "county": ["031"],
-            "tract": ["842100"],
-            "B01003_001E": ["50000"],
-        })
+        df = pl.DataFrame(
+            {
+                "state": ["17"],
+                "county": ["031"],
+                "tract": ["842100"],
+                "B01003_001E": ["50000"],
+            }
+        )
 
         result = connector.transform(df)
         assert "state_fips" in result.columns
@@ -203,12 +205,14 @@ class TestCensusACSCleaning:
         from ingestion.sources.census_acs import CensusACSConnector
 
         connector = CensusACSConnector(api_key="fake", year=2022)
-        df = pl.DataFrame({
-            "state": ["17"],
-            "county": ["031"],
-            "tract": ["842100"],
-            "B19013_001E": [str(sentinel)],
-        })
+        df = pl.DataFrame(
+            {
+                "state": ["17"],
+                "county": ["031"],
+                "tract": ["842100"],
+                "B19013_001E": [str(sentinel)],
+            }
+        )
         result = connector.transform(df)
         if "median_hh_income" in result.columns:
             val = result["median_hh_income"][0]
@@ -219,8 +223,8 @@ class TestCensusACSCleaning:
 # FIPS formatting
 # ---------------------------------------------------------------------------
 
-class TestFIPSFormatting:
 
+class TestFIPSFormatting:
     def test_integer_state_fips_zero_padded(self) -> None:
         from ingestion.utils.geo_utils import format_fips
 

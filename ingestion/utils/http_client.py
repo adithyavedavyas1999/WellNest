@@ -145,9 +145,7 @@ class WellNestHTTPClient:
         resp.raise_for_status()
         return io.BytesIO(resp.content)
 
-    def download_file(
-        self, url: str, dest: Path, chunk_size: int = 8192
-    ) -> Path:
+    def download_file(self, url: str, dest: Path, chunk_size: int = 8192) -> Path:
         """Stream a large file to disk.  Used for NCES zips, FEMA CSVs, etc."""
         self.limiter.wait()
         logger.info("downloading_file", url=url, dest=str(dest))
@@ -155,7 +153,7 @@ class WellNestHTTPClient:
 
         with self.session.get(url, stream=True, timeout=self.timeout) as resp:
             resp.raise_for_status()
-            total = int(resp.headers.get("content-length", 0))
+            int(resp.headers.get("content-length", 0))
             downloaded = 0
             with open(dest, "wb") as fh:
                 for chunk in resp.iter_content(chunk_size=chunk_size):

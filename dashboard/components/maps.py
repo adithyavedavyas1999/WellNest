@@ -10,8 +10,6 @@ files. We load them from a CDN GeoJSON to avoid shipping a 30MB file.
 
 from __future__ import annotations
 
-from typing import Optional
-
 import folium
 import pandas as pd
 from folium.plugins import MarkerCluster

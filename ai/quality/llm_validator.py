@@ -36,7 +36,7 @@ from __future__ import annotations
 import json
 import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import polars as pl
@@ -216,9 +216,7 @@ class LLMValidator:
                 samples.append(extremes.sample(n=n, seed=42))
 
         # large YoY changes — check whichever columns exist
-        yoy_cols: list[str] = [
-            c for c in df.columns if c.endswith("_yoy_change")
-        ]
+        yoy_cols: list[str] = [c for c in df.columns if c.endswith("_yoy_change")]
         if yoy_cols:
             yoy_filter = pl.lit(False)
             for col in yoy_cols:
@@ -231,17 +229,23 @@ class LLMValidator:
 
         # inconsistent composite vs pillar scores
         pillar_cols: list[str] = [
-            c for c in ["education_score", "health_score", "environment_score",
-                        "safety_score", "economic_score"]
+            c
+            for c in [
+                "education_score",
+                "health_score",
+                "environment_score",
+                "safety_score",
+                "economic_score",
+            ]
             if c in df.columns
         ]
         if pillar_cols and "wellbeing_score" in df.columns:
             pillar_mean_expr = pl.mean_horizontal(*[pl.col(c) for c in pillar_cols])
-            inconsistent: pl.DataFrame = df.with_columns(
-                pillar_mean_expr.alias("_pillar_avg")
-            ).filter(
-                (pl.col("wellbeing_score") - pl.col("_pillar_avg")).abs() > 20
-            ).drop("_pillar_avg")
+            inconsistent: pl.DataFrame = (
+                df.with_columns(pillar_mean_expr.alias("_pillar_avg"))
+                .filter((pl.col("wellbeing_score") - pl.col("_pillar_avg")).abs() > 20)
+                .drop("_pillar_avg")
+            )
 
             if not inconsistent.is_empty():
                 n = min(total_needed // 4, len(inconsistent))
@@ -260,7 +264,9 @@ class LLMValidator:
         combined: pl.DataFrame = pl.concat(samples)
 
         # deduplicate (a record can be extreme AND have a large YoY change)
-        id_col: str = "nces_school_id" if "nces_school_id" in combined.columns else combined.columns[0]
+        id_col: str = (
+            "nces_school_id" if "nces_school_id" in combined.columns else combined.columns[0]
+        )
         combined = combined.unique(subset=[id_col])
 
         return combined.head(total_needed)
@@ -313,7 +319,7 @@ class LLMValidator:
         reviews: list[dict[str, Any]] = parsed.get("reviews", [])
 
         # attach timestamps and model info
-        now: str = datetime.now(timezone.utc).isoformat()
+        now: str = datetime.now(UTC).isoformat()
         for review in reviews:
             review["model"] = self._model
             review["reviewed_at"] = now
@@ -332,14 +338,16 @@ class LLMValidator:
         # flatten to a consistent schema for Polars
         rows: list[dict[str, Any]] = []
         for r in reviews:
-            rows.append({
-                "record_id": str(r.get("record_id", "")),
-                "verdict": r.get("verdict", "unknown"),
-                "confidence": float(r.get("confidence", 0.0)),
-                "reason": str(r.get("reason", "")),
-                "model": r.get("model", self._model),
-                "reviewed_at": r.get("reviewed_at", datetime.now(timezone.utc).isoformat()),
-            })
+            rows.append(
+                {
+                    "record_id": str(r.get("record_id", "")),
+                    "verdict": r.get("verdict", "unknown"),
+                    "confidence": float(r.get("confidence", 0.0)),
+                    "reason": str(r.get("reason", "")),
+                    "model": r.get("model", self._model),
+                    "reviewed_at": r.get("reviewed_at", datetime.now(UTC).isoformat()),
+                }
+            )
 
         df: pl.DataFrame = pl.DataFrame(rows)
 

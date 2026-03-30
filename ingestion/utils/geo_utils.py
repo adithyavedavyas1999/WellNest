@@ -27,6 +27,7 @@ EARTH_RADIUS_KM = 6371.0
 # Haversine
 # ------------------------------------------------------------------
 
+
 def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     """Great-circle distance in kilometers between two points.
 
@@ -73,6 +74,7 @@ def haversine_series(
 #   tract  = 6 digits  (e.g. "842100")
 #   full   = 11 digits (e.g. "17031842100")
 
+
 def format_fips(state: str | int, county: str | int, tract: str | int | None = None) -> str:
     """Build a zero-padded FIPS code from its parts.
 
@@ -118,9 +120,7 @@ def normalize_fips_column(df: pl.DataFrame, col: str, width: int = 5) -> pl.Data
     NCES files love storing FIPS as integers, which strips leading zeros.
     Connecticut's state FIPS is "09" but shows up as 9 in half our sources.
     """
-    return df.with_columns(
-        pl.col(col).cast(pl.Utf8).str.zfill(width).alias(col)
-    )
+    return df.with_columns(pl.col(col).cast(pl.Utf8).str.zfill(width).alias(col))
 
 
 # ------------------------------------------------------------------
@@ -169,7 +169,7 @@ def add_h3_column(
     """
     indices = [
         latlng_to_h3(lat, lng, resolution) if lat is not None and lng is not None else None
-        for lat, lng in zip(df[lat_col].to_list(), df[lng_col].to_list())
+        for lat, lng in zip(df[lat_col].to_list(), df[lng_col].to_list(), strict=False)
     ]
     return df.with_columns(pl.Series(name=output_col, values=indices))
 
@@ -181,9 +181,19 @@ def get_h3_resolution_for_area(target_area_km2: float) -> int:
     counties need coarser cells than dense urban areas.
     """
     res_areas = {
-        0: 4250546.848, 1: 607220.978, 2: 86745.854, 3: 12392.264,
-        4: 1770.324, 5: 252.903, 6: 36.129, 7: 5.161,
-        8: 0.737, 9: 0.105, 10: 0.015, 11: 0.002, 12: 0.0003,
+        0: 4250546.848,
+        1: 607220.978,
+        2: 86745.854,
+        3: 12392.264,
+        4: 1770.324,
+        5: 252.903,
+        6: 36.129,
+        7: 5.161,
+        8: 0.737,
+        9: 0.105,
+        10: 0.015,
+        11: 0.002,
+        12: 0.0003,
     }
     best_res = 0
     best_diff = abs(res_areas[0] - target_area_km2)
@@ -198,6 +208,7 @@ def get_h3_resolution_for_area(target_area_km2: float) -> int:
 # ------------------------------------------------------------------
 # Nearest-point lookup
 # ------------------------------------------------------------------
+
 
 def find_nearest(
     lat: float,
@@ -214,7 +225,7 @@ def find_nearest(
     """
     distances = [
         haversine(lat, lon, plat, plon)
-        for plat, plon in zip(points[lat_col].to_list(), points[lon_col].to_list())
+        for plat, plon in zip(points[lat_col].to_list(), points[lon_col].to_list(), strict=False)
     ]
     result = points.with_columns(pl.Series(name="distance_km", values=distances))
     return result.sort("distance_km").head(k)

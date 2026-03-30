@@ -9,8 +9,8 @@ from __future__ import annotations
 
 import math
 from datetime import datetime
-from enum import Enum
-from typing import Generic, Optional, TypeVar
+from enum import StrEnum
+from typing import Generic, TypeVar
 
 from pydantic import BaseModel, Field
 
@@ -21,14 +21,15 @@ T = TypeVar("T")
 # Enums
 # ---------------------------------------------------------------------------
 
-class ScoreCategory(str, Enum):
-    critical = "critical"      # 0-25
-    at_risk = "at_risk"        # 26-50
-    moderate = "moderate"      # 51-75
-    thriving = "thriving"      # 76-100
+
+class ScoreCategory(StrEnum):
+    critical = "critical"  # 0-25
+    at_risk = "at_risk"  # 26-50
+    moderate = "moderate"  # 51-75
+    thriving = "thriving"  # 76-100
 
 
-class Pillar(str, Enum):
+class Pillar(StrEnum):
     education = "education"
     health = "health"
     environment = "environment"
@@ -39,6 +40,7 @@ class Pillar(str, Enum):
 # Common building blocks
 # ---------------------------------------------------------------------------
 
+
 class GeoPoint(BaseModel):
     lat: float = Field(..., ge=-90, le=90)
     lon: float = Field(..., ge=-180, le=180)
@@ -46,6 +48,7 @@ class GeoPoint(BaseModel):
 
 class StateFilter(BaseModel):
     """Used in dropdown-style responses where we list available states."""
+
     code: str = Field(..., max_length=2, description="2-letter state code")
     name: str
     school_count: int
@@ -54,6 +57,7 @@ class StateFilter(BaseModel):
 # ---------------------------------------------------------------------------
 # Pagination wrapper
 # ---------------------------------------------------------------------------
+
 
 class PaginatedResponse(BaseModel, Generic[T]):
     items: list[T]
@@ -77,10 +81,11 @@ class PaginatedResponse(BaseModel, Generic[T]):
 # Error / health responses
 # ---------------------------------------------------------------------------
 
+
 class ErrorResponse(BaseModel):
     detail: str
     status_code: int = 400
-    timestamp: Optional[datetime] = None
+    timestamp: datetime | None = None
 
 
 class HealthResponse(BaseModel):

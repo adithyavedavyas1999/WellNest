@@ -15,9 +15,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import plotly.graph_objects as go
 import streamlit as st
 
-from dashboard.components.score_gauge import render_gauge, score_to_category
+from dashboard.components.score_gauge import render_gauge
 from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.cache import check_staleness, format_freshness
 from dashboard.utils.db import check_db_health, get_data_freshness, run_query
@@ -129,8 +130,7 @@ stats = run_query("""
 
 if stats.empty or stats.iloc[0]["total_schools"] == 0:
     st.warning(
-        "No data found in gold.child_wellbeing_score. "
-        "Run the pipeline first: `make run-dagster`"
+        "No data found in gold.child_wellbeing_score. Run the pipeline first: `make run-dagster`"
     )
     st.stop()
 
@@ -155,8 +155,6 @@ st.markdown("<br>", unsafe_allow_html=True)
 # ---------------------------------------------------------------------------
 
 st.subheader("Score Distribution")
-
-import plotly.graph_objects as go
 
 category_data = {
     "Critical (0-25)": int(s["critical_count"]),

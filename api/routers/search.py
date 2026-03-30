@@ -10,7 +10,7 @@ since the dbt model already has a btree on school_name.
 from __future__ import annotations
 
 import logging
-from typing import Annotated, Optional
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy import text
@@ -39,7 +39,7 @@ def search_schools(
     q: Annotated[str, Query(min_length=2, max_length=200, description="Search query")],
     db: Session = Depends(get_db),
     pagination: PaginationParams = Depends(),
-    state: Annotated[Optional[str], Query(max_length=2, description="Narrow by state")] = None,
+    state: Annotated[str | None, Query(max_length=2, description="Narrow by state")] = None,
 ) -> PaginatedResponse[SchoolSummary]:
     """
     Search schools by name, city, or state. We match against all three
@@ -47,9 +47,7 @@ def search_schools(
     """
     like_pattern = f"%{q}%"
 
-    where_clauses = [
-        "(s.school_name ILIKE :q OR s.city ILIKE :q OR s.state ILIKE :q)"
-    ]
+    where_clauses = ["(s.school_name ILIKE :q OR s.city ILIKE :q OR s.state ILIKE :q)"]
     params: dict = {"q": like_pattern}
 
     if state:
@@ -58,10 +56,13 @@ def search_schools(
 
     where = "WHERE " + " AND ".join(where_clauses)
 
-    total = db.execute(
-        text(f"SELECT count(*) FROM gold.child_wellbeing_score s {where}"),
-        params,
-    ).scalar() or 0
+    total = (
+        db.execute(
+            text(f"SELECT count(*) FROM gold.child_wellbeing_score s {where}"),
+            params,
+        ).scalar()
+        or 0
+    )
 
     query = f"""
         SELECT

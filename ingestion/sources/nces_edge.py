@@ -32,19 +32,17 @@ from ingestion.utils import (
     WellNestHTTPClient,
     ensure_schema,
     get_pg_url,
-    is_valid_latlon,
 )
 
 logger = structlog.get_logger(__name__)
 
 # URL for the EDGE public school geocode file (2022-23 vintage)
-EDGE_DOWNLOAD_URL = (
-    "https://nces.ed.gov/programs/edge/data/EDGE_GEOCODE_PUBLICSCH_2223.zip"
-)
+EDGE_DOWNLOAD_URL = "https://nces.ed.gov/programs/edge/data/EDGE_GEOCODE_PUBLICSCH_2223.zip"
 
 
 class EdgeSchoolLocation(BaseModel):
     """Validated EDGE school location record."""
+
     ncessch: str = Field(..., min_length=12, max_length=12)
     latitude: float | None = None
     longitude: float | None = None
@@ -130,43 +128,62 @@ class NCESEdgeConnector:
                 renames[col] = col_map[uc]
         df = df.rename(renames)
 
-        keep = [c for c in [
-            "ncessch", "latitude", "longitude", "street_address",
-            "city", "state", "zip_code", "county_name", "county_fips",
-            "locale_code",
-        ] if c in df.columns]
+        keep = [
+            c
+            for c in [
+                "ncessch",
+                "latitude",
+                "longitude",
+                "street_address",
+                "city",
+                "state",
+                "zip_code",
+                "county_name",
+                "county_fips",
+                "locale_code",
+            ]
+            if c in df.columns
+        ]
         df = df.select(keep)
 
         # cast and clean
-        df = df.with_columns([
-            pl.col("ncessch").cast(pl.Utf8).str.zfill(12),
-            pl.col("latitude").cast(pl.Float64, strict=False),
-            pl.col("longitude").cast(pl.Float64, strict=False),
-        ])
+        df = df.with_columns(
+            [
+                pl.col("ncessch").cast(pl.Utf8).str.zfill(12),
+                pl.col("latitude").cast(pl.Float64, strict=False),
+                pl.col("longitude").cast(pl.Float64, strict=False),
+            ]
+        )
 
         # null out obviously bad coordinates (0,0 or outside US bounds)
-        df = df.with_columns([
-            pl.when(
-                (pl.col("latitude") == 0.0)
-                | (pl.col("latitude").is_null())
-                | (pl.col("latitude") < 17.0)
-                | (pl.col("latitude") > 72.0)
-            ).then(None).otherwise(pl.col("latitude")).alias("latitude"),
-            pl.when(
-                (pl.col("longitude") == 0.0)
-                | (pl.col("longitude").is_null())
-                | (pl.col("longitude") > -65.0)
-            ).then(None).otherwise(pl.col("longitude")).alias("longitude"),
-        ])
+        df = df.with_columns(
+            [
+                pl.when(
+                    (pl.col("latitude") == 0.0)
+                    | (pl.col("latitude").is_null())
+                    | (pl.col("latitude") < 17.0)
+                    | (pl.col("latitude") > 72.0)
+                )
+                .then(None)
+                .otherwise(pl.col("latitude"))
+                .alias("latitude"),
+                pl.when(
+                    (pl.col("longitude") == 0.0)
+                    | (pl.col("longitude").is_null())
+                    | (pl.col("longitude") > -65.0)
+                )
+                .then(None)
+                .otherwise(pl.col("longitude"))
+                .alias("longitude"),
+            ]
+        )
 
         null_coords = df.filter(pl.col("latitude").is_null()).height
         if null_coords > 0:
             logger.warning("edge_null_coords", count=null_coords)
 
         if "county_fips" in df.columns:
-            df = df.with_columns(
-                pl.col("county_fips").cast(pl.Utf8).str.zfill(5)
-            )
+            df = df.with_columns(pl.col("county_fips").cast(pl.Utf8).str.zfill(5))
 
         return df
 

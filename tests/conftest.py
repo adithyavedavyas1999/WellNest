@@ -14,17 +14,18 @@ from __future__ import annotations
 
 import os
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Any, Generator
+from typing import Any
 from unittest.mock import MagicMock, patch
 
 import pytest
 from fastapi.testclient import TestClient
 
-
 # ---------------------------------------------------------------------------
 # Database fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture()
 def mock_db_session() -> MagicMock:
@@ -53,6 +54,7 @@ def db_url() -> str:
 # ---------------------------------------------------------------------------
 # Sample data fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture()
 def sample_school_row() -> dict[str, Any]:
@@ -146,6 +148,7 @@ def sample_school_list(sample_school_row: dict[str, Any]) -> list[dict[str, Any]
 # API test client
 # ---------------------------------------------------------------------------
 
+
 @pytest.fixture()
 def api_client(mock_db_session: MagicMock) -> Generator[TestClient, None, None]:
     """FastAPI TestClient with the DB dependency overridden to use our mock."""
@@ -164,6 +167,7 @@ def api_client(mock_db_session: MagicMock) -> Generator[TestClient, None, None]:
 # ---------------------------------------------------------------------------
 # Mock OpenAI
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture()
 def mock_openai() -> Generator[MagicMock, None, None]:
@@ -189,6 +193,7 @@ def mock_openai() -> Generator[MagicMock, None, None]:
 # ---------------------------------------------------------------------------
 # Temp directory for file outputs
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture()
 def tmp_output_dir() -> Generator[Path, None, None]:

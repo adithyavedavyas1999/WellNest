@@ -10,8 +10,9 @@ from __future__ import annotations
 
 import logging
 import time
-from datetime import datetime, timezone
-from typing import Any, Callable, Optional
+from collections.abc import Callable
+from datetime import UTC, datetime
+from typing import Any
 
 import streamlit as st
 
@@ -40,7 +41,7 @@ class TTLCache:
             st.session_state[self._state_key] = {}
         return st.session_state[self._state_key]
 
-    def get(self, key: str) -> Optional[Any]:
+    def get(self, key: str) -> Any | None:
         entry = self._store.get(key)
         if entry is None:
             return None
@@ -61,14 +62,14 @@ class TTLCache:
         self.set(key, value)
         return value
 
-    def invalidate(self, key: Optional[str] = None) -> None:
+    def invalidate(self, key: str | None = None) -> None:
         if key is None:
             st.session_state[self._state_key] = {}
         elif key in self._store:
             del self._store[key]
 
 
-def format_freshness(timestamp_str: Optional[str]) -> str:
+def format_freshness(timestamp_str: str | None) -> str:
     """
     Turn a timestamp into a human-friendly "X ago" string.
 
@@ -81,8 +82,8 @@ def format_freshness(timestamp_str: Optional[str]) -> str:
     try:
         ts = datetime.fromisoformat(str(timestamp_str).replace("Z", "+00:00"))
         if ts.tzinfo is None:
-            ts = ts.replace(tzinfo=timezone.utc)
-        now = datetime.now(timezone.utc)
+            ts = ts.replace(tzinfo=UTC)
+        now = datetime.now(UTC)
         delta = now - ts
 
         seconds = int(delta.total_seconds())
@@ -101,7 +102,7 @@ def format_freshness(timestamp_str: Optional[str]) -> str:
         return "Unknown"
 
 
-def check_staleness(timestamp_str: Optional[str], threshold_hours: int = 48) -> bool:
+def check_staleness(timestamp_str: str | None, threshold_hours: int = 48) -> bool:
     """
     Returns True if data is older than threshold_hours.
     Used to show a warning banner when the pipeline hasn't run recently.
@@ -111,8 +112,8 @@ def check_staleness(timestamp_str: Optional[str], threshold_hours: int = 48) -> 
     try:
         ts = datetime.fromisoformat(str(timestamp_str).replace("Z", "+00:00"))
         if ts.tzinfo is None:
-            ts = ts.replace(tzinfo=timezone.utc)
-        age_hours = (datetime.now(timezone.utc) - ts).total_seconds() / 3600
+            ts = ts.replace(tzinfo=UTC)
+        age_hours = (datetime.now(UTC) - ts).total_seconds() / 3600
         return age_hours > threshold_hours
     except (ValueError, TypeError):
         return True

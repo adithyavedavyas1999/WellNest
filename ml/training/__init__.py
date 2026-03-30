@@ -7,8 +7,8 @@ from ml.training.train_proficiency_predictor import (
 )
 
 __all__: list[str] = [
-    "ProficiencyTrainer",
-    "TrainingResult",
     "AnomalyDetector",
     "AnomalyResult",
+    "ProficiencyTrainer",
+    "TrainingResult",
 ]

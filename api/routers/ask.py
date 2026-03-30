@@ -13,8 +13,7 @@ showing a "RAG unavailable" message.
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
-from typing import Optional
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
@@ -42,9 +41,9 @@ class AskRequest(BaseModel):
 
 class Source(BaseModel):
     document: str
-    page: Optional[int] = None
+    page: int | None = None
     chunk_text: str = Field(..., description="Relevant excerpt from the source document")
-    relevance_score: Optional[float] = None
+    relevance_score: float | None = None
 
 
 class AskResponse(BaseModel):
@@ -83,7 +82,9 @@ def _load_rag_chain(settings: Settings):
         # FAISS index lives on disk — built by ai/rag/indexer.py
         faiss_path = "ai/rag/faiss_index"
         vectorstore = FAISS.load_local(
-            faiss_path, embeddings, allow_dangerous_deserialization=True,
+            faiss_path,
+            embeddings,
+            allow_dangerous_deserialization=True,
         )
 
         llm = ChatOpenAI(
@@ -132,17 +133,19 @@ def ask_wellnest(
     sources = []
     for doc in source_docs[: body.max_sources]:
         meta = doc.metadata or {}
-        sources.append(Source(
-            document=meta.get("source", "unknown"),
-            page=meta.get("page"),
-            chunk_text=doc.page_content[:500],
-            relevance_score=meta.get("score"),
-        ))
+        sources.append(
+            Source(
+                document=meta.get("source", "unknown"),
+                page=meta.get("page"),
+                chunk_text=doc.page_content[:500],
+                relevance_score=meta.get("score"),
+            )
+        )
 
     return AskResponse(
         question=body.question,
         answer=answer_text,
         sources=sources,
         model=settings.openai_model,
-        responded_at=datetime.now(timezone.utc),
+        responded_at=datetime.now(UTC),
     )

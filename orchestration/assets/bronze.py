@@ -13,30 +13,32 @@ Partitioning strategy:
   - Daily-granularity: NOAA NWS alerts (ephemeral, appended each run)
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import structlog
-from dagster import MaterializeResult, MetadataValue, OpExecutionContext, StaticPartitionsDefinition, asset
+from dagster import (
+    MaterializeResult,
+    MetadataValue,
+    OpExecutionContext,
+    StaticPartitionsDefinition,
+    asset,
+)
 
-from orchestration.resources import HttpClientResource, PostgresResource, WellNestConfig
+from orchestration.resources import PostgresResource
 
 logger = structlog.get_logger(__name__)
 
 # year partitions for sources that publish annual releases
-SURVEY_YEAR_PARTITIONS = StaticPartitionsDefinition(
-    ["2020-21", "2021-22", "2022-23"]
-)
-CALENDAR_YEAR_PARTITIONS = StaticPartitionsDefinition(
-    ["2020", "2021", "2022", "2023"]
-)
+SURVEY_YEAR_PARTITIONS = StaticPartitionsDefinition(["2020-21", "2021-22", "2022-23"])
+CALENDAR_YEAR_PARTITIONS = StaticPartitionsDefinition(["2020", "2021", "2022", "2023"])
 
 BRONZE_GROUP = "bronze"
 BRONZE_TAGS = {"layer": "bronze", "pipeline": "ingestion"}
 
 
 def _run_timestamp() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _bronze_metadata(row_count: int, source: str, **extra: Any) -> dict[str, Any]:
@@ -53,6 +55,7 @@ def _bronze_metadata(row_count: int, source: str, **extra: Any) -> dict[str, Any
 # ---------------------------------------------------------------------------
 # NCES Common Core of Data (school directory)
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=BRONZE_GROUP,
@@ -82,6 +85,7 @@ def bronze_nces_ccd(context: OpExecutionContext, postgres: PostgresResource) -> 
 # NCES EDGE (geocoded school locations)
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=BRONZE_GROUP,
     tags=BRONZE_TAGS,
@@ -105,6 +109,7 @@ def bronze_nces_edge(context: OpExecutionContext, postgres: PostgresResource) ->
 # CDC PLACES (health indicators by county/tract)
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=BRONZE_GROUP,
     tags=BRONZE_TAGS,
@@ -127,6 +132,7 @@ def bronze_cdc_places(context: OpExecutionContext, postgres: PostgresResource) -
 # ---------------------------------------------------------------------------
 # CDC Environmental Health Tracking
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=BRONZE_GROUP,
@@ -152,6 +158,7 @@ def bronze_cdc_env_health(
 # ---------------------------------------------------------------------------
 # Census ACS 5-year estimates
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=BRONZE_GROUP,
@@ -181,6 +188,7 @@ def bronze_census_acs(context: OpExecutionContext, postgres: PostgresResource) -
 # EPA AirNow / AQS air quality
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=BRONZE_GROUP,
     tags=BRONZE_TAGS,
@@ -203,6 +211,7 @@ def bronze_epa_airnow(context: OpExecutionContext, postgres: PostgresResource) -
 # ---------------------------------------------------------------------------
 # HRSA Health Professional Shortage Areas
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=BRONZE_GROUP,
@@ -227,6 +236,7 @@ def bronze_hrsa_hpsa(context: OpExecutionContext, postgres: PostgresResource) ->
 # HRSA Medically Underserved Areas
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=BRONZE_GROUP,
     tags=BRONZE_TAGS,
@@ -249,6 +259,7 @@ def bronze_hrsa_mua(context: OpExecutionContext, postgres: PostgresResource) -> 
 # ---------------------------------------------------------------------------
 # USDA Food Access Research Atlas
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=BRONZE_GROUP,
@@ -275,6 +286,7 @@ def bronze_usda_food_access(
 # FEMA National Risk Index
 # ---------------------------------------------------------------------------
 
+
 @asset(
     group_name=BRONZE_GROUP,
     tags=BRONZE_TAGS,
@@ -297,6 +309,7 @@ def bronze_fema_nri(context: OpExecutionContext, postgres: PostgresResource) -> 
 # ---------------------------------------------------------------------------
 # NOAA NWS weather alerts
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=BRONZE_GROUP,
@@ -326,6 +339,7 @@ def bronze_noaa_nws_alerts(
 # ---------------------------------------------------------------------------
 # FBI UCR / Crime Data Explorer
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=BRONZE_GROUP,

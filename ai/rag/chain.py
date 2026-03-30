@@ -14,7 +14,7 @@ Less magic, more debuggable.
 
 Token budget per query:
   - System prompt: ~200 tokens
-  - Retrieved context (5 chunks × ~200 tokens): ~1,000 tokens
+  - Retrieved context (5 chunks x ~200 tokens): ~1,000 tokens
   - User question: ~50 tokens
   - Response: ~300 tokens
   Total: ~1,550 tokens per query ≈ $0.0002 at gpt-4o-mini pricing
@@ -25,7 +25,7 @@ Token budget per query:
 from __future__ import annotations
 
 import os
-from typing import Any
+from typing import Any, cast
 
 import structlog
 from openai import OpenAI
@@ -97,9 +97,7 @@ class WellNestQA:
             max_retries=2,
         )
 
-        self._retriever: PolicyRetriever = retriever or PolicyRetriever(
-            api_key=resolved_key
-        )
+        self._retriever: PolicyRetriever = retriever or PolicyRetriever(api_key=resolved_key)
 
     # ------------------------------------------------------------------
     # public API
@@ -117,15 +115,13 @@ class WellNestQA:
                 "usage": {"prompt_tokens": ..., "completion_tokens": ...},
             }
         """
-        retrieved: list[RetrievalResult] = self._retriever.search(
-            question, top_k=self._top_k
-        )
+        retrieved: list[RetrievalResult] = self._retriever.search(question, top_k=self._top_k)
 
         messages: list[dict[str, str]] = self._build_chain(question, retrieved)
 
         response = self._client.chat.completions.create(
             model=self._model,
-            messages=messages,
+            messages=cast(Any, messages),
             temperature=self._temperature,
             max_tokens=800,
         )
@@ -174,12 +170,14 @@ class WellNestQA:
         to explicitly tell it to.
         """
         context_parts: list[str] = []
-        for i, chunk in enumerate(context_chunks, 1):
+        for _i, chunk in enumerate(context_chunks, 1):
             header: str = f"[Source: {chunk.source} | Relevance: {chunk.score:.2f}]"
             context_parts.append(f"{header}\n{chunk.text}")
 
-        context_block: str = "\n\n---\n\n".join(context_parts) if context_parts else (
-            "No relevant policy documents found."
+        context_block: str = (
+            "\n\n---\n\n".join(context_parts)
+            if context_parts
+            else ("No relevant policy documents found.")
         )
 
         context_message: str = QA_CONTEXT_TEMPLATE.format(context=context_block)

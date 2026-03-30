@@ -11,11 +11,11 @@ from ai.briefs.prompts import (
 )
 
 __all__: list[str] = [
-    "BriefGenerator",
-    "COUNTY_BRIEF_SYSTEM",
-    "COUNTY_BRIEF_USER",
     "ANOMALY_NARRATIVE_SYSTEM",
     "ANOMALY_NARRATIVE_USER",
+    "COUNTY_BRIEF_SYSTEM",
+    "COUNTY_BRIEF_USER",
     "DATA_QUALITY_SYSTEM",
     "DATA_QUALITY_USER",
+    "BriefGenerator",
 ]

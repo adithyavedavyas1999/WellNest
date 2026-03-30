@@ -22,11 +22,11 @@ ALL_ASSETS: list = (
 )
 
 __all__ = [
+    "ALL_AI_ASSETS",
     "ALL_ASSETS",
     "ALL_BRONZE_ASSETS",
-    "ALL_SILVER_ASSETS",
     "ALL_GOLD_ASSETS",
     "ALL_ML_ASSETS",
-    "ALL_AI_ASSETS",
     "ALL_QUALITY_ASSETS",
+    "ALL_SILVER_ASSETS",
 ]

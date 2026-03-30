@@ -56,6 +56,7 @@ COUNTY_CRIME_URL_TEMPLATE = (
 
 class CountyCrimeRecord(BaseModel):
     """One county's crime data for a year."""
+
     state_fips: str = Field(..., min_length=2, max_length=2)
     county_fips: str = Field(..., min_length=5, max_length=5)
     state_name: str | None = None
@@ -120,7 +121,7 @@ class FBIUCRConnector:
                     zip_dest = self.data_dir / f"estimated_crimes_{yr}.zip"
                     self.http.download_file(zip_url, zip_dest)
                     with zipfile.ZipFile(zip_dest, "r") as zf:
-                        csv_name = [n for n in zf.namelist() if n.endswith(".csv")][0]
+                        csv_name = next(n for n in zf.namelist() if n.endswith(".csv"))
                         zf.extract(csv_name, self.data_dir)
                         dest = self.data_dir / csv_name
                 except Exception:
@@ -154,12 +155,7 @@ class FBIUCRConnector:
         # normalize column names
         col_map = {}
         for col in df.columns:
-            col_map[col] = (
-                col.strip()
-                .lower()
-                .replace(" ", "_")
-                .replace("-", "_")
-            )
+            col_map[col] = col.strip().lower().replace(" ", "_").replace("-", "_")
         df = df.rename(col_map)
 
         # known column mappings (the FBI has used different names over the years)
@@ -205,9 +201,15 @@ class FBIUCRConnector:
 
         # cast crime counts to int
         crime_cols = [
-            "violent_crime", "murder", "rape", "robbery",
-            "aggravated_assault", "property_crime", "burglary",
-            "larceny", "motor_vehicle_theft",
+            "violent_crime",
+            "murder",
+            "rape",
+            "robbery",
+            "aggravated_assault",
+            "property_crime",
+            "burglary",
+            "larceny",
+            "motor_vehicle_theft",
         ]
         for col in crime_cols:
             if col in df.columns:
@@ -257,7 +259,9 @@ class FBIUCRConnector:
                 bad += 1
 
         if bad:
-            logger.warning("ucr_validation_dropped", count=bad, pct=round(bad / max(len(df), 1) * 100, 1))
+            logger.warning(
+                "ucr_validation_dropped", count=bad, pct=round(bad / max(len(df), 1) * 100, 1)
+            )
 
         return pl.DataFrame(good, schema=df.schema) if good else df.clear()
 

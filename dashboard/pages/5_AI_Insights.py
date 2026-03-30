@@ -56,7 +56,7 @@ with tab_briefs:
     with st.sidebar:
         st.subheader("Brief Filters")
         states = get_states()
-        brief_state = st.selectbox("State", ["All States"] + states, index=0, key="brief_state")
+        brief_state = st.selectbox("State", ["All States", *states], index=0, key="brief_state")
         brief_category = st.selectbox(
             "Score Category",
             ["All", "Critical", "At Risk", "Moderate", "Thriving"],
@@ -112,22 +112,22 @@ with tab_briefs:
             generated = str(row["generated_at"])[:10] if row["generated_at"] else "Unknown"
 
             with st.expander(
-                f'{row["county_name"]}, {row["state"]} -- '
-                f'Score: {row["composite_score"]:.1f} ({cat_label})'
+                f"{row['county_name']}, {row['state']} -- "
+                f"Score: {row['composite_score']:.1f} ({cat_label})"
             ):
                 st.markdown(
                     f'<div style="display:flex;justify-content:space-between;'
                     f'align-items:center;margin-bottom:12px">'
-                    f'<div>'
+                    f"<div>"
                     f'<span style="font-size:13px;color:{tc["text_muted"]}">'
-                    f'FIPS: {row["fips"]}</span>'
-                    f'</div>'
-                    f'<div>'
+                    f"FIPS: {row['fips']}</span>"
+                    f"</div>"
+                    f"<div>"
                     f'<span style="display:inline-block;padding:2px 10px;'
-                    f'border-radius:10px;background:{color};color:#fff;'
+                    f"border-radius:10px;background:{color};color:#fff;"
                     f'font-size:12px;font-weight:600">{cat_label}</span>'
-                    f'</div>'
-                    f'</div>',
+                    f"</div>"
+                    f"</div>",
                     unsafe_allow_html=True,
                 )
 
@@ -173,30 +173,34 @@ with tab_anomalies:
             is_improvement = anom["anomaly_type"] == "improvement"
             border_color = "#3BB273" if is_improvement else "#C73E1D"
             direction_label = "Improvement" if is_improvement else "Decline"
-            change_str = f"+{anom['score_change_1y']:.1f}" if is_improvement else f"{anom['score_change_1y']:.1f}"
+            change_str = (
+                f"+{anom['score_change_1y']:.1f}"
+                if is_improvement
+                else f"{anom['score_change_1y']:.1f}"
+            )
 
             st.markdown(
                 f'<div style="background:{tc["surface"]};border:1px solid {tc["border"]};'
-                f'border-left:4px solid {border_color};border-radius:8px;'
+                f"border-left:4px solid {border_color};border-radius:8px;"
                 f'padding:14px 18px;margin-bottom:10px">'
                 f'<div style="display:flex;justify-content:space-between;'
                 f'align-items:flex-start;margin-bottom:8px">'
-                f'<div>'
+                f"<div>"
                 f'<span style="font-weight:600;color:{tc["text_primary"]};font-size:15px">'
-                f'{anom["school_name"]}</span> '
+                f"{anom['school_name']}</span> "
                 f'<span style="color:{tc["text_muted"]};font-size:13px">({anom["state"]})</span>'
-                f'</div>'
+                f"</div>"
                 f'<div style="text-align:right">'
                 f'<span style="font-size:12px;color:{border_color};'
                 f'font-weight:600">{direction_label}</span><br>'
                 f'<span style="font-size:11px;color:{tc["text_muted"]}">'
-                f'Change: {change_str} | z: {abs(anom["z_score"]):.1f}</span>'
-                f'</div>'
-                f'</div>'
+                f"Change: {change_str} | z: {abs(anom['z_score']):.1f}</span>"
+                f"</div>"
+                f"</div>"
                 f'<div style="font-size:13px;color:{tc["text_primary"]};line-height:1.6">'
-                f'{anom["narrative"]}'
-                f'</div>'
-                f'</div>',
+                f"{anom['narrative']}"
+                f"</div>"
+                f"</div>",
                 unsafe_allow_html=True,
             )
 

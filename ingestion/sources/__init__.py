@@ -27,18 +27,18 @@ from ingestion.sources.noaa_nws_alerts import NOAANWSAlertsConnector
 from ingestion.sources.usda_food_access import USDAFoodAccessConnector
 
 __all__ = [
-    "NCESCCDConnector",
-    "NCESEdgeConnector",
-    "CDCPlacesConnector",
     "CDCEnvHealthConnector",
+    "CDCPlacesConnector",
     "CensusACSConnector",
     "EPAAirNowConnector",
+    "FBIUCRConnector",
+    "FEMANRIConnector",
     "HRSAHPSAConnector",
     "HRSAMUAConnector",
-    "USDAFoodAccessConnector",
-    "FEMANRIConnector",
+    "NCESCCDConnector",
+    "NCESEdgeConnector",
     "NOAANWSAlertsConnector",
-    "FBIUCRConnector",
+    "USDAFoodAccessConnector",
 ]
 
 # maps a short name to the connector class -- used by the dagster asset factory

@@ -10,7 +10,6 @@ burning through the OpenAI budget).
 from __future__ import annotations
 
 import logging
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import text
@@ -60,6 +59,7 @@ def _build_county_where(filters: CountyFilters) -> tuple[str, dict]:
 # GET /counties
 # ---------------------------------------------------------------------------
 
+
 @router.get("/counties", response_model=PaginatedResponse[CountySummary])
 def list_counties(
     db: Session = Depends(get_db),
@@ -68,9 +68,10 @@ def list_counties(
 ) -> PaginatedResponse[CountySummary]:
     where, params = _build_county_where(filters)
 
-    total = db.execute(
-        text(f"SELECT count(*) FROM gold.county_summary c {where}"), params
-    ).scalar() or 0
+    total = (
+        db.execute(text(f"SELECT count(*) FROM gold.county_summary c {where}"), params).scalar()
+        or 0
+    )
 
     query = f"""
         SELECT
@@ -109,6 +110,7 @@ def list_counties(
 # ---------------------------------------------------------------------------
 # GET /counties/{fips}
 # ---------------------------------------------------------------------------
+
 
 @router.get("/counties/{fips}", response_model=CountyDetail)
 def get_county(fips: str, db: Session = Depends(get_db)) -> CountyDetail:
@@ -174,6 +176,7 @@ def get_county(fips: str, db: Session = Depends(get_db)) -> CountyDetail:
 # GET /counties/{fips}/schools
 # ---------------------------------------------------------------------------
 
+
 @router.get("/counties/{fips}/schools", response_model=PaginatedResponse[SchoolSummary])
 def list_county_schools(
     fips: str,
@@ -181,10 +184,13 @@ def list_county_schools(
     pagination: PaginationParams = Depends(),
 ) -> PaginatedResponse[SchoolSummary]:
     """All schools within a given county, ordered by composite score."""
-    total = db.execute(
-        text("SELECT count(*) FROM gold.child_wellbeing_score WHERE county_fips = :fips"),
-        {"fips": fips},
-    ).scalar() or 0
+    total = (
+        db.execute(
+            text("SELECT count(*) FROM gold.child_wellbeing_score WHERE county_fips = :fips"),
+            {"fips": fips},
+        ).scalar()
+        or 0
+    )
 
     if total == 0:
         raise HTTPException(
@@ -209,11 +215,18 @@ def list_county_schools(
         LIMIT :limit OFFSET :offset
     """)
 
-    rows = db.execute(query, {
-        "fips": fips,
-        "limit": pagination.per_page,
-        "offset": pagination.offset,
-    }).mappings().all()
+    rows = (
+        db.execute(
+            query,
+            {
+                "fips": fips,
+                "limit": pagination.per_page,
+                "offset": pagination.offset,
+            },
+        )
+        .mappings()
+        .all()
+    )
 
     items = [
         SchoolSummary(

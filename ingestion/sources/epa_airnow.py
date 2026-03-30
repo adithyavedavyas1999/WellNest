@@ -49,6 +49,7 @@ AQS_ANNUAL_AQI_URL = f"{AQS_DOWNLOAD_BASE}/annual_aqi_by_county_{{year}}.zip"
 
 class AirQualityObservation(BaseModel):
     """A single AirNow observation."""
+
     latitude: float
     longitude: float
     aqi: int | None = None
@@ -70,6 +71,7 @@ class AirQualityObservation(BaseModel):
 
 class AnnualAQIRecord(BaseModel):
     """One row from the AQS annual county AQI summary."""
+
     state_name: str
     county_name: str
     state_code: str = Field(..., min_length=2, max_length=2)
@@ -151,6 +153,7 @@ class EPAAirNowConnector:
 
             # the zip contains a single CSV
             import zipfile
+
             with zipfile.ZipFile(zip_path, "r") as zf:
                 csv_name = zf.namelist()[0]
                 zf.extract(csv_name, self.data_dir)
@@ -174,12 +177,7 @@ class EPAAirNowConnector:
         # standardize column names -- AQS headers have spaces and mixed case
         rename_map = {}
         for col in df.columns:
-            clean = (
-                col.strip()
-                .lower()
-                .replace(" ", "_")
-                .replace(".", "")
-            )
+            clean = col.strip().lower().replace(" ", "_").replace(".", "")
             rename_map[col] = clean
         df = df.rename(rename_map)
 
@@ -218,10 +216,17 @@ class EPAAirNowConnector:
 
         # cast numeric columns
         int_cols = [
-            "days_with_aqi", "good_days", "moderate_days",
-            "unhealthy_sensitive_days", "unhealthy_days",
-            "very_unhealthy_days", "hazardous_days",
-            "max_aqi", "percentile_90_aqi", "median_aqi", "year",
+            "days_with_aqi",
+            "good_days",
+            "moderate_days",
+            "unhealthy_sensitive_days",
+            "unhealthy_days",
+            "very_unhealthy_days",
+            "hazardous_days",
+            "max_aqi",
+            "percentile_90_aqi",
+            "median_aqi",
+            "year",
         ]
         for col in int_cols:
             if col in df.columns:

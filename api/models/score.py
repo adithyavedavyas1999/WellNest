@@ -9,7 +9,6 @@ just reads and serializes.
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -18,9 +17,10 @@ from api.models.common import Pillar, ScoreCategory
 
 class WellbeingScore(BaseModel):
     """Composite score with category label."""
+
     score: float = Field(..., ge=0, le=100)
     category: ScoreCategory
-    national_percentile: Optional[int] = Field(None, ge=0, le=100)
+    national_percentile: int | None = Field(None, ge=0, le=100)
 
 
 class PillarScore(BaseModel):
@@ -32,9 +32,10 @@ class PillarScore(BaseModel):
 
 class ScoreBreakdown(BaseModel):
     """Full breakdown returned on the school detail page."""
+
     composite: WellbeingScore
     pillars: list[PillarScore]
-    data_completeness: Optional[float] = Field(
+    data_completeness: float | None = Field(
         None,
         ge=0,
         le=1,
@@ -50,7 +51,7 @@ class RankingEntry(BaseModel):
     state: str
     composite_score: float = Field(..., ge=0, le=100)
     category: ScoreCategory
-    score_change_1y: Optional[float] = None
+    score_change_1y: float | None = None
 
 
 class ResourceGap(BaseModel):
@@ -60,6 +61,7 @@ class ResourceGap(BaseModel):
     Built from gold.resource_gaps — we compare HPSA/MUA designations, food
     desert status, and poverty rate against available community resources.
     """
+
     nces_id: str
     school_name: str
     state: str
@@ -70,7 +72,7 @@ class ResourceGap(BaseModel):
     )
     severity: float = Field(..., ge=0, le=100, description="Higher = more severe gap")
     composite_score: float
-    description: Optional[str] = None
+    description: str | None = None
 
 
 class Anomaly(BaseModel):
@@ -82,6 +84,7 @@ class Anomaly(BaseModel):
     the rest are usually data quality artifacts (enrollment spikes after
     school mergers, etc).
     """
+
     nces_id: str
     school_name: str
     state: str
@@ -92,5 +95,5 @@ class Anomaly(BaseModel):
         ...,
         description="'improvement' or 'decline' — direction of the anomaly",
     )
-    narrative: Optional[str] = None
-    detected_at: Optional[datetime] = None
+    narrative: str | None = None
+    detected_at: datetime | None = None

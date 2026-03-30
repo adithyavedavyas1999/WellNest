@@ -8,7 +8,7 @@ balancer know we're alive but degraded.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends
 from sqlalchemy import text
@@ -40,5 +40,5 @@ def health_check(
         version=APP_VERSION,
         environment=settings.environment,
         database=db_status,
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
     )

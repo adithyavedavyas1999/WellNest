@@ -26,7 +26,6 @@ Quirks:
 
 from __future__ import annotations
 
-import os
 import tempfile
 from pathlib import Path
 
@@ -40,9 +39,7 @@ logger = structlog.get_logger(__name__)
 
 # HRSA download URLs -- these redirect to the actual CSV
 # The "BCD_HPSA" dataset includes all disciplines in one file
-HPSA_DOWNLOAD_URL = (
-    "https://data.hrsa.gov/DataDownload/DD_Files/BCD_HPSA_FCT_DET_PC.csv"
-)
+HPSA_DOWNLOAD_URL = "https://data.hrsa.gov/DataDownload/DD_Files/BCD_HPSA_FCT_DET_PC.csv"
 
 # fallback: sometimes the direct link changes and we need to hit the catalog
 HPSA_CATALOG_URL = "https://data.hrsa.gov/data/download"
@@ -56,6 +53,7 @@ HPSA_DISCIPLINES = {
 
 class HPSARecord(BaseModel):
     """Validated HPSA designation record."""
+
     hpsa_id: str
     hpsa_name: str
     state_abbr: str = Field(..., min_length=2, max_length=2)
@@ -185,9 +183,7 @@ class HRSAHPSAConnector:
         if "state_fips" in df.columns:
             df = df.with_columns(pl.col("state_fips").cast(pl.Utf8).str.zfill(2))
         if "county_fips_3" in df.columns and "state_fips" in df.columns:
-            df = df.with_columns(
-                pl.col("county_fips_3").cast(pl.Utf8).str.zfill(3)
-            )
+            df = df.with_columns(pl.col("county_fips_3").cast(pl.Utf8).str.zfill(3))
             df = df.with_columns(
                 (pl.col("state_fips") + pl.col("county_fips_3")).alias("county_fips")
             )
@@ -205,7 +201,10 @@ class HRSAHPSAConnector:
         # round the HPSA score
         if "hpsa_score" in df.columns:
             df = df.with_columns(
-                pl.col("hpsa_score").cast(pl.Float64, strict=False).round(0).cast(pl.Int32, strict=False)
+                pl.col("hpsa_score")
+                .cast(pl.Float64, strict=False)
+                .round(0)
+                .cast(pl.Int32, strict=False)
             )
 
         if "latitude" in df.columns:

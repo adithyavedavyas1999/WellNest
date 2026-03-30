@@ -34,15 +34,14 @@ from ingestion.utils import WellNestHTTPClient, ensure_schema, get_pg_url
 
 logger = structlog.get_logger(__name__)
 
-MUA_DOWNLOAD_URL = (
-    "https://data.hrsa.gov/DataDownload/DD_Files/MUA_DET.csv"
-)
+MUA_DOWNLOAD_URL = "https://data.hrsa.gov/DataDownload/DD_Files/MUA_DET.csv"
 
 IMU_THRESHOLD = 62.0  # scores at or below this qualify as MUA
 
 
 class MUARecord(BaseModel):
     """Validated MUA/MUP designation record."""
+
     mua_source_id: str
     mua_name: str | None = None
     state_abbr: str = Field(..., min_length=2, max_length=2)
@@ -132,33 +131,29 @@ class HRSAMUAConnector:
         if "state_fips" in df.columns:
             df = df.with_columns(pl.col("state_fips").cast(pl.Utf8).str.zfill(2))
         if "county_fips_3" in df.columns and "state_fips" in df.columns:
-            df = df.with_columns(
-                pl.col("county_fips_3").cast(pl.Utf8).str.zfill(3)
-            )
+            df = df.with_columns(pl.col("county_fips_3").cast(pl.Utf8).str.zfill(3))
             df = df.with_columns(
                 (pl.col("state_fips") + pl.col("county_fips_3")).alias("county_fips")
             )
 
         # parse IMU score and flag underserved
         if "imu_score" in df.columns:
+            df = df.with_columns(pl.col("imu_score").cast(pl.Float64, strict=False))
             df = df.with_columns(
-                pl.col("imu_score").cast(pl.Float64, strict=False)
-            )
-            df = df.with_columns(
-                (pl.col("imu_score").le(IMU_THRESHOLD) | pl.col("imu_score").is_null())
-                .alias("medically_underserved")
+                (pl.col("imu_score").le(IMU_THRESHOLD) | pl.col("imu_score").is_null()).alias(
+                    "medically_underserved"
+                )
             )
 
         # tag MUA vs MUP
-        if "designation_type" not in df.columns:
+        if "designation_type" not in df.columns and "mua_name" in df.columns:
             # sometimes it's encoded in the name
-            if "mua_name" in df.columns:
-                df = df.with_columns(
-                    pl.when(pl.col("mua_name").str.contains("MUP"))
-                    .then(pl.lit("MUP"))
-                    .otherwise(pl.lit("MUA"))
-                    .alias("designation_type")
-                )
+            df = df.with_columns(
+                pl.when(pl.col("mua_name").str.contains("MUP"))
+                .then(pl.lit("MUP"))
+                .otherwise(pl.lit("MUA"))
+                .alias("designation_type")
+            )
 
         return df
 

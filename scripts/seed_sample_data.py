@@ -19,8 +19,7 @@ import logging
 import math
 import os
 import random
-import sys
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from typing import Any
 
 import polars as pl
@@ -80,17 +79,50 @@ GRADE_RANGES = ["PK-5", "PK-8", "K-5", "K-8", "6-8", "9-12", "PK-12"]
 
 # name parts for generating realistic school names
 SCHOOL_PREFIXES = [
-    "Lincoln", "Washington", "Jefferson", "Roosevelt", "King", "Kennedy",
-    "Adams", "Madison", "Monroe", "Jackson", "Hamilton", "Franklin",
-    "Oakwood", "Riverside", "Lakeview", "Hillcrest", "Greenfield",
-    "Fairview", "Brookside", "Cedarwood", "Maplewood", "Sunnyside",
-    "Heritage", "Northside", "Southgate", "Westwood", "Eastview",
-    "Summit", "Valley", "Ridge", "Meadow", "Prairie",
+    "Lincoln",
+    "Washington",
+    "Jefferson",
+    "Roosevelt",
+    "King",
+    "Kennedy",
+    "Adams",
+    "Madison",
+    "Monroe",
+    "Jackson",
+    "Hamilton",
+    "Franklin",
+    "Oakwood",
+    "Riverside",
+    "Lakeview",
+    "Hillcrest",
+    "Greenfield",
+    "Fairview",
+    "Brookside",
+    "Cedarwood",
+    "Maplewood",
+    "Sunnyside",
+    "Heritage",
+    "Northside",
+    "Southgate",
+    "Westwood",
+    "Eastview",
+    "Summit",
+    "Valley",
+    "Ridge",
+    "Meadow",
+    "Prairie",
 ]
 SCHOOL_SUFFIXES = [
-    "Elementary School", "Middle School", "High School",
-    "Academy", "Preparatory", "School", "Learning Center",
-    "Community School", "STEM Academy", "Arts Academy",
+    "Elementary School",
+    "Middle School",
+    "High School",
+    "Academy",
+    "Preparatory",
+    "School",
+    "Learning Center",
+    "Community School",
+    "STEM Academy",
+    "Arts Academy",
 ]
 
 # bounding boxes (lat/lon) for each state — keeps school locations plausible
@@ -131,6 +163,7 @@ AI_BRIEF_TEMPLATES = [
 
 
 # ── data generation ──────────────────────────────────────────────────────────
+
 
 def _clamp(val: float, lo: float = 0.0, hi: float = 100.0) -> float:
     return max(lo, min(hi, val))
@@ -192,39 +225,43 @@ def generate_schools(n_schools: int, seed: int = 42) -> pl.DataFrame:
             poverty_rate = _clamp(rng.gauss(22, 15), 2, 65)
             absenteeism = _clamp(rng.gauss(18, 10), 3, 55)
 
-            rows.append({
-                "nces_school_id": nces_id,
-                "school_name": _generate_school_name(rng),
-                "school_type": rng.choice(SCHOOL_TYPES),
-                "grade_range": rng.choice(GRADE_RANGES),
-                "county_fips": county["fips"],
-                "county_name": county["name"],
-                "state_abbr": state,
-                "latitude": round(rng.uniform(lat_lo, lat_hi), 6),
-                "longitude": round(rng.uniform(lon_lo, lon_hi), 6),
-                "total_enrollment": enrollment,
-                "title_i": rng.random() < (poverty_rate / 100 + 0.3),
-                "wellbeing_score": round(composite, 2),
-                "education_score": round(edu, 2),
-                "health_score": round(health, 2),
-                "environment_score": round(env, 2),
-                "safety_score": round(safety, 2),
-                "wellbeing_category": category,
-                "pillars_with_data": 4,
-                "math_proficiency": round(_clamp(rng.gauss(edu * 0.6, 10), 5, 95), 1),
-                "reading_proficiency": round(_clamp(rng.gauss(edu * 0.65, 8), 5, 95), 1),
-                "chronic_absenteeism_rate": round(absenteeism, 1),
-                "student_teacher_ratio": round(_clamp(rng.gauss(17, 4), 8, 35), 1),
-                "poverty_rate": round(poverty_rate, 1),
-                "uninsured_children_rate": round(_clamp(rng.gauss(6, 3), 1, 20), 1),
-                "food_desert": rng.random() < 0.15,
-                "hpsa_score": round(_clamp(rng.gauss(12, 6), 0, 25), 1) if rng.random() > 0.3 else None,
-                "aqi_avg": round(_clamp(rng.gauss(45, 20), 10, 200), 1),
-                "violent_crime_rate": round(_clamp(rng.gauss(350, 200), 20, 1500), 1),
-                "social_vulnerability": round(_clamp(rng.gauss(0.5, 0.2), 0, 1), 3),
-                "score_change_1y": round(rng.gauss(0, 4), 1),
-                "updated_at": datetime.now(timezone.utc),
-            })
+            rows.append(
+                {
+                    "nces_school_id": nces_id,
+                    "school_name": _generate_school_name(rng),
+                    "school_type": rng.choice(SCHOOL_TYPES),
+                    "grade_range": rng.choice(GRADE_RANGES),
+                    "county_fips": county["fips"],
+                    "county_name": county["name"],
+                    "state_abbr": state,
+                    "latitude": round(rng.uniform(lat_lo, lat_hi), 6),
+                    "longitude": round(rng.uniform(lon_lo, lon_hi), 6),
+                    "total_enrollment": enrollment,
+                    "title_i": rng.random() < (poverty_rate / 100 + 0.3),
+                    "wellbeing_score": round(composite, 2),
+                    "education_score": round(edu, 2),
+                    "health_score": round(health, 2),
+                    "environment_score": round(env, 2),
+                    "safety_score": round(safety, 2),
+                    "wellbeing_category": category,
+                    "pillars_with_data": 4,
+                    "math_proficiency": round(_clamp(rng.gauss(edu * 0.6, 10), 5, 95), 1),
+                    "reading_proficiency": round(_clamp(rng.gauss(edu * 0.65, 8), 5, 95), 1),
+                    "chronic_absenteeism_rate": round(absenteeism, 1),
+                    "student_teacher_ratio": round(_clamp(rng.gauss(17, 4), 8, 35), 1),
+                    "poverty_rate": round(poverty_rate, 1),
+                    "uninsured_children_rate": round(_clamp(rng.gauss(6, 3), 1, 20), 1),
+                    "food_desert": rng.random() < 0.15,
+                    "hpsa_score": round(_clamp(rng.gauss(12, 6), 0, 25), 1)
+                    if rng.random() > 0.3
+                    else None,
+                    "aqi_avg": round(_clamp(rng.gauss(45, 20), 10, 200), 1),
+                    "violent_crime_rate": round(_clamp(rng.gauss(350, 200), 20, 1500), 1),
+                    "social_vulnerability": round(_clamp(rng.gauss(0.5, 0.2), 0, 1), 3),
+                    "score_change_1y": round(rng.gauss(0, 4), 1),
+                    "updated_at": datetime.now(UTC),
+                }
+            )
 
     log.info("Generated %d schools across %d counties", len(rows), len(COUNTIES))
     return pl.DataFrame(rows)
@@ -232,19 +269,17 @@ def generate_schools(n_schools: int, seed: int = 42) -> pl.DataFrame:
 
 def generate_resource_gaps(schools_df: pl.DataFrame, seed: int = 42) -> pl.DataFrame:
     """Flag schools with at least one pillar in the bottom quartile."""
-    rng = random.Random(seed)
+    random.Random(seed)
     pillars = ["education_score", "health_score", "environment_score", "safety_score"]
     pillar_labels = ["Education", "Health", "Environment", "Safety"]
 
     # bottom quartile thresholds (p25)
-    thresholds = {
-        col: schools_df[col].quantile(0.25) for col in pillars
-    }
+    thresholds = {col: schools_df[col].quantile(0.25) for col in pillars}
 
     rows: list[dict[str, Any]] = []
     for school in schools_df.to_dicts():
         gaps = []
-        for col, label in zip(pillars, pillar_labels):
+        for col, label in zip(pillars, pillar_labels, strict=False):
             if school[col] is not None and school[col] < thresholds[col]:
                 gaps.append((label, school[col]))
 
@@ -264,23 +299,23 @@ def generate_resource_gaps(schools_df: pl.DataFrame, seed: int = 42) -> pl.DataF
         else:
             priority = "Moderate Need"
 
-        rows.append({
-            "nces_school_id": school["nces_school_id"],
-            "school_name": school["school_name"],
-            "county_fips": school["county_fips"],
-            "wellbeing_score": school["wellbeing_score"],
-            "education_score": school["education_score"],
-            "health_score": school["health_score"],
-            "environment_score": school["environment_score"],
-            "safety_score": school["safety_score"],
-            "gap_count": len(gaps),
-            "weakest_pillar": weakest,
-            "pillar_spread": round(spread, 2),
-            "intervention_priority": priority,
-            "has_strength": any(
-                school[c] is not None and school[c] > 50 for c in pillars
-            ),
-        })
+        rows.append(
+            {
+                "nces_school_id": school["nces_school_id"],
+                "school_name": school["school_name"],
+                "county_fips": school["county_fips"],
+                "wellbeing_score": school["wellbeing_score"],
+                "education_score": school["education_score"],
+                "health_score": school["health_score"],
+                "environment_score": school["environment_score"],
+                "safety_score": school["safety_score"],
+                "gap_count": len(gaps),
+                "weakest_pillar": weakest,
+                "pillar_spread": round(spread, 2),
+                "intervention_priority": priority,
+                "has_strength": any(school[c] is not None and school[c] > 50 for c in pillars),
+            }
+        )
 
     log.info("Identified %d schools with resource gaps", len(rows))
     return pl.DataFrame(rows)
@@ -290,22 +325,24 @@ def generate_county_summaries(schools_df: pl.DataFrame, seed: int = 42) -> pl.Da
     """Aggregate school-level data into county summaries with AI briefs."""
     rng = random.Random(seed)
 
-    county_groups = schools_df.group_by("county_fips").agg([
-        pl.col("county_name").first(),
-        pl.col("state_abbr").first(),
-        pl.col("wellbeing_score").mean().alias("avg_wellbeing_score"),
-        pl.col("education_score").mean().alias("avg_education_score"),
-        pl.col("health_score").mean().alias("avg_health_score"),
-        pl.col("environment_score").mean().alias("avg_environment_score"),
-        pl.col("safety_score").mean().alias("avg_safety_score"),
-        pl.col("nces_school_id").count().alias("scored_school_count"),
-        pl.col("poverty_rate").mean().alias("avg_poverty_rate"),
-        pl.col("chronic_absenteeism_rate").mean().alias("avg_chronic_absenteeism"),
-        (pl.col("wellbeing_category") == "Thriving").sum().alias("thriving_count"),
-        (pl.col("wellbeing_category") == "Moderate").sum().alias("moderate_count"),
-        (pl.col("wellbeing_category") == "At Risk").sum().alias("at_risk_count"),
-        (pl.col("wellbeing_category") == "Critical").sum().alias("critical_count"),
-    ])
+    county_groups = schools_df.group_by("county_fips").agg(
+        [
+            pl.col("county_name").first(),
+            pl.col("state_abbr").first(),
+            pl.col("wellbeing_score").mean().alias("avg_wellbeing_score"),
+            pl.col("education_score").mean().alias("avg_education_score"),
+            pl.col("health_score").mean().alias("avg_health_score"),
+            pl.col("environment_score").mean().alias("avg_environment_score"),
+            pl.col("safety_score").mean().alias("avg_safety_score"),
+            pl.col("nces_school_id").count().alias("scored_school_count"),
+            pl.col("poverty_rate").mean().alias("avg_poverty_rate"),
+            pl.col("chronic_absenteeism_rate").mean().alias("avg_chronic_absenteeism"),
+            (pl.col("wellbeing_category") == "Thriving").sum().alias("thriving_count"),
+            (pl.col("wellbeing_category") == "Moderate").sum().alias("moderate_count"),
+            (pl.col("wellbeing_category") == "At Risk").sum().alias("at_risk_count"),
+            (pl.col("wellbeing_category") == "Critical").sum().alias("critical_count"),
+        ]
+    )
 
     rows = county_groups.to_dicts()
 
@@ -340,7 +377,9 @@ def generate_county_summaries(schools_df: pl.DataFrame, seed: int = 42) -> pl.Da
 
         # count schools with gaps in this county (rough estimate)
         gap_count = row["at_risk_count"] + row["critical_count"]
-        gap_pct = (gap_count / row["scored_school_count"] * 100) if row["scored_school_count"] else 0
+        gap_pct = (
+            (gap_count / row["scored_school_count"] * 100) if row["scored_school_count"] else 0
+        )
         critical_count = max(1, row["critical_count"])
 
         template = rng.choice(AI_BRIEF_TEMPLATES)
@@ -366,9 +405,15 @@ def generate_county_summaries(schools_df: pl.DataFrame, seed: int = 42) -> pl.Da
         row["schools_with_gaps"] = gap_count
 
         # round floats
-        for k in ["avg_wellbeing_score", "avg_education_score", "avg_health_score",
-                   "avg_environment_score", "avg_safety_score", "avg_poverty_rate",
-                   "avg_chronic_absenteeism"]:
+        for k in [
+            "avg_wellbeing_score",
+            "avg_education_score",
+            "avg_health_score",
+            "avg_environment_score",
+            "avg_safety_score",
+            "avg_poverty_rate",
+            "avg_chronic_absenteeism",
+        ]:
             if row[k] is not None:
                 row[k] = round(row[k], 2)
 
@@ -377,6 +422,7 @@ def generate_county_summaries(schools_df: pl.DataFrame, seed: int = 42) -> pl.Da
 
 
 # ── database operations ──────────────────────────────────────────────────────
+
 
 def _get_db_url() -> str:
     url = os.environ.get("DATABASE_URL")
@@ -400,7 +446,8 @@ def _ensure_gold_tables(engine) -> None:
     with engine.begin() as conn:
         conn.execute(text("CREATE SCHEMA IF NOT EXISTS gold"))
 
-        conn.execute(text("""
+        conn.execute(
+            text("""
             CREATE TABLE IF NOT EXISTS gold.child_wellbeing_score (
                 nces_school_id       TEXT PRIMARY KEY,
                 school_name          TEXT,
@@ -434,9 +481,11 @@ def _ensure_gold_tables(engine) -> None:
                 score_change_1y      DOUBLE PRECISION,
                 updated_at           TIMESTAMPTZ DEFAULT now()
             )
-        """))
+        """)
+        )
 
-        conn.execute(text("""
+        conn.execute(
+            text("""
             CREATE TABLE IF NOT EXISTS gold.resource_gaps (
                 nces_school_id       TEXT PRIMARY KEY,
                 school_name          TEXT,
@@ -452,9 +501,11 @@ def _ensure_gold_tables(engine) -> None:
                 intervention_priority TEXT,
                 has_strength         BOOLEAN
             )
-        """))
+        """)
+        )
 
-        conn.execute(text("""
+        conn.execute(
+            text("""
             CREATE TABLE IF NOT EXISTS gold.county_summary (
                 county_fips          TEXT PRIMARY KEY,
                 county_name          TEXT,
@@ -478,16 +529,19 @@ def _ensure_gold_tables(engine) -> None:
                 county_category      TEXT,
                 ai_brief             TEXT
             )
-        """))
+        """)
+        )
 
-        conn.execute(text("""
+        conn.execute(
+            text("""
             CREATE TABLE IF NOT EXISTS gold.county_ai_briefs (
                 county_fips          TEXT,
                 brief_text           TEXT,
                 generated_at         TIMESTAMPTZ DEFAULT now(),
                 PRIMARY KEY (county_fips, generated_at)
             )
-        """))
+        """)
+        )
 
 
 def write_to_postgres(
@@ -524,10 +578,12 @@ def write_to_postgres(
             _upsert_df(conn, summaries_df, "gold.county_summary", "county_fips")
 
             # also write AI briefs to the separate briefs table the report generator reads from
-            briefs_rows = summaries_df.select([
-                "county_fips",
-                pl.col("ai_brief").alias("brief_text"),
-            ]).to_dicts()
+            briefs_rows = summaries_df.select(
+                [
+                    "county_fips",
+                    pl.col("ai_brief").alias("brief_text"),
+                ]
+            ).to_dicts()
 
             for row in briefs_rows:
                 conn.execute(
@@ -567,7 +623,7 @@ def _upsert_df(conn, df: pl.DataFrame, table: str, pk: str) -> None:
         # clean up any polars-specific types that psycopg2 can't handle
         for k, v in row.items():
             if isinstance(v, date) and not isinstance(v, datetime):
-                row[k] = datetime(v.year, v.month, v.day, tzinfo=timezone.utc)
+                row[k] = datetime(v.year, v.month, v.day, tzinfo=UTC)
             elif v is not None and isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
                 row[k] = None
         conn.execute(sql, row)
@@ -575,29 +631,38 @@ def _upsert_df(conn, df: pl.DataFrame, table: str, pk: str) -> None:
 
 # ── CLI ──────────────────────────────────────────────────────────────────────
 
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Seed WellNest gold schema with realistic sample data",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
-        "--schools", type=int, default=100,
+        "--schools",
+        type=int,
+        default=100,
         help="Number of sample schools to generate (default: 100)",
     )
     parser.add_argument(
-        "--seed", type=int, default=42,
+        "--seed",
+        type=int,
+        default=42,
         help="Random seed for reproducibility (default: 42)",
     )
     parser.add_argument(
-        "--drop-existing", action="store_true",
+        "--drop-existing",
+        action="store_true",
         help="Truncate gold tables before inserting",
     )
     parser.add_argument(
-        "--dry-run", action="store_true",
+        "--dry-run",
+        action="store_true",
         help="Generate data and print stats but don't write to DB",
     )
     parser.add_argument(
-        "--db-url", type=str, default=None,
+        "--db-url",
+        type=str,
+        default=None,
         help="PostgreSQL connection URL (default: from DATABASE_URL env or .env)",
     )
     return parser.parse_args()
@@ -615,7 +680,9 @@ def main() -> None:
     # quick sanity checks
     log.info(
         "Schools: %d | Resource gaps: %d | County summaries: %d",
-        len(schools), len(gaps), len(summaries),
+        len(schools),
+        len(gaps),
+        len(summaries),
     )
     log.info(
         "Score distribution — mean: %.1f, std: %.1f, min: %.1f, max: %.1f",
@@ -642,8 +709,12 @@ def main() -> None:
     log.info("Writing to database...")
     write_to_postgres(schools, gaps, summaries, db_url, drop_existing=args.drop_existing)
 
-    log.info("Done! Seeded %d schools across %d counties in %d states.",
-             len(schools), len(COUNTIES), len(STATES))
+    log.info(
+        "Done! Seeded %d schools across %d counties in %d states.",
+        len(schools),
+        len(COUNTIES),
+        len(STATES),
+    )
 
 
 if __name__ == "__main__":

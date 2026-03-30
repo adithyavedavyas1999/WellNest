@@ -12,7 +12,6 @@ from __future__ import annotations
 from typing import Any
 from unittest.mock import MagicMock
 
-import pytest
 from fastapi.testclient import TestClient
 
 
@@ -37,7 +36,6 @@ def _make_search_result(
 
 
 class TestSearchByName:
-
     def test_search_returns_results(
         self, api_client: TestClient, mock_db_session: MagicMock
     ) -> None:
@@ -63,10 +61,7 @@ class TestSearchByName:
 
 
 class TestSearchByCity:
-
-    def test_city_search(
-        self, api_client: TestClient, mock_db_session: MagicMock
-    ) -> None:
+    def test_city_search(self, api_client: TestClient, mock_db_session: MagicMock) -> None:
         rows = [_make_search_result(city="Chicago")]
         mock_db_session.execute.return_value.scalar.return_value = 1
         mock_db_session.execute.return_value.mappings.return_value.all.return_value = rows
@@ -77,16 +72,11 @@ class TestSearchByCity:
 
 
 class TestSearchEdgeCases:
-
-    def test_empty_query_rejected(
-        self, api_client: TestClient, mock_db_session: MagicMock
-    ) -> None:
+    def test_empty_query_rejected(self, api_client: TestClient, mock_db_session: MagicMock) -> None:
         resp = api_client.get("/api/search?q=")
         assert resp.status_code == 422
 
-    def test_missing_query_param(
-        self, api_client: TestClient, mock_db_session: MagicMock
-    ) -> None:
+    def test_missing_query_param(self, api_client: TestClient, mock_db_session: MagicMock) -> None:
         resp = api_client.get("/api/search")
         assert resp.status_code == 422
 
@@ -113,7 +103,6 @@ class TestSearchEdgeCases:
 
 
 class TestSearchResultLimit:
-
     def test_per_page_limits_results(
         self, api_client: TestClient, mock_db_session: MagicMock
     ) -> None:
@@ -124,9 +113,7 @@ class TestSearchResultLimit:
         assert resp.status_code == 200
         assert resp.json()["per_page"] == 5
 
-    def test_pagination_works(
-        self, api_client: TestClient, mock_db_session: MagicMock
-    ) -> None:
+    def test_pagination_works(self, api_client: TestClient, mock_db_session: MagicMock) -> None:
         mock_db_session.execute.return_value.scalar.return_value = 50
         mock_db_session.execute.return_value.mappings.return_value.all.return_value = []
 

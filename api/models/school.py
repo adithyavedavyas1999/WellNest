@@ -9,7 +9,6 @@ breakdowns, metrics, and prediction info for the detail page.
 from __future__ import annotations
 
 from datetime import date, datetime
-from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -20,75 +19,79 @@ class PillarScore(BaseModel):
     pillar: Pillar
     score: float = Field(..., ge=0, le=100)
     category: ScoreCategory
-    national_percentile: Optional[int] = Field(None, ge=0, le=100)
+    national_percentile: int | None = Field(None, ge=0, le=100)
 
 
 class SchoolSummary(BaseModel):
     """List/search result representation. Intentionally lean."""
+
     nces_id: str = Field(..., description="12-digit NCES school ID")
     name: str
     city: str
     state: str = Field(..., max_length=2)
     composite_score: float = Field(..., ge=0, le=100)
     category: ScoreCategory
-    enrollment: Optional[int] = None
-    title_i: Optional[bool] = None
-    location: Optional[GeoPoint] = None
+    enrollment: int | None = None
+    title_i: bool | None = None
+    location: GeoPoint | None = None
 
     model_config = {"from_attributes": True}
 
 
 class SchoolMetrics(BaseModel):
     """Raw metrics that feed into the scoring model."""
-    math_proficiency: Optional[float] = None
-    reading_proficiency: Optional[float] = None
-    chronic_absenteeism_rate: Optional[float] = None
-    student_teacher_ratio: Optional[float] = None
-    poverty_rate: Optional[float] = None
-    uninsured_children_rate: Optional[float] = None
-    food_desert: Optional[bool] = None
-    hpsa_score: Optional[float] = None
-    aqi_avg: Optional[float] = None
-    violent_crime_rate: Optional[float] = None
-    social_vulnerability: Optional[float] = None
+
+    math_proficiency: float | None = None
+    reading_proficiency: float | None = None
+    chronic_absenteeism_rate: float | None = None
+    student_teacher_ratio: float | None = None
+    poverty_rate: float | None = None
+    uninsured_children_rate: float | None = None
+    food_desert: bool | None = None
+    hpsa_score: float | None = None
+    aqi_avg: float | None = None
+    violent_crime_rate: float | None = None
+    social_vulnerability: float | None = None
 
 
 class SchoolDetail(BaseModel):
     """Full school profile — used on the detail page and school explorer."""
+
     nces_id: str
     name: str
-    address: Optional[str] = None
+    address: str | None = None
     city: str
     state: str
-    zip_code: Optional[str] = None
-    county_fips: Optional[str] = None
-    county_name: Optional[str] = None
-    school_type: Optional[str] = None
-    grade_range: Optional[str] = None
-    enrollment: Optional[int] = None
-    title_i: Optional[bool] = None
-    location: Optional[GeoPoint] = None
+    zip_code: str | None = None
+    county_fips: str | None = None
+    county_name: str | None = None
+    school_type: str | None = None
+    grade_range: str | None = None
+    enrollment: int | None = None
+    title_i: bool | None = None
+    location: GeoPoint | None = None
 
     composite_score: float = Field(..., ge=0, le=100)
     category: ScoreCategory
-    national_rank: Optional[int] = None
-    state_rank: Optional[int] = None
+    national_rank: int | None = None
+    state_rank: int | None = None
 
     pillar_scores: list[PillarScore] = []
-    metrics: Optional[SchoolMetrics] = None
+    metrics: SchoolMetrics | None = None
 
     # year-over-year delta, if we have historical data
-    score_change_1y: Optional[float] = None
+    score_change_1y: float | None = None
 
-    prediction: Optional[SchoolPrediction] = None
+    prediction: SchoolPrediction | None = None
 
-    updated_at: Optional[datetime] = None
+    updated_at: datetime | None = None
 
     model_config = {"from_attributes": True}
 
 
 class SchoolPrediction(BaseModel):
     """Next-year proficiency change prediction from the XGBoost model."""
+
     nces_id: str
     predicted_score_change: float
     confidence_interval_low: float
@@ -98,8 +101,8 @@ class SchoolPrediction(BaseModel):
         description="True if model predicts significant decline",
     )
     top_contributing_factors: list[str] = []
-    model_version: Optional[str] = None
-    predicted_at: Optional[date] = None
+    model_version: str | None = None
+    predicted_at: date | None = None
 
 
 # needed for forward reference in SchoolDetail

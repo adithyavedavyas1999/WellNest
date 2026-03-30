@@ -8,13 +8,14 @@ from env vars at startup via pydantic-settings.
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from ingestion.utils.http_client import WellNestHTTPClient
 
 import structlog
-from dagster import ConfigurableResource, EnvVar
-from pydantic import Field
+from dagster import ConfigurableResource
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
@@ -30,6 +31,7 @@ DBT_PROFILES_DIR = PROJECT_ROOT / "transformation"
 # ---------------------------------------------------------------------------
 # Global config — single source of truth for env vars
 # ---------------------------------------------------------------------------
+
 
 class WellNestConfig(BaseSettings):
     """Reads config from env vars / .env file.
@@ -109,6 +111,7 @@ def get_config() -> WellNestConfig:
 # Postgres resource
 # ---------------------------------------------------------------------------
 
+
 class PostgresResource(ConfigurableResource):
     """Connection pool for the WellNest application database.
 
@@ -170,6 +173,7 @@ class PostgresResource(ConfigurableResource):
 # dbt resource
 # ---------------------------------------------------------------------------
 
+
 class DbtResource(ConfigurableResource):
     """Wraps dbt CLI invocations.
 
@@ -186,9 +190,12 @@ class DbtResource(ConfigurableResource):
     def _base_cmd(self) -> list[str]:
         return [
             "dbt",
-            "--project-dir", self.project_dir,
-            "--profiles-dir", self.profiles_dir,
-            "--target", self.target,
+            "--project-dir",
+            self.project_dir,
+            "--profiles-dir",
+            self.profiles_dir,
+            "--target",
+            self.target,
         ]
 
     def run(
@@ -197,11 +204,11 @@ class DbtResource(ConfigurableResource):
         exclude: str | None = None,
         full_refresh: bool = False,
         vars_dict: dict[str, Any] | None = None,
-    ) -> "DbtResult":
+    ) -> DbtResult:
         import json
         import subprocess
 
-        cmd = self._base_cmd() + ["run"]
+        cmd = [*self._base_cmd(), "run"]
         if select:
             cmd += ["--select", select]
         if exclude:
@@ -221,10 +228,10 @@ class DbtResource(ConfigurableResource):
             return_code=result.returncode,
         )
 
-    def test(self, select: str | None = None) -> "DbtResult":
+    def test(self, select: str | None = None) -> DbtResult:
         import subprocess
 
-        cmd = self._base_cmd() + ["test"]
+        cmd = [*self._base_cmd(), "test"]
         if select:
             cmd += ["--select", select]
 
@@ -242,7 +249,7 @@ class DbtResource(ConfigurableResource):
         """List dbt resources matching a selector."""
         import subprocess
 
-        cmd = self._base_cmd() + ["ls", "--resource-type", resource_type, "--output", "name"]
+        cmd = [*self._base_cmd(), "ls", "--resource-type", resource_type, "--output", "name"]
         if select:
             cmd += ["--select", select]
 
@@ -289,6 +296,7 @@ class DbtResult:
 # HTTP client resource
 # ---------------------------------------------------------------------------
 
+
 class HttpClientResource(ConfigurableResource):
     """Dagster-managed wrapper around our HTTP client.
 
@@ -300,7 +308,7 @@ class HttpClientResource(ConfigurableResource):
     timeout: int = 45
     max_retries: int = 3
 
-    def get_client(self) -> "WellNestHTTPClient":
+    def get_client(self) -> WellNestHTTPClient:
         from ingestion.utils.http_client import WellNestHTTPClient
 
         return WellNestHTTPClient(
@@ -313,6 +321,7 @@ class HttpClientResource(ConfigurableResource):
 # ---------------------------------------------------------------------------
 # OpenAI resource
 # ---------------------------------------------------------------------------
+
 
 class OpenAIResource(ConfigurableResource):
     """OpenAI client for RAG, briefs, and LLM-based quality checks.
@@ -357,6 +366,7 @@ class OpenAIResource(ConfigurableResource):
 # ---------------------------------------------------------------------------
 # Resource definitions (wired up in definitions.py)
 # ---------------------------------------------------------------------------
+
 
 def build_resources() -> dict[str, Any]:
     """Construct all dagster resources from environment config.

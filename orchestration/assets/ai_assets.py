@@ -17,14 +17,13 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 import polars as pl
 import structlog
 from dagster import (
-    AssetExecutionContext,
     MaterializeResult,
     MetadataValue,
     asset,
@@ -48,6 +47,7 @@ BRIEF_BATCH_SIZE = int(os.environ.get("BRIEF_BATCH_SIZE", "50"))
 # ---------------------------------------------------------------------------
 # RAG index
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=AI_GROUP,
@@ -83,38 +83,48 @@ def ai_rag_index(
     for row in county_df.iter_rows(named=True):
         doc = _county_to_document(row)
         documents.append(doc)
-        metadata_list.append({
-            "type": "county",
-            "state_fips": row.get("state_fips", ""),
-            "county_fips": row.get("county_fips", ""),
-        })
+        metadata_list.append(
+            {
+                "type": "county",
+                "state_fips": row.get("state_fips", ""),
+                "county_fips": row.get("county_fips", ""),
+            }
+        )
 
     # sample schools to keep index size reasonable
     # TODO: switch to hierarchical chunking (county -> school) for better retrieval
-    school_sample = school_df.sample(
-        n=min(5000, len(school_df)),
-        seed=42,
-    ) if len(school_df) > 5000 else school_df
+    school_sample = (
+        school_df.sample(
+            n=min(5000, len(school_df)),
+            seed=42,
+        )
+        if len(school_df) > 5000
+        else school_df
+    )
 
     for row in school_sample.iter_rows(named=True):
         doc = _school_to_document(row)
         documents.append(doc)
-        metadata_list.append({
-            "type": "school",
-            "ncessch": row.get("ncessch", ""),
-        })
+        metadata_list.append(
+            {
+                "type": "school",
+                "ncessch": row.get("ncessch", ""),
+            }
+        )
 
     context.log.info(f"Embedding {len(documents)} documents for RAG index")
 
     # embed in batches — OpenAI embedding API accepts up to 2048 inputs
-    BATCH_SIZE = 512
+    batch_size = 512
     all_embeddings: list[list[float]] = []
 
-    for i in range(0, len(documents), BATCH_SIZE):
-        batch = documents[i : i + BATCH_SIZE]
+    for i in range(0, len(documents), batch_size):
+        batch = documents[i : i + batch_size]
         embeddings = openai.get_embeddings(batch)
         all_embeddings.extend(embeddings)
-        context.log.info(f"Embedded batch {i // BATCH_SIZE + 1}/{(len(documents) - 1) // BATCH_SIZE + 1}")
+        context.log.info(
+            f"Embedded batch {i // batch_size + 1}/{(len(documents) - 1) // batch_size + 1}"
+        )
 
     # build FAISS index
     import numpy as np
@@ -163,6 +173,7 @@ def ai_rag_index(
 # ---------------------------------------------------------------------------
 # Community briefs
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=AI_GROUP,
@@ -222,6 +233,7 @@ def ai_community_briefs(
 # ---------------------------------------------------------------------------
 # LLM data quality validation
 # ---------------------------------------------------------------------------
+
 
 @asset(
     group_name=AI_GROUP,
@@ -309,6 +321,7 @@ Records:
 # helpers
 # ---------------------------------------------------------------------------
 
+
 def _load_or_empty(engine: Any, table: str) -> pl.DataFrame:
     try:
         return pl.read_database(f"SELECT * FROM {table}", connection=engine)
@@ -376,13 +389,17 @@ County data:
 def _store_quality_result(pg: PostgresResource, result: dict[str, Any]) -> None:
     """Persist the LLM quality check result to Postgres for tracking."""
     try:
-        record = pl.DataFrame([{
-            "checked_at": datetime.now(timezone.utc).isoformat(),
-            "overall_quality": result.get("overall_quality", "unknown"),
-            "issues_count": len(result.get("issues", [])),
-            "summary": result.get("summary", ""),
-            "full_result": json.dumps(result),
-        }])
+        record = pl.DataFrame(
+            [
+                {
+                    "checked_at": datetime.now(UTC).isoformat(),
+                    "overall_quality": result.get("overall_quality", "unknown"),
+                    "issues_count": len(result.get("issues", [])),
+                    "summary": result.get("summary", ""),
+                    "full_result": json.dumps(result),
+                }
+            ]
+        )
         record.write_database(
             table_name="ml.llm_quality_checks",
             connection=pg.connection_url,

@@ -26,8 +26,8 @@ def _dbt_project_exists() -> bool:
 # Compilation tests (no DB required)
 # ---------------------------------------------------------------------------
 
-class TestDBTCompilation:
 
+class TestDBTCompilation:
     @pytest.mark.skipif(not _dbt_project_exists(), reason="dbt project not found")
     def test_dbt_project_yml_valid(self) -> None:
         import yaml
@@ -71,14 +71,18 @@ class TestDBTCompilation:
 # Model dependency validation
 # ---------------------------------------------------------------------------
 
-class TestModelDependencies:
 
+class TestModelDependencies:
     @pytest.mark.skipif(not _dbt_project_exists(), reason="dbt project not found")
     def test_gold_score_references_silver_models(self) -> None:
         sql = (DBT_PROJECT_DIR / "models" / "gold" / "child_wellbeing_score.sql").read_text()
 
-        expected_refs = ["school_profiles", "school_health_context",
-                         "school_environment", "school_safety"]
+        expected_refs = [
+            "school_profiles",
+            "school_health_context",
+            "school_environment",
+            "school_safety",
+        ]
         for ref in expected_refs:
             assert ref in sql, f"child_wellbeing_score.sql should reference {ref}"
 
@@ -109,8 +113,8 @@ class TestModelDependencies:
 # Schema tests
 # ---------------------------------------------------------------------------
 
-class TestSchemaDefinitions:
 
+class TestSchemaDefinitions:
     @pytest.mark.skipif(not _dbt_project_exists(), reason="dbt project not found")
     def test_gold_schema_yml_exists(self) -> None:
         schema = DBT_PROJECT_DIR / "models" / "gold" / "_gold_schema.yml"
@@ -131,9 +135,9 @@ class TestSchemaDefinitions:
 # Tests requiring a live database
 # ---------------------------------------------------------------------------
 
+
 @pytest.mark.skip(reason="requires running PostgreSQL with dbt profile configured")
 class TestDBTExecution:
-
     def test_dbt_compile_succeeds(self) -> None:
         result = subprocess.run(
             ["dbt", "compile", "--project-dir", str(DBT_PROJECT_DIR)],
@@ -154,8 +158,7 @@ class TestDBTExecution:
 
     def test_dbt_run_gold_models(self) -> None:
         result = subprocess.run(
-            ["dbt", "run", "--project-dir", str(DBT_PROJECT_DIR),
-             "--select", "tag:gold"],
+            ["dbt", "run", "--project-dir", str(DBT_PROJECT_DIR), "--select", "tag:gold"],
             capture_output=True,
             text=True,
             timeout=300,

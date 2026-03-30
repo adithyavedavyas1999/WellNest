@@ -25,11 +25,9 @@ Quirks:
 
 from __future__ import annotations
 
-import os
-
 import polars as pl
 import structlog
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from ingestion.utils import WellNestHTTPClient, ensure_schema, get_pg_url, retry_on_http_error
 
@@ -64,6 +62,7 @@ GEO_TYPE_STATE = 2
 
 class EnvHealthRecord(BaseModel):
     """A single data point from the environmental health tracking API."""
+
     geo_id: str
     geo_type: int
     geo_name: str | None = None
@@ -133,18 +132,20 @@ class CDCEnvHealthConnector:
             for mid in cfg["measure_ids"]:
                 rows = self._fetch_measure(mid)
                 for row in rows:
-                    all_records.append({
-                        "geo_id": str(row.get("geoId", row.get("geo_id", ""))),
-                        "geo_type": self.geo_type,
-                        "geo_name": row.get("geo", row.get("geoName", "")),
-                        "measure_id": mid,
-                        "measure_name": row.get("displayName", ""),
-                        "content_area": area_name,
-                        "year": str(row.get("year", row.get("temporal", self.year))),
-                        "data_value": row.get("dataValue", row.get("value")),
-                        "data_value_unit": row.get("unitName", ""),
-                        "confidence_interval": row.get("confidenceInterval", ""),
-                    })
+                    all_records.append(
+                        {
+                            "geo_id": str(row.get("geoId", row.get("geo_id", ""))),
+                            "geo_type": self.geo_type,
+                            "geo_name": row.get("geo", row.get("geoName", "")),
+                            "measure_id": mid,
+                            "measure_name": row.get("displayName", ""),
+                            "content_area": area_name,
+                            "year": str(row.get("year", row.get("temporal", self.year))),
+                            "data_value": row.get("dataValue", row.get("value")),
+                            "data_value_unit": row.get("unitName", ""),
+                            "confidence_interval": row.get("confidenceInterval", ""),
+                        }
+                    )
 
         if not all_records:
             logger.warning("env_health_no_data")
@@ -159,11 +160,13 @@ class CDCEnvHealthConnector:
         if df.is_empty():
             return df
 
-        df = df.with_columns([
-            pl.col("data_value").cast(pl.Float64, strict=False),
-            pl.col("measure_id").cast(pl.Int32),
-            pl.col("geo_type").cast(pl.Int32),
-        ])
+        df = df.with_columns(
+            [
+                pl.col("data_value").cast(pl.Float64, strict=False),
+                pl.col("measure_id").cast(pl.Int32),
+                pl.col("geo_type").cast(pl.Int32),
+            ]
+        )
 
         # the API sometimes returns "*" or "N/A" for suppressed values
         df = df.with_columns(

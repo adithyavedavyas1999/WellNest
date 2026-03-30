@@ -89,8 +89,10 @@ class ReportEmailer:
 
         county_name = (county_data or {}).get("county_name", f"County {fips}")
         state = (county_data or {}).get("state", "")
-        subject = f"WellNest County Report — {county_name}, {state}" if state else (
-            f"WellNest County Report — {county_name}"
+        subject = (
+            f"WellNest County Report — {county_name}, {state}"
+            if state
+            else (f"WellNest County Report — {county_name}")
         )
 
         msg = MIMEMultipart("mixed")

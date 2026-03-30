@@ -14,7 +14,7 @@ from __future__ import annotations
 import logging
 import os
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 import pandas as pd
 import streamlit as st
@@ -35,6 +35,7 @@ def _has_postgres() -> bool:
         return False
     try:
         from sqlalchemy import create_engine, text
+
         engine = create_engine(db_url, pool_size=1, pool_pre_ping=True)
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
@@ -51,6 +52,7 @@ def _get_duckdb_conn():
     Creates gold.* and silver.* schemas/views so all dashboard SQL works.
     """
     import duckdb
+
     conn = duckdb.connect(":memory:")
 
     conn.execute("CREATE SCHEMA IF NOT EXISTS gold")
@@ -58,21 +60,19 @@ def _get_duckdb_conn():
 
     csv_to_table = {
         "child_wellbeing_scores.csv": "gold.child_wellbeing_score",
-        "county_summary.csv":        "gold.county_summary",
-        "trend_metrics.csv":         "gold.trend_metrics",
-        "resource_gaps.csv":         "gold.resource_gaps",
-        "anomalies.csv":             "gold.anomalies",
-        "county_ai_briefs.csv":      "gold.county_ai_briefs",
-        "quality_flags.csv":         "gold.quality_flags",
-        "school_profiles.csv":       "silver.school_profiles",
+        "county_summary.csv": "gold.county_summary",
+        "trend_metrics.csv": "gold.trend_metrics",
+        "resource_gaps.csv": "gold.resource_gaps",
+        "anomalies.csv": "gold.anomalies",
+        "county_ai_briefs.csv": "gold.county_ai_briefs",
+        "quality_flags.csv": "gold.quality_flags",
+        "school_profiles.csv": "silver.school_profiles",
     }
 
     for csv_file, table_name in csv_to_table.items():
         csv_path = SAMPLE_DATA_DIR / csv_file
         if csv_path.exists():
-            conn.execute(
-                f"CREATE TABLE {table_name} AS SELECT * FROM read_csv_auto('{csv_path}')"
-            )
+            conn.execute(f"CREATE TABLE {table_name} AS SELECT * FROM read_csv_auto('{csv_path}')")
             count = conn.execute(f"SELECT count(*) FROM {table_name}").fetchone()[0]
             logger.info("Loaded %s -> %s (%d rows)", csv_file, table_name, count)
         else:
@@ -90,6 +90,7 @@ def get_engine():
 
     if _has_postgres():
         from sqlalchemy import create_engine
+
         db_url = os.getenv("DATABASE_URL")
         _USING_DUCKDB = False
         return create_engine(
@@ -106,7 +107,7 @@ def get_engine():
 
 def run_query(
     sql: str,
-    params: Optional[dict[str, Any]] = None,
+    params: dict[str, Any] | None = None,
     ttl: int = _DEFAULT_TTL,
 ) -> pd.DataFrame:
     """
@@ -122,6 +123,7 @@ def _cached_query(sql: str, params_tuple: tuple, ttl: int) -> pd.DataFrame:
 
     if engine is not None:
         from sqlalchemy import text
+
         param_dict = dict(params_tuple) if params_tuple else None
         try:
             with engine.connect() as conn:
@@ -160,7 +162,7 @@ def _adapt_sql_for_duckdb(sql: str, params: dict | None) -> str:
     return result
 
 
-def _freeze_params(params: Optional[dict[str, Any]]) -> tuple:
+def _freeze_params(params: dict[str, Any] | None) -> tuple:
     """Convert dict to sorted tuple of pairs so it's hashable for st.cache."""
     if not params:
         return ()
@@ -177,7 +179,7 @@ def get_states() -> list[str]:
     return df["state"].tolist() if not df.empty else []
 
 
-def get_school_detail(nces_id: str) -> Optional[dict]:
+def get_school_detail(nces_id: str) -> dict | None:
     """Pull everything we know about one school."""
     df = run_query(
         """
@@ -199,7 +201,7 @@ def get_school_detail(nces_id: str) -> Optional[dict]:
     return df.iloc[0].to_dict()
 
 
-def get_county_summary(fips: str) -> Optional[dict]:
+def get_county_summary(fips: str) -> dict | None:
     """County-level aggregate stats."""
     df = run_query(
         """
@@ -220,6 +222,7 @@ def check_db_health() -> tuple[bool, str]:
     if engine is not None:
         try:
             from sqlalchemy import text
+
             with engine.connect() as conn:
                 result = conn.execute(text("SELECT 1")).scalar()
                 if result == 1:
@@ -238,7 +241,7 @@ def check_db_health() -> tuple[bool, str]:
         return False, "DuckDB unavailable"
 
 
-def get_data_freshness() -> Optional[str]:
+def get_data_freshness() -> str | None:
     """Last time gold.child_wellbeing_score was updated."""
     df = run_query("""
         SELECT max(updated_at) AS last_update

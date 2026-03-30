@@ -8,12 +8,10 @@ and the Compare page.
 
 from __future__ import annotations
 
-from typing import Optional
-
 import plotly.graph_objects as go
 import streamlit as st
 
-from dashboard.components.score_gauge import COLORS, score_to_category
+from dashboard.components.score_gauge import score_to_category
 from dashboard.ui_theme import theme_colors
 
 
@@ -32,14 +30,14 @@ def render_school_card(
     city: str,
     state: str,
     composite_score: float,
-    enrollment: Optional[int] = None,
-    title_i: Optional[bool] = None,
-    education_score: Optional[float] = None,
-    health_score: Optional[float] = None,
-    environment_score: Optional[float] = None,
-    safety_score: Optional[float] = None,
-    trend_values: Optional[list[float]] = None,
-    nces_id: Optional[str] = None,
+    enrollment: int | None = None,
+    title_i: bool | None = None,
+    education_score: float | None = None,
+    health_score: float | None = None,
+    environment_score: float | None = None,
+    safety_score: float | None = None,
+    trend_values: list[float] | None = None,
+    nces_id: str | None = None,
 ) -> None:
     """
     Full school card. Designed to sit in a column or expander.
@@ -47,7 +45,7 @@ def render_school_card(
     Pillar scores are optional — if missing, we skip the breakdown row.
     Trend values should be a list of historical composite scores (oldest first).
     """
-    _, cat_label, color = score_to_category(composite_score)
+    _, _cat_label, color = score_to_category(composite_score)
     border_color = color
     tc = theme_colors()
 
