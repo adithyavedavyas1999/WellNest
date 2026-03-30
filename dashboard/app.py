@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import streamlit as st
 
 from dashboard.components.score_gauge import render_gauge, score_to_category
-from dashboard.ui_theme import ensure_theme_state, inject_global_css, render_theme_selector, theme_colors
+from dashboard.ui_theme import setup_page_theme
 from dashboard.utils.cache import check_staleness, format_freshness
 from dashboard.utils.db import check_db_health, get_data_freshness, run_query
 
@@ -33,11 +33,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-ensure_theme_state()
-render_theme_selector()
-inject_global_css()
-
-c = theme_colors()
+c = setup_page_theme()
 
 
 # ---------------------------------------------------------------------------

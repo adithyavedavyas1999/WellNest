@@ -29,22 +29,18 @@ def theme_colors() -> dict[str, str]:
 
 
 def render_theme_selector() -> None:
-    """Top-right appearance control (Dark / Light). Call after set_page_config."""
+    """Visible Dark/Light toggle at the top-right of the page."""
     ensure_theme_state()
-    # Shared widget key so the choice persists across multi-page navigation.
-    if "wn_global_theme_radio" not in st.session_state:
-        st.session_state.wn_global_theme_radio = (
-            "Dark" if st.session_state[SESSION_KEY] == "dark" else "Light"
-        )
 
-    c1, c2 = st.columns([1, 280])
-    with c2:
+    left, right = st.columns([10, 2])
+    with right:
+        current = "Dark" if st.session_state[SESSION_KEY] == "dark" else "Light"
         choice = st.radio(
-            "Appearance",
+            "Theme",
             ["Dark", "Light"],
+            index=0 if current == "Dark" else 1,
             horizontal=True,
             key="wn_global_theme_radio",
-            label_visibility="collapsed",
         )
     st.session_state[SESSION_KEY] = "dark" if choice == "Dark" else "light"
 
@@ -52,6 +48,101 @@ def render_theme_selector() -> None:
 def build_css(colors: dict[str, str]) -> str:
     """Global Streamlit chrome overrides for the active theme."""
     t = colors
+    is_light = t["app_bg"] == "#F5F7FA"
+
+    light_widget_overrides = ""
+    if is_light:
+        light_widget_overrides = f"""
+    /* --- Light-mode overrides for Streamlit native widgets --- */
+    header[data-testid="stHeader"] {{
+        background-color: {t["app_bg"]} !important;
+    }}
+    [data-testid="stToolbar"] {{
+        background-color: transparent !important;
+    }}
+    .stTextInput > div > div > input,
+    .stTextArea > div > div > textarea {{
+        background-color: {t["surface"]} !important;
+        color: {t["text_primary"]} !important;
+        border-color: {t["border"]} !important;
+    }}
+
+    .stSelectbox > div > div,
+    .stMultiSelect > div > div {{
+        background-color: {t["surface"]} !important;
+        color: {t["text_primary"]} !important;
+    }}
+    .stSelectbox [data-baseweb="select"] > div,
+    .stMultiSelect [data-baseweb="select"] > div {{
+        background-color: {t["surface"]} !important;
+        color: {t["text_primary"]} !important;
+    }}
+    [data-baseweb="select"] [data-baseweb="tag"] {{
+        background-color: {t["metric_bg"]} !important;
+    }}
+    [data-baseweb="popover"] > div,
+    [data-baseweb="menu"] {{
+        background-color: {t["surface"]} !important;
+        color: {t["text_primary"]} !important;
+    }}
+    [data-baseweb="menu"] li {{
+        color: {t["text_primary"]} !important;
+    }}
+    [data-baseweb="menu"] li:hover {{
+        background-color: {t["metric_bg"]} !important;
+    }}
+
+    .stSlider > div > div > div {{
+        color: {t["text_primary"]} !important;
+    }}
+
+    .stCheckbox label span,
+    .stRadio label span {{
+        color: {t["text_primary"]} !important;
+    }}
+
+    .stDataFrame, .stDataFrame > div {{
+        background-color: {t["surface"]} !important;
+    }}
+
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] p {{
+        color: {t["text_primary"]} !important;
+    }}
+
+    section[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div {{
+        background-color: {t["metric_bg"]} !important;
+    }}
+
+    section[data-testid="stSidebar"] .stTextInput > div > div > input {{
+        background-color: {t["metric_bg"]} !important;
+        color: {t["text_primary"]} !important;
+        border-color: {t["border"]} !important;
+    }}
+
+    .stExpander {{
+        background-color: {t["surface"]} !important;
+        border-color: {t["border"]} !important;
+    }}
+
+    .stTabs [data-baseweb="tab"] {{
+        color: {t["text_primary"]} !important;
+    }}
+
+    .stMarkdown, .stMarkdown p {{
+        color: {t["text_primary"]};
+    }}
+
+    div[data-testid="stMetricDelta"] {{
+        color: {t["text_muted"]} !important;
+    }}
+
+    .stCaption, .stCaption p {{
+        color: {t["text_muted"]} !important;
+    }}
+"""
+
     return f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -179,6 +270,8 @@ def build_css(colors: dict[str, str]) -> str:
     }}
 
     .viewerBadge_container__r5tak {{display: none;}}
+
+    {light_widget_overrides}
 </style>
 """
 
