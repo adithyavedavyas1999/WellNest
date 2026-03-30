@@ -18,7 +18,13 @@ RUN apt-get update && \
         libgeos-dev \
         libproj-dev \
         gdal-bin \
-        libgdal-dev && \
+        libgdal-dev \
+        libcairo2 \
+        libpango-1.0-0 \
+        libpangocairo-1.0-0 \
+        libgdk-pixbuf2.0-0 \
+        libffi-dev \
+        shared-mime-info && \
     rm -rf /var/lib/apt/lists/*
 
 COPY pyproject.toml ./
@@ -49,7 +55,12 @@ RUN apt-get update && \
         libgeos3.11.1 \
         libproj25 \
         gdal-bin \
-        curl && \
+        curl \
+        libcairo2 \
+        libpango-1.0-0 \
+        libpangocairo-1.0-0 \
+        libgdk-pixbuf2.0-0 \
+        shared-mime-info && \
     rm -rf /var/lib/apt/lists/*
 
 RUN groupadd --gid 1000 app && \

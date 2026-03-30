@@ -2,7 +2,7 @@
 #
 # Matrix: Python 3.11 + 3.12
 # Steps: lint (ruff), format check, type check (mypy), tests + coverage, dbt compile.
-# Coverage gate: 70%.
+# Coverage gate: see pytest --cov-fail-under (35% as of 2026; raise as tests grow).
 
 name: CI
 
