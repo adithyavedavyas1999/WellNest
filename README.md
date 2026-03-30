@@ -250,6 +250,3 @@ See [docs/contributing.md](docs/contributing.md) for development setup, code sty
 
 MIT. See [LICENSE](LICENSE).
 
----
-
-Built with care by the ChiEAC data team. Questions? Open an issue or reach out at data@chieac.org.
